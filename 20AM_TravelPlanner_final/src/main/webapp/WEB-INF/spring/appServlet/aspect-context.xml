@@ -6,7 +6,20 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	<!-- aop적용하기 -->
 	<!-- aspect bean등록하기 -->
+
+	<!-- <bean id="loggerAspect" class="com.kh.spring.common.aop.LoggerAspect"/> -->
+
+	<!-- aop설정하기 -->
+	<!-- <aop:config>
+		<aop:aspect ref="loggerAspect">
+			<aop:pointcut expression="execution(* com.kh.spring.member..*(..))" id="loggerTest"/>
+			<aop:before method="before" pointcut-ref="loggerTest"/>
+			<aop:around method="loggerAdvice" pointcut-ref="loggerTest"/>
+		</aop:aspect>
+	</aop:config> -->
 	
+	<!-- 어노테이션 적용하기 -->
+	<!-- <aop:aspectj-autoproxy/> -->
 	
 	
 </beans>
