@@ -53,7 +53,7 @@
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">FAQ</a>
+                      <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                     </li>
                   </ul>
                 </div>

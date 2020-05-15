@@ -20,4 +20,10 @@ public interface FaqService {
 	
 	List<Map<String,String>> cashFaq(String cash, int cPage, int numPerpage);
 	int cashFaqCount(String cash);
+	
+	List<Map<String,String>> editFaqView(int faqNo);
+	
+	int updateFaq(Map<String,String> param);
+	
+	int deleteFaq(int faqNo);
 }
