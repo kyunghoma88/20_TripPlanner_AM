@@ -48,22 +48,11 @@
     </div>
     <div class="row boardContent">
       <div class="col-sm-1"></div>
-      <div class="col-sm-7">
+      <div class="col-sm-7" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
-	        <input type="button" class="dayBtn" value="DAY${v }"/><br>
-	       	<c:forEach items="${day}" var="d">
-		        <table class="contentTbl">
-		          <tr>
-		            <td class="imageTd" rowspan="2">
-		            	<img src="${path }${d.hotspotImg}" alt="이미지 없음" height="70px" width="auto">
-		            </td>
-		            <td>${d.hotspotName}</td>
-		          </tr>
-		          <tr>
-		            <td>${d.comment}</td>
-		          </tr>
-		        </table>
-	        </c:forEach>
+	        <%-- <button type="button" class="dayBtn">DAY${v }</button><br> --%>
+	        <c:set var="please" value="${v }"/>
+         	<button type="button" class="btnbtn" onclick="fn_test('${board.trSeq}', '${please }');">test${v }</button><br>
    		</c:forEach>
       </div>
       <div class="col-sm-3">
@@ -80,4 +69,21 @@
     	  });
     	});
 	</script> -->
+	<script>
+	 	 function fn_test(seq, please){
+			$.ajax({
+				url : "${path}/test/test.do",
+				type : "post",
+				data : {"no" : seq, "date" : please},
+				success:function(data){
+					const table = $("<table class='contentTbl'>");
+					for(let i=0; i<data.length; i++){
+						table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' height='70px' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
+						.append("<tr><td>" + data[i]['comment'] + "</td></tr>");
+						$("#testContent").next($(".btnbtn")).append(table);
+					}
+				}
+			}) 
+		};
+	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
