@@ -6,7 +6,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.kh.spring.hotspot.model.vo.Hotspot" alias="hotspot"/>
+		<typeAlias type="com.kh.spring.hotSpot.model.vo.HotSpot" alias="hotspot"/>
 		<typeAlias type="com.kh.spring.faq.model.vo.Faq" alias="faq"/>
 		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
 	</typeAliases>
