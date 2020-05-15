@@ -14,7 +14,7 @@ public class StringArrayType implements TypeHandler<String[]>{
 	public void setParameter(PreparedStatement ps, int i, String[] parameter, JdbcType jdbcType) throws SQLException {
 		// TODO Auto-generated method stub
 		if(parameter!=null) {
-			ps.setString(i, String.join(",",parameter));
+			ps.setString(i, String.join(",", parameter));
 		}else {
 			ps.setString(i, "");
 		}
@@ -23,6 +23,7 @@ public class StringArrayType implements TypeHandler<String[]>{
 	@Override
 	public String[] getResult(ResultSet rs, String columnName) throws SQLException {
 		// TODO Auto-generated method stub
+		
 		return rs.getString(columnName).split(",");
 	}
 
@@ -38,8 +39,5 @@ public class StringArrayType implements TypeHandler<String[]>{
 		return cs.getString(columnIndex).split(",");
 	}
 
-	
-	
-	
 
 }

@@ -1,16 +1,22 @@
 package com.kh.spring.common;
 
+
 public class PageFactory {
-	
-	public static String getPage(int totalData,int cPage,int numPerPage,String url) {
+
+	public static String getPage(int totalData, int cPage, int numPerpage, String url) {
+		
 		String pageBar="";
+		
 		int pageBarSize=5;
+		
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
-		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
+		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		
-		pageBar+="<ul class='pagination justify-content-center pagination-sm'>";
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
 		if(pageNo==1) {
 			pageBar+="<li class='page-item disabled'>";
 			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
@@ -44,9 +50,13 @@ public class PageFactory {
 			pageBar+="</li>";
 		}
 		pageBar+="</ul>";
-		pageBar+="<script> function fn_paging(cPage){location.href='"+url+"?cPage='+cPage}</script>";
-		return pageBar;
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='"+url+"?cPage='+cPage";
+		pageBar+="}";
+		pageBar+="</script>";
 		
+		return pageBar;
 	}
-
+	
 }

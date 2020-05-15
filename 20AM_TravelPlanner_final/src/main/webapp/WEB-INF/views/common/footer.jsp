@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-	<footer>
+<c:set var="path" value="${pageContext.request.contextPath }"/>   
+  <footer>
       <div class="row footer">
           <div class="col-sm-1 footer"></div>
           <div class="col-sm-2 footer">
@@ -30,9 +34,7 @@
           </div>
           <div class="col-sm-7 footer"></div>
       </div>
-      <div class="col footer" style="text-align: center;">Copyright ⓒ 2020 eSigukea.com, All Rights Reserved.</div>
+      <div class="col footer" style="text-align: center; color: white;">Copyright ⓒ 2020 eSigukea.com, All Rights Reserved.</div>
   </footer>
-	
-
 </body>
 </html>

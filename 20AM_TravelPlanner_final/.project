@@ -44,4 +44,8 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+<<<<<<< HEAD
 </projectDescription>
+=======
+</projectDescription>
+>>>>>>> branch 'developer' of https://github.com/kyunghoma88/20_TripPlanner_AM.git

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+	<resultMap type="Board" id="boardMap">
+		<result column="TR_SEQ" property="trSeq"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="TV_TITLE" property="tvTitle"/>
+		<result column="VIEW_COUNT" property="viewCount"/>
+		<result column="HOTSPOT_NAME" property="hotspotName"/>
+		<result column="HOTSPOT_AREA_NAME" property="hotspotAreaName"/>
+		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
+	</resultMap>
+
+	<select id="selectList" resultMap="boardMap" resultType="Board">
+		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME ORDER BY BOARD.VIEW_COUNT DESC
+	</select>
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+	<select id="selectBoardView" parameterType="_int" resultType="map">
+		SELECT * FROM MY_TV JOIN HOTSPOT_IMAGE ON (MY_TV.HOTSPOT_NAME=HOTSPOT_IMAGE.HOTSPOT_NAME) JOIN HOTSPOT_AREA ON (MY_TV.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TV_SEQSELECT * FROM MY_TV JOIN HOTSPOT_IMAGE ON (MY_TV.HOTSPOT_NAME=HOTSPOT_IMAGE.HOTSPOT_NAME) JOIN HOTSPOT_AREA ON (MY_TV.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TV_SEQ=#{no}
+	</select>
+</mapper>

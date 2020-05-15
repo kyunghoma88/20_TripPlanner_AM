@@ -12,6 +12,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 
 	@Autowired
 	private Logger logger;
+<<<<<<< HEAD
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -35,6 +36,28 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	
 	
 
+=======
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+		logger.debug("========== start ==========");
+		logger.debug(request.getRequestURI());
+		logger.debug("===========================");
+		return super.preHandle(request, response, handler);
+	}
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		logger.debug("========== mapping 메소드실행==========");
+		logger.debug("===================================");
+		super.postHandle(request, response, handler, modelAndView);
+	}
+
+	
+>>>>>>> branch 'developer' of https://github.com/kyunghoma88/20_TripPlanner_AM.git
 	
 	
 }
