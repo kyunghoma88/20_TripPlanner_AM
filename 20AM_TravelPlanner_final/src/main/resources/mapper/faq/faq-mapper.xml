@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="faq">
+	<select id="selectList" resultType="map">
+		SELECT * FROM FAQ ORDER BY FAQ_DATE DESC
+	</select>
+	
+	<select id="selectFaqCount" resultType="_int">
+		SELECT COUNT(*) FROM FAQ
+	</select>
+	
+	<select id="selectSearchFaqCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM FAQ
+		WHERE FAQ_TITLE LIKE '%'||#{param}||'%' OR FAQ_CONTENT LIKE '%'||#{param}||'%'
+	</select>
+	
+	<select id="searchFaq" resultType="map" parameterType="string">
+		SELECT * FROM FAQ
+		WHERE 1=1 AND (FAQ_TITLE LIKE '%'||#{param}||'%' OR FAQ_CONTENT LIKE '%'||#{param}||'%') ORDER BY FAQ_DATE DESC
+	</select>
+	
+	<insert id="insertFaq" parameterType="map">
+		INSERT INTO FAQ VALUES(SEQ_FAQ_NO.NEXTVAL, #{faqTitle}, #{faqCategory}, #{faqContent}, SYSDATE)
+	</insert>
+	
+	<select id="infoFaq" resultType="map" parameterType="string">
+		SELECT * FROM FAQ WHERE FAQ_CATEGORY = #{info} ORDER BY FAQ_DATE DESC
+	</select>
+	<select id="infoFaqCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM FAQ
+		WHERE FAQ_CATEGORY=#{info}
+	</select>
+	
+	<select id="memberFaq" resultType="map" parameterType="string">
+		SELECT * FROM FAQ WHERE FAQ_CATEGORY = #{member} ORDER BY FAQ_DATE DESC
+	</select>
+	
+	<select id="memberFaqCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM FAQ
+		WHERE FAQ_CATEGORY = #{member}
+	</select>
+	
+	<select id="cashFaq" resultType="map" parameterType="string">
+		SELECT * FROM FAQ WHERE FAQ_CATEGORY = #{cash} ORDER BY FAQ_DATE DESC
+	</select>
+	
+	<select id="cashFaqCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*) FROM FAQ
+		WHERE FAQ_CATEGORY = #{cash}
+	</select>
+</mapper>
+
+
+
+
+

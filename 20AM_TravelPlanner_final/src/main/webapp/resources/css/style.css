@@ -1,0 +1,140 @@
+
+@CHARSET "UTF-8";
+
+body{
+    width: 1366px;
+    font-family: 'Poor Story', cursive;
+}
+
+.testDiv{
+    margin-top: 40px;
+    height: 70px;
+}
+
+.logoDiv{
+  margin: 0;
+}
+
+.video{
+    height: 515px;
+    padding-left: 0;
+}
+
+#video{
+  background-color: black;
+}
+
+
+#searchBox{
+  margin-top: 400px;
+  width: 1000px;
+}
+
+.testDiv>ul>li{
+  padding-right: 30px;
+}
+
+
+.menubarLink{
+  font-size: 20px;
+  font-weight: bolder;
+  color: black;
+  margin-top: 6px;
+  
+}
+
+.menubarLink:hover{
+  color: #ff7531;
+  border-bottom: 3px solid #ff7531;
+  padding-bottom: 0;
+}
+
+.loginBtn{
+  margin-top: 10px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+#searchBtn{
+  border-radius: 3px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.hotspotTitle{
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  height: 70px;
+  margin-top: 20px;
+}
+
+.footer{
+  padding-top: 30px;
+  background-color: gray;
+  margin-right: 0;
+  font-size: 20px;
+  
+}
+
+#mainLogo{
+  cursor: pointer;
+}
+
+
+.hotspotImg{
+  cursor: pointer;
+}
+
+  /* 굵은 글씨 */
+.bold {
+  /* margin-top: 30px; */
+  color: blue;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0;
+}
+
+/* 일반 글씨 */
+.normal{
+  font-size: 20px; 
+  color: rgb(110, 109, 109);
+  margin: 0;
+}
+
+/* 전체 큰 박스 */
+.hotspotContainer{
+    width:90%;
+    position : relative;
+    left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    font:bold;
+    padding: 0px;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.hotspotContent{
+  cursor: pointer;
+  padding-left: 48px;
+  margin-bottom: 15px;
+  /* border: lightgray 1px solid; */
+}
+
+.footer>ul>li>a{
+  color: white;
+  
+}
+
+#moreBoardViewBtn{
+  margin-bottom: 80px;
+  color: white;
+  background-color: #203341;
+  width: 300px;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 50px;
+}

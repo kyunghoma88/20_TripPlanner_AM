@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <!DOCTYPE html>
@@ -28,6 +27,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=57f292cf81a06c030ca86c61e79b1b56&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
     <header>
@@ -65,12 +66,3 @@
             </div>
         </nav>
     </header>
-
-
-
-
-
-
-
-
-

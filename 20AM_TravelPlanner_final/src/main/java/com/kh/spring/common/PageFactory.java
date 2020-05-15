@@ -1,19 +1,20 @@
 package com.kh.spring.common;
 
+
 public class PageFactory {
 
 	public static String getPage(int totalData, int cPage, int numPerpage, String url) {
-
+		
 		String pageBar="";
-
+		
 		int pageBarSize=5;
-
+		
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
-
+		
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-
-
+		
+		
 		pageBar+="<ul class='pagination "
 				+ "justify-content-center pagination-sm'>";
 		if(pageNo==1) {
@@ -25,7 +26,7 @@ public class PageFactory {
 			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
 			pageBar+="</li>";
 		}
-
+		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
 				pageBar+="<li class='page-item active'>";
@@ -38,7 +39,7 @@ public class PageFactory {
 			}
 			pageNo++;
 		}
-
+		
 		if(pageNo>totalPage) {
 			pageBar+="<li class='page-item disabled'>";
 			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
@@ -54,16 +55,8 @@ public class PageFactory {
 		pageBar+="location.href='"+url+"?cPage='+cPage";
 		pageBar+="}";
 		pageBar+="</script>";
-
+		
 		return pageBar;
 	}
-
-
-
-
-
-
-
-
-
+	
 }

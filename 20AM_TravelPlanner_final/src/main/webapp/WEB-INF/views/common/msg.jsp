@@ -11,9 +11,8 @@
 		alert("${msg}");
 		if('${not empty loc}'){
 			location.replace("${pageContext.request.contextPath}${loc}");
-		}
-		else if('${not empty referer}'){
-			location.replace("${referer}");
+		}else if('${not empty referer}'){
+			location.replace("${referer}")
 		}
 	</script>
 </body>
