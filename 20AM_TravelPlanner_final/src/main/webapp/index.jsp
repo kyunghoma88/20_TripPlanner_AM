@@ -37,7 +37,7 @@
 				console.log(data);
 					const contain = $("#hotspotContainer");
 					for(let i = 0;i < data.length; i++){
-						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace(\'${path}/board/boardView.do?no=" + data[i]['trSeq'] + "\')>");	
+						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace(\'${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
  						div.append("<img src='${path}" + data[i]['hotspotAreaImg'] + "'class='boardImg' width='300px' height='300px' alt='이미지 없음' >")
 			 			.append("<p class='bold boardTitle'>" + data[i]['tvTitle'] + "</p>")
 				 		.append("<p class='normal boardArea'>" + data[i]['hotspotAreaName'] + "</p>")
@@ -58,13 +58,13 @@
             <div class="col-sm-2 logoDiv">
               <img id="mainLogo" src="${path }/resources/images/logo.PNG" width="200px" height="auto" onclick="location.replace('${path}')"/>
             </div>
-            <div class="col-sm-8 testDiv">
+            <div class="col-sm-7 testDiv">
               <ul class="nav">
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpot.do">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="#">일정만들기</a>
+                  <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
@@ -77,8 +77,9 @@
                 </li>
               </ul>
             </div>
-            <div class="col-sm-1 testDiv">
-                <img  class="loginBtn" onclick="" src="${path }/resources/images/LoginBtn.png">
+            <div class="col-sm-2 testDiv">
+				<button id="loginBtn">로그인</button>
+				<button id="enrollBtn">회원가입</button>
             </div>
         </div>
     </nav>

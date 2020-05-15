@@ -36,7 +36,7 @@
     </div>
     <div id="hotspotContainer">
     <c:forEach items="${list }" var="b">
-        <div class="col-sm-4 hotspotContent" onclick="location.replace('${path}/board/boardView.do?no=${b.trSeq}')">
+        <div class="col-sm-4 hotspotContent" onclick="location.replace('${path}/board/boardView.do?no=${b.trSeq}&id=${b.memberId}')">
             <img src="${path}${b.hotspotAreaImg }" width="300px" height="300px" alt="이미지 없음">
             <p class="bold">${b.tvTitle }</p>
             <p class="normal">${b.hotspotAreaName }</p>

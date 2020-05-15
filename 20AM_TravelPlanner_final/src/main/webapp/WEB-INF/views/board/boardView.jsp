@@ -30,9 +30,9 @@
       background-color: #203341;
     }
     
-    .contentTbl{
+/*     .contentTbl{
     	display: none;
-    }
+    } */
 
 </style>
 
@@ -40,8 +40,8 @@
        <div class="col-sm-1"></div>
        <div class="col-sm-10 headPhoto">
             <div class="boardTitle" style="margin-top: 250px;">
-                <div>${board['TV_TITLE'] }</div>
-                <div>${board['MEMBER_ID'] }</div>
+                <div><c:out value="${board.tvTitle }"/></div>
+                <div>${board.memberId }</div>
             </div>
         </div>
         <div class="col-sm-1"></div>
@@ -49,30 +49,35 @@
     <div class="row boardContent">
       <div class="col-sm-1"></div>
       <div class="col-sm-7">
-      <c:forEach var="v" begin="1" end="${board['DAY'] }">
-        <button class="dayBtn">DAY-${v }</button><br>
-        <table class="contentTbl">
-          <tr>
-            <td class="imageTd">
-            	<img src="${path }${board['PLACE_IMG'] }" alt="이미지 없음" height="70px" width="auto">
-            </td>
-            <td>${board['HOTSPOT_NAME'] }</td>
-          </tr>
-        </table>
-      </c:forEach>
+     	<c:forEach var="v" begin="1" end="${date}">
+	        <input type="button" class="dayBtn" value="DAY${v }"/><br>
+	       	<c:forEach items="${day}" var="d">
+		        <table class="contentTbl">
+		          <tr>
+		            <td class="imageTd" rowspan="2">
+		            	<img src="${path }${d.hotspotImg}" alt="이미지 없음" height="70px" width="auto">
+		            </td>
+		            <td>${d.hotspotName}</td>
+		          </tr>
+		          <tr>
+		            <td>${d.comment}</td>
+		          </tr>
+		        </table>
+	        </c:forEach>
+   		</c:forEach>
       </div>
       <div class="col-sm-3">
-        <div>
+        <div style="border: 1px solid black;">
           지도
         </div>
       </div>
       <div class="col-sm-1"></div>
     </div>
-    <script>
+<!--     <script>
 		$(document).ready(function(){
 	    	  $(".dayBtn").click(function(){
 	    	    $(this).next().next($(".contentTbl")).toggle();
     	  });
     	});
-				</script>
+	</script> -->
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

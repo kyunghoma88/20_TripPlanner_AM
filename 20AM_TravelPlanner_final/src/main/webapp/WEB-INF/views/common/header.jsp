@@ -27,6 +27,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=57f292cf81a06c030ca86c61e79b1b56&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
     <header>
@@ -36,7 +38,7 @@
                 <div class="col-sm-2 logoDiv">
                   <img id="mainLogo" src="${path }/resources/images/logo.PNG" width="200px" height="auto" onclick="location.replace('${path}')"/>
                 </div>
-                <div class="col-sm-8 testDiv">
+                <div class="col-sm-7 testDiv">
                   <ul class="nav">
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpot.do">여행지</a>
@@ -55,7 +57,7 @@
                     </li>
                   </ul>
                 </div>
-	            <div class="col-sm-1 testDiv">
+	            <div class="col-sm-2 testDiv">
 	                <button id="loginBtn">로그인</button><button id="enrollBtn">회원가입</button>
 	            </div>
             </div>

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Day;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -23,8 +24,13 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public Map<String, String> selectBoardView(SqlSessionTemplate session, int no) {
-		return session.selectOne("board.selectBoardView", no);
+	public Board selectBoardTitle(SqlSessionTemplate session, Map map) {
+		return session.selectOne("board.selectBoardTitle", map);
+	}
+
+	@Override
+	public List<Day> selectBoardView(SqlSessionTemplate session, Map map) {
+		return session.selectList("board.selectBoardView", map);
 	}
 	
 	
