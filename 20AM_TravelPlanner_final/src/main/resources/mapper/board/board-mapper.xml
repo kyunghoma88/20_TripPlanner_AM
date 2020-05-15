@@ -10,14 +10,30 @@
 		<result column="HOTSPOT_AREA_NAME" property="hotspotAreaName"/>
 		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
 	</resultMap>
-
+		<resultMap type="Day" id="dayMap">
+		<result column="TR_SEQ" property="trSeq"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="TV_DATE" property="tvDate"/>
+		<result column="HOTSPOT_NAME" property="hotspotName"/>
+		<result column="ORDER" property="order"/>
+		<result column="COMMENT" property="comment"/>
+		<result column="TV_SEQ" property="tvSeq"/>
+		<result column="HOTSPOT_AREA_NAME" property="hotspotAreaName"/>
+		<result column="TOTAL_DATE" property="totalDate"/>
+		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
+		<result column="TV_TITLE" property="tvTitle"/>
+		<result column="HOTSPOT_IMAGE" property="hotspotImg"/>
+	</resultMap>
 	<select id="selectList" resultMap="boardMap" resultType="Board">
 		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME ORDER BY BOARD.VIEW_COUNT DESC
 	</select>
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
 	</select>
-	<select id="selectBoardView" parameterType="_int" resultType="map">
-		SELECT * FROM MY_TV JOIN HOTSPOT_IMAGE ON (MY_TV.HOTSPOT_NAME=HOTSPOT_IMAGE.HOTSPOT_NAME) JOIN HOTSPOT_AREA ON (MY_TV.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TV_SEQSELECT * FROM MY_TV JOIN HOTSPOT_IMAGE ON (MY_TV.HOTSPOT_NAME=HOTSPOT_IMAGE.HOTSPOT_NAME) JOIN HOTSPOT_AREA ON (MY_TV.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TV_SEQ=#{no}
+	<select id="selectBoardTitle" parameterType="map" resultType="Board" resultMap="boardMap">
+		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON (BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id}
+	</select>
+	<select id="selectBoardView" parameterType="map" resultType="Day" resultMap="dayMap">
+		SELECT * FROM DAY JOIN HOTSPOT ON (HOTSPOT.HOTSPOT_NAME=DAY.HOTSPOT_NAME) WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} ORDER BY TV_DATE, DAY_O
 	</select>
 </mapper>

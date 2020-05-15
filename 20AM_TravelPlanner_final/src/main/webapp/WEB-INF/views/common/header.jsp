@@ -37,7 +37,7 @@
                 <div class="col-sm-2 logoDiv">
                   <img id="mainLogo" src="${path }/resources/images/logo.PNG" width="200px" height="auto" onclick="location.replace('${path}')"/>
                 </div>
-                <div class="col-sm-8 testDiv">
+                <div class="col-sm-7 testDiv">
                   <ul class="nav">
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="#">여행지</a>
@@ -56,7 +56,7 @@
                     </li>
                   </ul>
                 </div>
-	            <div class="col-sm-1 testDiv">
+	            <div class="col-sm-2 testDiv">
 	                <button id="loginBtn">로그인</button><button id="enrollBtn">회원가입</button>
 	            </div>
             </div>
