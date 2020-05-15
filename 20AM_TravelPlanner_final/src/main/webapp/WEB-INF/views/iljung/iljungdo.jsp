@@ -16,7 +16,7 @@
 <div style="display:inline-block">
 	<c:forEach items="${list}" var="hs">
 		<div class="test">
-			<img alt="이미지음따" src="${hs['HOTSPOT_IMAGE'] }">
+			<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='100px' height='100px'>
 			<p>${hs['HOTSPOT_NAME'] }</p>
 			<p>${hs['HOTSPOT_ADDR'] }</p>
 		</div>
@@ -27,9 +27,52 @@
 <button type="button" id="jujang">저장</button>
 </section>
 <script>
+	var array = [];
+	
+	var hm = new Object();
+	var cnt = 0;
 	
 	$(document).on('click','.test',function(){
-		$(".b.c.d").append($(this).children().text());
+		var ptag = $("<p>");
+		var imgtag = $("<img src=''>")
+		var imgsrc = $(this).find('img').attr('src');
+		imgtag.attr('width','100px');
+		imgtag.attr('height','100px');
+		imgtag.attr('src',imgsrc);
+		ptag.append($(this).find('img').next().text());
+		$(".b.c.d").append(imgtag);
+		$(".b.c.d").append(ptag);
+		var count = (($(".b.c.d").children().length)-1)/2;
+		console.log(count);
+		
+		/* hm["array"] = 서울
+		hm["area"] = 경복궁
+		
+		cnt++;
+		
+		
+		
+		array[1][1] 서울
+		array[1][2] 경복궁
+		array[1][3] 1
+		btn1
+		array[2][1] 서울
+		array[2][2] 광화문
+		array[2][3] 2
+		btn2
+		array[3][1] 서울
+		array[3][2] 광화문
+		array[3][3] 3
+		btn3
+		array[3][1] 서울
+		array[3][2] 광화문
+		array[3][3] 4
+		btn4
+		
+		
+		array[array.length+1][1] = 서울
+		array[array.length+1][2] = 서울 */
+		
 	});
 	
 	$(document).ready(function(){
