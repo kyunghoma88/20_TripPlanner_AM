@@ -29,9 +29,6 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 		logger.debug("========== mapping 메소드실행==========");
 		logger.debug("===================================");
 		super.postHandle(request, response, handler, modelAndView);
-	}
-
-	
-	
+	}	
 	
 }
