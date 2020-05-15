@@ -1,0 +1,80 @@
+div.btn-group{
+	margin-left: 500px;
+	margin-top: 50px;
+	margin-bottom:50px;
+	display:block;
+}
+
+a.btn{
+	display:block;
+}
+
+#hotSpotListContainer{
+	margin-left:130px;
+	margin-bottom:50px;
+	text-decoration: none;
+	color:gray;
+}
+
+.hotSpotAList{
+	display: inline-block;
+	padding-right:30px;
+	padding-top:20px;
+}
+
+.hotSpotAList>div{
+	color:gray;
+}
+
+.hotSpotAList:hover{
+	text-decoration: none;
+}
+
+.hotSpotBottomBtn{
+	margin-left:350px;
+	margin-right:200px;
+	display:block;
+	margin-top:30px;
+	border:1px solid gray;
+	width:400px;
+	height:30px;
+	text-align: center;
+	color:black;
+}
+
+.hotSpotBottomBtn:hover{
+	text-decoration: none;
+}
+
+#hotSpot_ViewContainer{
+	height:300px;
+	/* border: 1px solid black; */
+}
+
+
+div.hotSpot_container1{
+/* 	width:300x;
+	height:300px; */
+	display:inline-block;
+	position:relative;
+}
+
+div.hotSpot_container2{
+/* 	width:300x;
+	height:300px; */
+	display:inline-block;
+	position:relative;
+}
+
+div.hotSpot_container3{
+	margin-bottom: 50px;
+}
+
+.tableTr{
+	line-height:50px;
+}
+
+.tableTh{
+	padding-right:50px;
+}
+
