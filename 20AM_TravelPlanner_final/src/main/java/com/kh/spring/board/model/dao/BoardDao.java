@@ -6,10 +6,13 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Day;
 
 public interface BoardDao {
 	
 	List<Board> selectList(SqlSessionTemplate session, int cPage, int numPerpage);
 	int selectBoardCount(SqlSessionTemplate session);
-	Map<String, String> selectBoardView(SqlSessionTemplate session, int no);
+	Board selectBoardTitle(SqlSessionTemplate session, Map map);
+	List<Day> selectBoardView(SqlSessionTemplate session, Map map);
+	List<Day> boardDetail(SqlSessionTemplate session, Map map);
 }

@@ -137,7 +137,9 @@ ul {
 							<c:out value="${f['FAQ_TITLE'] }" /> 
 							</span>
 						</button>
-						<span id="date"><c:out value="${f['FAQ_DATE'] }" /></span>
+						<span id="date"><c:out value="${f['FAQ_DATE'] }" />
+								<a href="${path }/faq/editFaq?faqNo=${f['FAQ_NO']}">편집</a>
+						</span>
 						<ul id="faqContent">
 							<li>
 								<div id="demo" class="content">

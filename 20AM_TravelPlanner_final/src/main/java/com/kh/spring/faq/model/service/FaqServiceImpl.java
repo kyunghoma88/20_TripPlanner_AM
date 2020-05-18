@@ -85,6 +85,23 @@ public class FaqServiceImpl implements FaqService {
 		return dao.cashFaqCount(session, cash);
 	}
 	
+	@Override
+	public List<Map<String,String>> editFaqView(int faqNo) {
+		// TODO Auto-generated method stub
+		return dao.editFaqView(session, faqNo);
+	}
+
+	@Override
+	public int updateFaq(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return dao.updateFaq(session, param);
+	}
+
+	@Override
+	public int deleteFaq(int faqNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteFaq(session, faqNo);
+	}
 	
 	
 	
