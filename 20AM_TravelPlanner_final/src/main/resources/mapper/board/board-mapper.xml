@@ -36,7 +36,7 @@
 	<select id="selectBoardView" parameterType="map" resultType="Day" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT ON (HOTSPOT.HOTSPOT_NAME=DAY.HOTSPOT_NAME) WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} ORDER BY TV_DATE, DAY_O
 	</select>
-	<select id="test" parameterType="map" resultType="Day" resultMap="dayMap">
+	<select id="boardDetail" parameterType="map" resultType="Day" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT USING (HOTSPOT_NAME) WHERE TV_DATE=#{date} AND TR_SEQ=#{no} ORDER BY DAY_O
 	</select>
 </mapper>
