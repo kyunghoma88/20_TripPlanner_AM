@@ -37,7 +37,7 @@
 				console.log(data);
 					const contain = $("#hotspotContainer");
 					for(let i = 0;i < data.length; i++){
-						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace(\'${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
+						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace('${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
  						div.append("<img src='${path}" + data[i]['hotspotAreaImg'] + "'class='boardImg' width='300px' height='300px' alt='이미지 없음' >")
 			 			.append("<p class='bold boardTitle'>" + data[i]['tvTitle'] + "</p>")
 				 		.append("<p class='normal boardArea'>" + data[i]['hotspotAreaName'] + "</p>")
