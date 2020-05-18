@@ -53,12 +53,33 @@
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">FAQ</a>
+                      <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                     </li>
                   </ul>
                 </div>
 	            <div class="col-sm-2 testDiv">
-	                <button id="loginBtn">로그인</button><button id="enrollBtn">회원가입</button>
+		                <c:if test='${empty loginMember }'>
+						<!-- <button id="loginBtn">로그인</button>-->
+						<button class="btn btn-outline-success my-2 my-sm-0"
+							type="button" data-toggle="modal" data-target="#loginModal">
+							로그인
+						</button>
+						<!--<button id="enrollBtn">회원가입</button> -->
+						<button class="btn btn-outline-success my-2 my-sm-0"
+							type="button" data-toggle="modal" data-target="#enrollModal">
+							회원가입
+						</button>
+					</c:if>
+					<c:if test='${not empty loginMember }'>
+						<span>
+							<a href="#">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</span>
+						&nbsp;
+						<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+						onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
+					</c:if>
 	            </div>
             </div>
             <div class="row">
@@ -66,3 +87,77 @@
             </div>
         </nav>
     </header>
+    
+    <!-- 로그인 모달 -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" 
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">로그인</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			    <form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">
+					<div class="modal-body">
+					<input type="text" class="form-control" name="memberId" placeholder="아이디" required>
+					<br />
+					<input type="password" class="form-control" name="password" placeholder="비밀번호" required>
+					</div>
+					<div class="modal-footer">
+					  <button type="submit" class="btn btn-outline-success" >로그인</button>
+					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+					</div>
+				</form>
+			 </div>
+		</div>
+	</div>
+	
+	<!-- 회원가입 모달 -->
+	<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" 
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">회원가입</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" >
+					<div class="modal-body">
+						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
+						<br/>
+						<input type="password" class="form-control" placeholder="비밀번호" name="password" id="password_" required>
+						<br/>
+						<input type="password" class="form-control" placeholder="비밀번호확인" id="password2" required>
+						<br/>
+						<input type="text" class="form-control" placeholder="이름" name="memberName" id=""memberName"" required>
+						<br/>
+						<input type="email" class="form-control" placeholder="이메일" name="email" id="email" required>
+						<br/>
+						<input type="tel" class="form-control" placeholder="(01012341234)" name="phone" id="phone" maxlength="11" required>
+						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
+						<!-- 주소 API 받아오기 -->
+						<br/>
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
+						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+						<br/>
+						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
+						<span id="guide" style="color:#999;display:none"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
+						
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
+						<input type="reset" class="btn btn-outline-success" value="취소">
+					</div>
+				</form>
+			 </div>
+		</div>
+	</div>
+    

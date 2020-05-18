@@ -48,6 +48,23 @@
 		SELECT COUNT(*) FROM FAQ
 		WHERE FAQ_CATEGORY = #{cash}
 	</select>
+	
+	<select id="editFaqView" resultType="map" parameterType="_int">
+		SELECT * FROM FAQ WHERE FAQ_NO = #{faqNo}
+	</select>
+	
+	<update id="updateFaq" parameterType="map">
+		UPDATE FAQ SET FAQ_CATEGORY = #{faqCategory},
+					   FAQ_TITLE = #{faqTitle},
+					   FAQ_CONTENT = #{faqContent}
+				WHERE FAQ_NO = #{faqNo}
+						
+	</update>
+	
+	<delete id="deleteFaq" parameterType="_int">
+		DELETE FROM FAQ
+		WHERE FAQ_NO = #{faqNo}
+	</delete>
 </mapper>
 
 
