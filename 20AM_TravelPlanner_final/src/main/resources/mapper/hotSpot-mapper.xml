@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="hotSpot">
+	<!-- <resultMap type="HotSpot" id="hotSpotMap">
+		<result column="HOTSPOT_NAME" property="hotSpotName"/>
+		<result column="HOTSPOT_AREA_NAME" property="hotSpotAreaName"/>
+		<result column="HOTSPOT_ADDR" property="hotSpotAddr"/>
+		<result column="HOTSPOT_CONTENT" property="hotSpotContent"/>
+		<result column="HOTSPOT_IMAGE" property="hotSpotImage"/>
+		<result column="HOTSPOT_VIEW" property="hotSpotView"/>
+		<result column="HOTSPOT_LAT" property="hotSpotLat"/>
+		<result column="HOTSPOT_HAR" property="hotSpotHar"/>
+	</resultMap> -->
   <select id="selectHotSpotList" resultType="hotSpot" parameterType="string">
   	SELECT * FROM HOTSPOT WHERE HOTSPOT_AREA_NAME=#{area} ORDER BY HOTSPOT_NAME ASC
   </select>
 
   <select id="selectHotSpotCount" resultType="_int">
-  	SELECT COUNT(*) FROM HOTSPOT
+  	SELECT COUNT(*) FROM HOTSPOT WHERE HOTSPOT_AREA_NAME=#{area}
   </select>
   <select id="selectHotSpotView" parameterType="string" resultType="hotSpot">
   	SELECT * FROM HOTSPOT WHERE HOTSPOT_NAME=#{name}

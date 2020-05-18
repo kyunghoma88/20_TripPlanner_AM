@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet"
-	href="${path }/resources/css/hotSpotMain.css?ver=1" type="text/css" />
+	href="${path }/resources/css/hotSpotMain.css?ver=1.1" type="text/css" />
 
 
 
@@ -61,55 +61,67 @@
 
 <div id="hotSpotListContainer">
 
-<!-- <script>
-	$(".btnS").click(function(){
-		var area="서울";
-		$.ajax({
-			url:"${path}/hotSpot/hotSpotList",
-			dataType:"json",
-			data:{"data":data},
-			success:function(data){
-				alert("성공");
-			}
-		})
-	})
-</script> -->
-
 
 
 	
 
 
-	<!-- 서울 리스트 -->
+	
 
 	<div id="hotSpotListContainer">
 	
 		<c:forEach items="${list }" var="h">
-			<a href="${path }/hotSpot/hotSpotView.do?name=${h.hotspot_name}" class="hotSpotAList">
+			<a href="${path }/hotSpot/hotSpotView.do?name=${h.hotSpot_Name}" class="hotSpotAList">
 				<div>
-					<img src="${path }${h.hotspot_image } " width="250px" height="200px">
-			</div>
-			<div>${h.hotspot_name }</div>
-			<div>
-				<img src="${path }/resources/images/eyes.png" width="25px" height="25px"> <span>${h.hotspot_view }</span>
-			</div>
+					<img src="${path }${h.hotSpot_Image } " width="250px" height="200px">
+				</div>
+				<div>${h.hotSpot_Name }</div>
+				<div>
+					<img src="${path }/resources/images/eyes.png" width="25px" height="25px"> 
+					<span>${h.hotSpot_View }</span>
+				</div>
 		</a> 
 		</c:forEach>
+	</div>
+		<div>
+			${pageBar }
+		</div>
 		
 
-	</div>
-
-
 	
+		<input type="button" id="hotSpotMoreBtn" value="여행지 더보기" onclick="javascript:moreContent()">
 	
-	
-	<a href="" class="hotSpotBottomBtn">여행지 더보기</a>
-	
-
 
 </div>
 
+<script>
+	/* function moreContent(){
+		$.ajax({
+			url:"${path}/hotSpot/hotSpotList.do",
+			data:{"area":area},
+			success:function(data){
+				if(data.length==0){
+					$("#hotSpotMoreBtn").attr("class","disabled");
+				}else{
+					var content="";
+					for(let i=0;i<3;i++){
+						content+=
+							"<a href='${path}/hotSpot/hotSpotView.do?name=$hotSpot.hotSpot_Name' class='hotSpotAlist'>"
+							+"<div><img src='${path}${hotSpot.hotSpot_Image}' width='250px' height='200px'></div>"
+							+"<div>'${hotSpot.hotSpotName}'</div>"
+							+"<div><img src='${path}/resources/images/eyes.png' width='25px' height='25px'><span>'${hotSpot.hotSpot_View}'</span></div>"
+							+"</a>"
+					}
+					$("#hotSpotListContainer").append(content);
+				}
+			}error : function(){
+				alert("ajax통신실패");
+			}
+		})
+	} */
+	
 
+</script>
 
 
 

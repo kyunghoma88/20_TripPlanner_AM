@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HotSpot {
 
-	private String hotspotName;
-	private String hotspotAreaName;
-	private String hotspotAddr;
-	private String hotspotContent;
-	private String hotspotImage;
-	private int hotspotView;
+	private String hotSpot_Name;
+	private String hotSpot_Area_Name;
+	private String hotSpot_Addr;
+	private String hotSpot_Content;
+	private String hotSpot_Image;
+	private int hotSpot_View;
+	private int hotSpot_Lat;
+	private int hotSpot_Har;
 }
