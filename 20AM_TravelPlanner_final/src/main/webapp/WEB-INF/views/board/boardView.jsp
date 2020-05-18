@@ -50,9 +50,8 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-7" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
-	        <%-- <button type="button" class="dayBtn">DAY${v }</button><br> --%>
-	        <c:set var="please" value="${v }"/>
-         	<button type="button" class="btnbtn" onclick="fn_test('${board.trSeq}', '${please }');">test${v }</button><br>
+	        <c:set var="whatDay" value="${v }"/>
+         	<button type="button" class="dayBtn" onclick="fn_test('${board.trSeq}', '${whatDay }');">test${v }</button><br>
    		</c:forEach>
       </div>
       <div class="col-sm-3">
@@ -70,17 +69,17 @@
     	});
 	</script> -->
 	<script>
-	 	 function fn_test(seq, please){
+	 	 function fn_test(seq, whatDay){
 			$.ajax({
 				url : "${path}/test/test.do",
 				type : "post",
-				data : {"no" : seq, "date" : please},
+				data : {"no" : seq, "date" : whatDay},
 				success:function(data){
 					const table = $("<table class='contentTbl'>");
 					for(let i=0; i<data.length; i++){
 						table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' height='70px' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
 						.append("<tr><td>" + data[i]['comment'] + "</td></tr>");
-						$("#testContent").next($(".btnbtn")).append(table);
+						$("#testContent").append(table);
 					}
 				}
 			}) 
