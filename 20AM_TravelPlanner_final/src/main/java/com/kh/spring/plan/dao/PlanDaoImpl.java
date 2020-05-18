@@ -28,9 +28,15 @@ public class PlanDaoImpl implements PlanDao {
 	}
 
 	@Override
-	public int insertPlan(SqlSessionTemplate session, Map<String,Object> map) {
+	public int insertPlan(SqlSessionTemplate session, Map<String,Object> mapda) {
 		// TODO Auto-generated method stub
-		return session.insert("plan.insertPlan", map);
+		return session.insert("plan.insertPlan", mapda);
+	}
+
+	@Override
+	public int searchMember(SqlSessionTemplate session, String member) {
+		// TODO Auto-generated method stub
+		return session.selectOne("plan.searchMember",member);
 	}
 	
 	

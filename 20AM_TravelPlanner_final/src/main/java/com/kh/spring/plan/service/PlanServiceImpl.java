@@ -40,10 +40,17 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public int insertPlan(Map<String,Object> map) {
+	public int insertPlan(Map<String,Object> mapda) {
 		// TODO Auto-generated method stub
-		return dao.insertPlan(session, map);
+		return dao.insertPlan(session, mapda);
 	}
+
+	@Override
+	public int searchMember(String member) {
+		// TODO Auto-generated method stub
+		return dao.searchMember(session, member);
+	}
+	
 	
 	
 	

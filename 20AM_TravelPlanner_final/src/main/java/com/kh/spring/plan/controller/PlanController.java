@@ -47,16 +47,33 @@ public class PlanController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
-		System.out.println(list.get(0).get("tarea"));
+		map.put("memberId",list.get(0).get("id"));
 		service.insertBoard(map);
-		
+		String member = (String)list.get(0).get("id");
+		int seq = service.searchMember(member);
+		int fn = list.size();
+		int order = 0;
 		for(int i = 0; i< list.size();i++) { 
-				Map<String,Object> map = newHashMap<String,Object>(); 
-				map.put("tplace",list.get(i).get("tplace"));
-				service.insertPlan(map);
+				Map<String,Object> mapda = new HashMap<String,Object>(); 
+				mapda.put("place",list.get(i).get("tplace"));
+				mapda.put("area",list.get(i).get("tarea"));
+				mapda.put("trSeq",seq);
+				mapda.put("tvDate",list.get(i).get("tday"));
+				mapda.put("total",(int)list.get(fn-1).get("tday"));
+				mapda.put("memberId", list.get(i).get("id"));
+				if(i>0) {
+					if(list.get(i-1).get("tday") == list.get(i).get("tday")) {
+						order++;
+						mapda.put("dayo",order);
+					}else{
+						order = 0;
+						mapda.put("dayo",order);
+					};
+				}else {
+					mapda.put("dayo",order);
 				};
-		 
-		
+				service.insertPlan(mapda);
+		};
 		return mv;
 	};
 };

@@ -27,7 +27,6 @@
 <button type="button" id="jujang">저장</button>
 </section>
 <script>
-
 	$(document).on('click','.test',function(){
 		var ptag = $("<p>");
 		var imgtag = $("<img src=''>")
@@ -44,18 +43,10 @@
 		//console.log($(".b.c.d").children('div').children('p').text());
 		//console.log($(".b.c.d").children('div').children('img').attr('src'));
 		//console.log(count);
-		var forc = $(".b.c.d").children('div').length;
-		//console.log($(".b.c.d").children('div').index());
-		//console.log($(".b.c.d").children('div').index());
-		/* for(let i=1; i>${days}; i++){
-			for(let j=1; j> ;j++){
-				
-			}
-		} */
-		
 	});
 	$('#jujang').click(function(){
 		var han = '${list[0]['HOTSPOT_AREA_NAME']}';
+		var id = '${loginMember['memberId']}';
 		var jArray = new Array();
 		var item = new Array();
 		var count  = 0;
@@ -67,7 +58,8 @@
 					jArray[count]={
 							tday:i+1,
 							tplace:item[i][j],
-							tarea:han
+							tarea:han,
+							id:id
 					}
 					count++;
 				};
