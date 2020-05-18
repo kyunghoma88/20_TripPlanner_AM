@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
@@ -140,6 +141,15 @@ public class MemberController {
 		return "redirect:/";
 		
 		
+	}
+	
+	@RequestMapping("/member/payComplete")
+	public ModelAndView payComplete(ModelAndView mv, String userId) {
+		//결제 완료 후 Member의 STATUS -> 'Y'로 업데이트
+		
+		int result = service.payComplete(userId);
+		
+		return mv;
 	}
 	
 	

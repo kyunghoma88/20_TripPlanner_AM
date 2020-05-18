@@ -8,4 +8,6 @@ public interface MemberService {
 
 	Member selectMember(Member m);
 	
+	int payComplete(String userId);
+	
 }
