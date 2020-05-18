@@ -27,4 +27,24 @@ public class PlanServiceImpl implements PlanService {
 		return dao.placedata(session, place);
 	}
 
+	@Override
+	public int placecount(String place) {
+		// TODO Auto-generated method stub
+		return dao.placecount(session, place);
+	}
+	
+	@Override
+	public int insertBoard(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.insertBoard(session, map);
+	}
+
+	@Override
+	public int insertPlan(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return dao.insertPlan(session, map);
+	}
+	
+	
+	
 }

@@ -5,5 +5,13 @@
 	<select id="placeList" resultType="map" parameterType="string">
 		SELECT * FROM HOTSPOT WHERE HOTSPOT_AREA_NAME = #{place}
 	</select>
-	<!-- 핫스팟 vo만들기 쿼리문작성 -->
+	<select  id="placecount" resultType="_int" parameterType="string">
+		SELECT COUNT("HOTSPOT_NAME") FROM HOTSPOT WHERE HOTSPOT_AREA_NAME = #{place}
+	</select>
+	<insert id="insertPlan" parameterType="map">
+		INSERT INTO DAY VALUES()
+	</insert>
+	<insert id="insertBoard" parameterType="map">
+		INSERT INTO BOARD VALUES(TR_SEQ.NEXTVAL,'admin','타이틀',#{place},#{area},0,DEFAULT)
+	</insert>
 </mapper>

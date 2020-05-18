@@ -27,89 +27,64 @@
 <button type="button" id="jujang">저장</button>
 </section>
 <script>
-	var array = [];
-	
-	var hm = new Object();
-	var cnt = 0;
-	
+
 	$(document).on('click','.test',function(){
 		var ptag = $("<p>");
 		var imgtag = $("<img src=''>")
 		var imgsrc = $(this).find('img').attr('src');
+		var divtag = $('<div>');
 		imgtag.attr('width','100px');
 		imgtag.attr('height','100px');
 		imgtag.attr('src',imgsrc);
 		ptag.append($(this).find('img').next().text());
-		$(".b.c.d").append(imgtag);
-		$(".b.c.d").append(ptag);
+		divtag.append(imgtag);
+		divtag.append(ptag);
+		$(".b.c.d").append(divtag);
 		var count = (($(".b.c.d").children().length)-1)/2;
-		console.log(count);
-		
-		/* hm["array"] = 서울
-		hm["area"] = 경복궁
-		
-		cnt++;
-		
-		
-		
-		array[1][1] 서울
-		array[1][2] 경복궁
-		array[1][3] 1
-		btn1
-		array[2][1] 서울
-		array[2][2] 광화문
-		array[2][3] 2
-		btn2
-		array[3][1] 서울
-		array[3][2] 광화문
-		array[3][3] 3
-		btn3
-		array[3][1] 서울
-		array[3][2] 광화문
-		array[3][3] 4
-		btn4
-		
-		
-		array[array.length+1][1] = 서울
-		array[array.length+1][2] = 서울 */
+		//console.log($(".b.c.d").children('div').children('p').text());
+		//console.log($(".b.c.d").children('div').children('img').attr('src'));
+		//console.log(count);
+		var forc = $(".b.c.d").children('div').length;
+		//console.log($(".b.c.d").children('div').index());
+		//console.log($(".b.c.d").children('div').index());
+		/* for(let i=1; i>${days}; i++){
+			for(let j=1; j> ;j++){
+				
+			}
+		} */
 		
 	});
-	
-	$(document).ready(function(){
+	$('#jujang').click(function(){
+		var han = '${list[0]['HOTSPOT_AREA_NAME']}';
+		var jArray = new Array();
+		var item = new Array();
+		var count  = 0;
+			for(var i = 0; i< $('.b').length; i++ ){
+				item[i] = new Array();
+				for(var j = 0; j < $('.day'+(i+1)).children('div').length; j++){
+					item[i][j]= $('.day'+(i+1)).children('div').eq(j).children('p').text();
+					console.log(i+'행'+j+'열'+item[i][j]);
+					jArray[count]={
+							tday:i+1,
+							tplace:item[i][j],
+							tarea:han
+					}
+					count++;
+				};
+		var jsonStr = JSON.stringify(jArray);
+		console.log("호이이잉"+jsonStr);
+			};
 		$.ajax({
-			url:"${path}/placedata.do",
-			data:{
-				place:'${place}'
-			},
+			url:"${path}/jujang.do",
+			data:jsonStr,
 			type:"post",
+			contentType:"application/json;charset=UTF-8",
 			dataType:"json",
 			success:function(data){
 				
 			}
 		});
 	});
-	
-	$("#jujang").click(function(){
-		for(let i=1; i<=${days }; i++){
-			let day = "day"+i;
-			if(day=="day"+i){
-				console.log($("."+day+":first-child").text());
-				$.ajax({
-					url:"${path}/jujang.do",
-					data:{
-						  day:$("."+day).first().text(),
-						  placeImg:$("."+day+" img").attr('src'),
-						  hotspotName:$("."+day+" p").text()	
-					},
-					type:"post",
-					dataType:"json",
-					success:function(data){
-					}
-				})
-			}
-			
-		}
-	})
 	
 	
 	$(document).on("mouseover",".a",function(){
@@ -121,6 +96,7 @@
 	});
 	
 	$(document).on("click",".a.b",function(){
+		$('.b.c.d').children('div').toggle();
 		$(".b.c.d").addClass("a");
 		$(".a.b.c.d").removeClass("b");
 		$(".a.c.d").removeClass("c");
@@ -133,8 +109,9 @@
 		$(this).removeClass("a");
 		$(this).css("background-color","black");
 		$(this).css("color","white");
+		$(this).children('div').toggle('slow');
+		
 	});
-	
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	    mapOption = { 
@@ -143,44 +120,23 @@
 	    };
 
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	 
 	// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-	var positions = [
-	    {
-	        content: '<div>북촌한옥마을</div>', 
-	        latlng: new kakao.maps.LatLng(37.578903164462346 , 126.98620550145591)
-	    },
-	    {
-	        content: '<div>청계천</div>', 
-	        latlng: new kakao.maps.LatLng(37.569438873541, 127.00588611532837)
-	    },
-	    {
-	        content: '<div>가로수길</div>', 
-	        latlng: new kakao.maps.LatLng(37.51958896822517, 127.02313004390007)
-	    },
-	    {
-	        content: '<div>경복궁</div>',
-	        latlng: new kakao.maps.LatLng(37.57616723585264, 126.97712132834202)
-	    },
-	    {
-	        content: '<div>한강</div>', 
-	        latlng: new kakao.maps.LatLng(37.53355209240853, 126.93445784830185)
-	    },
-	    {
-	        content: '<div>인사동</div>', 
-	        latlng: new kakao.maps.LatLng(37.572654713090415, 126.98574819650244)
-	    },
-	    {
-	        content: '<div>명동</div>', 
-	        latlng: new kakao.maps.LatLng(37.56103178383466, 126.98508263808856)
-	    },
-	    {
-	        content: '<div>남산타워</div>', 
-	        latlng: new kakao.maps.LatLng(37.55121123560078, 126.98792508609901
-	)
-	    }
-	];
-
+		var positions = [];
+		var placename = new Array(); 
+		var placelat = new Array(); 
+		var placehar = new Array(); 
+		<c:forEach items="${list}" var="item">
+			placename.push("${item['HOTSPOT_NAME'] }");
+			placelat.push("${item['HOTSPOT_LAT'] }");
+			placehar.push("${item['HOTSPOT_HAR'] }");
+		</c:forEach>
+		for(var i = 0; i<placename.length; i++){
+			positions[i]={
+					content: '<div>'+placename[i]+'</div>',
+					latlng: new kakao.maps.LatLng(placelat[i] , placehar[i])
+			};
+		};
+		
 	for (var i = 0; i < positions.length; i ++) {
 	    // 마커를 생성합니다
 	    var marker = new kakao.maps.Marker({

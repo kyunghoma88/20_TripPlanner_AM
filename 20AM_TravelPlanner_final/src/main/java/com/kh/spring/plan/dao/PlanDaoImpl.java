@@ -14,5 +14,27 @@ public class PlanDaoImpl implements PlanDao {
 		return session.selectList("plan.placeList",place);
 	}
 
+	@Override
+	public int placecount(SqlSessionTemplate session, String place) {
+		// TODO Auto-generated method stub
+		return session.selectOne("plan.placecount",place);
+	}
+	
+
+	@Override
+	public int insertBoard(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.insert("plan.insertBoard", map);
+	}
+
+	@Override
+	public int insertPlan(SqlSessionTemplate session, Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return session.insert("plan.insertPlan", map);
+	}
+	
+	
+	
+
 	
 }

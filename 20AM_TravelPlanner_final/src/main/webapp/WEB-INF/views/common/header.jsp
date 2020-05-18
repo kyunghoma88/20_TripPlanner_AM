@@ -36,7 +36,7 @@
             <div class="row navBar">
                 <div class="col-sm-1 testDiv"></div>
                 <div class="col-sm-2 logoDiv">
-                  <img id="mainLogo" src="${path }/resources/images/logo.PNG" width="200px" height="auto" onclick="location.replace('${path}')"/>
+                  <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
                 </div>
                 <div class="col-sm-8 testDiv">
                   <ul class="nav">
