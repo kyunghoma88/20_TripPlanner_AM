@@ -12,5 +12,5 @@ public interface BoardService {
 	int selectBoardCount();
 	Board selectBoardTitle(Map map);
 	List<Day> selectBoardView(Map map);
-	List<Day> test(Map map);
+	List<Day> boardDetail(Map map);
 }

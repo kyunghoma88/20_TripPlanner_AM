@@ -50,10 +50,10 @@ public class BoardController {
 		return mv;
 	}
 	
-	@RequestMapping("/test/test.do")
+	@RequestMapping("/board/boardDetail.do")
 	@ResponseBody
-	public List<Day> test(@RequestParam Map map) {
-		List<Day> d = service.test(map);
+	public List<Day> boardDetail(@RequestParam Map map) {
+		List<Day> d = service.boardDetail(map);
 		System.out.println(d);
 		return d;
 	}

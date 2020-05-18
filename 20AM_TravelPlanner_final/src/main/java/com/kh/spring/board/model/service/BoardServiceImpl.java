@@ -41,8 +41,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<Day> test(Map map) {
-		return dao.test(session, map);
+	public List<Day> boardDetail(Map map) {
+		return dao.boardDetail(session, map);
 	}
 	
 	

@@ -34,8 +34,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Day> test(SqlSessionTemplate session, Map map) {
-		return session.selectList("board.test", map);
+	public List<Day> boardDetail(SqlSessionTemplate session, Map map) {
+		return session.selectList("board.boardDetail", map);
 	}
 	
 	
