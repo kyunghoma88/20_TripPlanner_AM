@@ -50,12 +50,17 @@
 	float: left;
 	width: 160px;
 	text-align: center;
+	font-weight:bolder;
 }
 
 #title {
 	text-align: left;
 	width: 500px;
 	float: left;
+	font-weight:bolder;
+}
+#date{
+	font-weight:bolder;
 }
 
 ul {
@@ -94,6 +99,7 @@ ul {
 	/* transform:translate(50%,0); */
 	margin-left:160px;
 	width:400px;
+	color:chocolate;
 }
 .image_button{
 	transform:translate(-480%,-30%);
@@ -138,7 +144,9 @@ ul {
 							</span>
 						</button>
 						<span id="date"><c:out value="${f['FAQ_DATE'] }" />
-								<a href="${path }/faq/editFaq?faqNo=${f['FAQ_NO']}">편집</a>
+								<c:if test="${loginMember.memberId eq 'admin' }">
+									<a href="${path }/faq/editFaq?faqNo=${f['FAQ_NO']}">편집</a>
+								</c:if>
 						</span>
 						<ul id="faqContent">
 							<li>
@@ -151,11 +159,13 @@ ul {
 				</ul>
 			</c:forEach>
 		</table>
+		<c:if test="${loginMember.memberId eq 'admin' }">
 		<div>
 			<form action="${path }/faq/faqWrite" method="get">
 				<button type="submit" id="writeBtn">글쓰기</button>
 			</form>
 		</div>
+		</c:if>
 	</div>
 	<div id="page-container">${pageBar }</div>
 </section>

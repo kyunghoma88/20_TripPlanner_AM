@@ -31,6 +31,7 @@
 	
 </style>
 <section>
+	<c:if test="${loginMember.memberId eq 'admin' }">
 	<form action="${path }/faq/faqWriteEnd" method="post">
 		<table class="faq-tbl">
 			<tr>
@@ -56,9 +57,13 @@
 				</div>
 		</div>
 	</form>
+	</c:if>
 	
 	<script>
-      
+		if("${loginMember.memberId}" != "admin"){
+			alert("관리자만 접근 가능한 페이지 입니다");
+			location.replace("${path}/faq/faqList");
+		}
     </script>
 </section>
 
