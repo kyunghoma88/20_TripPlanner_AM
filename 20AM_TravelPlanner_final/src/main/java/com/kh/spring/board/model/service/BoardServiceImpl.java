@@ -39,6 +39,13 @@ public class BoardServiceImpl implements BoardService{
 	public List<Day> selectBoardView(Map map) {
 		return dao.selectBoardView(session, map);
 	}
+
+	@Override
+	public List<Day> boardDetail(Map map) {
+		return dao.boardDetail(session, map);
+	}
+	
+	
 	
 	
 }

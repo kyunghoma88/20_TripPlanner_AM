@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.board.model.service.BoardService;
@@ -47,6 +48,14 @@ public class BoardController {
 		System.out.println("day : " + d);
 		mv.setViewName("board/boardView");
 		return mv;
+	}
+	
+	@RequestMapping("/board/boardDetail.do")
+	@ResponseBody
+	public List<Day> boardDetail(@RequestParam Map map) {
+		List<Day> d = service.boardDetail(map);
+		System.out.println(d);
+		return d;
 	}
 
 }
