@@ -23,20 +23,19 @@ public class HotSpotController {
 	private Logger logger;
 	
 	
-	@RequestMapping("/hotSpot/hotSpot.do")
-	public ModelAndView hotSpotMain(ModelAndView mv) {
-		
-		mv.setViewName("hotSpot/hotSpotMain");
-		return mv;
-	}
 	
+//	 @RequestMapping("/hotSpot/hotSpot.do") public ModelAndView hotSpotMain(ModelAndView mv) {
+//	 mv.setViewName("hotSpot/hotSpotMain");
+//	 return mv; 
+//	 }
+	 
 	@RequestMapping("/hotSpot/hotSpotList.do")
 	public ModelAndView hotSpotList(@RequestParam(required=false,defaultValue="1") int cPage, @RequestParam(required=false,defaultValue="3") int numPerPage,@RequestParam("area") String area,ModelAndView mv) {	
 		List<HotSpot> list=service.selectHotSpotList(area,cPage,numPerPage);
-		int totalCount=service.selectHotSpotCount();
+		int totalCount=service.selectHotSpotCount(area);
 		mv.addObject("list",list);
 		mv.addObject("count",totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount, cPage, numPerPage, "/final/hotSpot/hotSpotMain"));
+		mv.addObject("pageBar",PageFactory.getPage(totalCount, cPage, numPerPage, "/spring/hotSpot/hotSpotList"));
 		mv.setViewName("hotSpot/hotSpotMain");
 		return mv;
 	}

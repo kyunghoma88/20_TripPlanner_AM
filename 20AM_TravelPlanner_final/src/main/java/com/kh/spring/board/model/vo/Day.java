@@ -21,5 +21,8 @@ public class Day {
 	String hotspotAreaImg;
 	String tvTitle;
 	String hotspotImg;
+	String hotspotAddr;
+	String hotspotLat;
+	String hotspotHar;
 	
 }

@@ -23,6 +23,9 @@
 		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
 		<result column="TV_TITLE" property="tvTitle"/>
 		<result column="HOTSPOT_IMAGE" property="hotspotImg"/>
+		<result column="HOTSPOT_ADDR" property="hotspotAddr"/>
+		<result column="HOTSPOT_LAT" property="hotspotLat"/>
+		<result column="HOTSPOT_HAR" property="hotspotHar"/>
 	</resultMap>
 	<select id="selectList" resultMap="boardMap" resultType="Board">
 		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME ORDER BY BOARD.VIEW_COUNT DESC
@@ -36,7 +39,7 @@
 	<select id="selectBoardView" parameterType="map" resultType="Day" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT ON (HOTSPOT.HOTSPOT_NAME=DAY.HOTSPOT_NAME) WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} ORDER BY TV_DATE, DAY_O
 	</select>
-	<select id="test" parameterType="map" resultType="Day" resultMap="dayMap">
+	<select id="boardDetail" parameterType="map" resultType="Day" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT USING (HOTSPOT_NAME) WHERE TV_DATE=#{date} AND TR_SEQ=#{no} ORDER BY DAY_O
 	</select>
 </mapper>

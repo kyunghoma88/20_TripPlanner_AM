@@ -30,7 +30,7 @@ a.btn{
 	text-decoration: none;
 }
 
-.hotSpotBottomBtn{
+#hotSpotMoreBtn{
 	margin-left:350px;
 	margin-right:200px;
 	display:block;
@@ -71,10 +71,16 @@ div.hotSpot_container3{
 }
 
 .tableTr{
-	line-height:50px;
+	line-height:20px;
+	height:auto;
 }
 
 .tableTh{
-	padding-right:50px;
+	width:120px;
+	padding-right:20px;
+}
+
+#hotSpot_ViewContainer{
+	height:auto;
 }
 
