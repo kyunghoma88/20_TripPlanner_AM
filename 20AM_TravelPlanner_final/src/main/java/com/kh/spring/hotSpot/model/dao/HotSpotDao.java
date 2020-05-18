@@ -9,7 +9,7 @@ import com.kh.spring.hotSpot.model.vo.HotSpot;
 public interface HotSpotDao {
 	
 	List<HotSpot> selectHotSpotList(SqlSessionTemplate session,String area,int cPage,int numPerPage);
-	int selectHotSpotCount(SqlSessionTemplate session);
+	int selectHotSpotCount(SqlSessionTemplate session,String area);
 	HotSpot selectHotSpotView(SqlSessionTemplate session,String name);
 
 }

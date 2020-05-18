@@ -61,7 +61,7 @@
             <div class="col-sm-7 testDiv">
               <ul class="nav">
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpot.do">여행지</a>
+                  <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
