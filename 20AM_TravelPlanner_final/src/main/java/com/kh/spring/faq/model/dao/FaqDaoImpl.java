@@ -77,6 +77,25 @@ public class FaqDaoImpl implements FaqDao {
 		return session.selectOne("faq.cashFaqCount", cash);
 	}
 	
+	@Override
+	public List<Map<String,String>> editFaqView(SqlSession session, int faqNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("faq.editFaqView", faqNo);
+	}
+
+	@Override
+	public int updateFaq(SqlSession session, Map<String, String> param) {
+		// TODO Auto-generated method stub
+		System.out.println(session.update("faq.updateFaq", param));
+		return session.update("faq.updateFaq", param);
+	}
+
+	@Override
+	public int deleteFaq(SqlSession session, int faqNo) {
+		// TODO Auto-generated method stub
+		return session.delete("faq.deleteFaq", faqNo);
+	}
+	
 	
 	
 	

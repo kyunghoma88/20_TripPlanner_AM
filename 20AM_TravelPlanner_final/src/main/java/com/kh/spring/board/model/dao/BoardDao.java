@@ -14,4 +14,5 @@ public interface BoardDao {
 	int selectBoardCount(SqlSessionTemplate session);
 	Board selectBoardTitle(SqlSessionTemplate session, Map map);
 	List<Day> selectBoardView(SqlSessionTemplate session, Map map);
+	List<Day> test(SqlSessionTemplate session, Map map);
 }

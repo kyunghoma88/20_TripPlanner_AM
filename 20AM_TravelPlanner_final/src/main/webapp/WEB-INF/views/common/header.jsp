@@ -36,7 +36,7 @@
             <div class="row navBar">
                 <div class="col-sm-1 testDiv"></div>
                 <div class="col-sm-2 logoDiv">
-                  <img id="mainLogo" src="${path }/resources/images/logo.PNG" width="200px" height="auto" onclick="location.replace('${path}')"/>
+                  <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
                 </div>
                 <div class="col-sm-7 testDiv">
                   <ul class="nav">
@@ -53,7 +53,7 @@
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">FAQ</a>
+                      <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                     </li>
                   </ul>
                 </div>

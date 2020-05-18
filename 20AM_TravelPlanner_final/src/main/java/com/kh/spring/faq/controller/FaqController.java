@@ -176,6 +176,60 @@ public class FaqController {
 		return mv;
 	}
 	
+	@RequestMapping("/faq/editFaq")
+	public ModelAndView editFaqView(ModelAndView mv, int faqNo) {
+
+		List<Map<String,String>> f = service.editFaqView(faqNo);
+	
+		mv.addObject("faq", f);
+		mv.setViewName("/faq/editFaqView");
+		return mv;		
+	}
+	
+	@RequestMapping("/faq/updateFaq")
+	public ModelAndView updateFaq(ModelAndView mv, @RequestParam Map<String,String> param) {
+		
+		System.out.println(param);
+		int result = service.updateFaq(param);
+		
+		String loc = "";
+		String msg = "";
+		if(result > 0) {
+			msg = "게시물 수정 완료";
+			loc = "/faq/faqList";
+		}else {
+			msg = "게시물 수정 실패";
+			loc = "/faq/editFaqView";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/faq/deleteFaq")
+	public ModelAndView deleteFaq(ModelAndView mv, int faqNo) {
+		
+		System.out.println(faqNo);
+		int result = service.deleteFaq(faqNo);
+		String loc = "";
+		String msg = "";
+		if(result > 0) {
+			msg = "게시물 삭제 완료";
+			loc = "/faq/faqList";
+		}else {
+			msg = "게시물 삭제 실패";
+			loc = "/faq/editFaqView";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
 	
 	

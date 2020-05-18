@@ -20,5 +20,11 @@ public interface FaqDao {
 	
 	List<Map<String,String>> cashFaq(SqlSession session, String cash, int cPage, int numPerpage);
 	int cashFaqCount(SqlSession session, String cash);
+	
+	List<Map<String,String>> editFaqView(SqlSession session, int faqNo);
+	
+	int updateFaq(SqlSession session, Map<String,String> param);
+	
+	int deleteFaq(SqlSession session, int faqNo);
 
 }
