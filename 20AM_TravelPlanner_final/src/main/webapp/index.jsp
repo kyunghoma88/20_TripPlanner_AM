@@ -157,7 +157,7 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">
+			    <form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" autocomplete="off">
 					<div class="modal-body">
 					<input type="text" class="form-control" name="memberId" placeholder="아이디" required>
 					<br />
@@ -183,7 +183,7 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" >
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
 						<br/>
@@ -191,7 +191,7 @@
 						<br/>
 						<input type="password" class="form-control" placeholder="비밀번호확인" id="password2" required>
 						<br/>
-						<input type="text" class="form-control" placeholder="이름" name="memberName" id=""memberName"" required>
+						<input type="text" class="form-control" placeholder="이름" name="memberName" id="memberName" required>
 						<br/>
 						<input type="email" class="form-control" placeholder="이메일" name="email" id="email" required>
 						<br/>
