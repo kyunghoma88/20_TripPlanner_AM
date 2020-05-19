@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet"
-	href="${path }/resources/css/hotSpotMain.css?ver=1.42" type="text/css" />
+	href="${path }/resources/css/hotSpotMain.css?ver=1.43" type="text/css" />
 
 
 
@@ -62,29 +62,29 @@
 <div id="hotSpot_ViewContainer" class="row">
 	<div class="col-sm-2"></div>
 	<div class="hotSpot_container1 col-sm-4">
-		<img src="${path }${hotSpot.hotspot_image }" width="300px" height="250px"/>
+		<img src="${path }${hotSpot.hotSpot_Image }" width="300px" height="250px"/>
 	</div>
 	<div class="hotSpot_container2 col-sm-4">
 		<table>
 			<tr class="tableTr">
 				<th class="tableTh">지역</th>
-				<td>${hotSpot.hotspot_area_name }</td>
+				<td>${hotSpot.hotSpot_Area_Name }</td>
 			</tr>
 			<tr class="tableTr">
 				<th class="tableTh">지명</th>
-				<td>${hotSpot.hotspot_name }</td>
+				<td>${hotSpot.hotSpot_Name }</td>
 			</tr>
 			<tr class="tableTr">
 				<th class="tableTh">주소</th>
-				<td>${hotSpot.hotspot_addr }</td>
+				<td>${hotSpot.hotSpot_Addr }</td>
 			</tr>
 			<tr class="tableTr">
 				<th class="tableTh">설명</th>
-				<td>${hotSpot.hotspot_content }</td>
+				<td>${hotSpot.hotSpot_Content }</td>
 			</tr>
 			<tr class="tableTr">
 				<th class="tableTh">조회수</th>
-				<td>${hotSpot.hotspot_view }</td>
+				<td>${hotSpot.hotSpot_View }</td>
 			</tr>
 		</table>
 	</div>

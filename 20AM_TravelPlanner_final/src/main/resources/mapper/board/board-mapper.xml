@@ -16,19 +16,33 @@
 		<result column="TV_DATE" property="tvDate"/>
 		<result column="HOTSPOT_NAME" property="hotspotName"/>
 		<result column="ORDER" property="order"/>
-		<result column="COMMENT" property="comment"/>
+		<result column="COMMENTS" property="comment"/>
 		<result column="TV_SEQ" property="tvSeq"/>
 		<result column="HOTSPOT_AREA_NAME" property="hotspotAreaName"/>
 		<result column="TOTAL_DATE" property="totalDate"/>
 		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
 		<result column="TV_TITLE" property="tvTitle"/>
 		<result column="HOTSPOT_IMAGE" property="hotspotImg"/>
+		<result column="HOTSPOT_ADDR" property="hotspotAddr"/>
+		<result column="HOTSPOT_LAT" property="hotspotLat"/>
+		<result column="HOTSPOT_HAR" property="hotspotHar"/>
 	</resultMap>
 	<select id="selectList" resultMap="boardMap" resultType="Board">
-		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME ORDER BY BOARD.VIEW_COUNT DESC
+		SELECT * FROM BOARD
+		JOIN HOTSPOT_AREA ON BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME
+		ORDER BY BOARD.VIEW_COUNT DESC
 	</select>
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
+	</select>
+	<select id="searchBoard" resultMap="boardMap" resultType="Board" parameterType="string">
+		SELECT * FROM BOARD
+		JOIN HOTSPOT_AREA USING (HOTSPOT_AREA_NAME)
+		WHERE (TV_TITLE LIKE '%'||#{keyword}||'%' OR MEMBER_ID LIKE '%'||#{keyword}||'%' OR HOTSPOT_AREA_NAME LIKE '%'||#{keyword}||'%')
+		ORDER BY BOARD.VIEW_COUNT DESC
+	</select>
+	<select id="searchBoardCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE (TV_TITLE LIKE '%'||#{keyword}||'%' OR MEMBER_ID LIKE '%'||#{keyword}||'%' OR HOTSPOT_AREA_NAME LIKE '%'||#{keyword}||'%')
 	</select>
 	<select id="selectBoardTitle" parameterType="map" resultType="Board" resultMap="boardMap">
 		SELECT * FROM BOARD JOIN HOTSPOT_AREA ON (BOARD.HOTSPOT_AREA_NAME=HOTSPOT_AREA.HOTSPOT_AREA_NAME) WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id}

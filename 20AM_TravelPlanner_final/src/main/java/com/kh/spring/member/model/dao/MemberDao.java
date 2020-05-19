@@ -10,5 +10,6 @@ public interface MemberDao {
 	
 	Member selectMember(SqlSessionTemplate session, Member m);
 	
+	int payComplete(SqlSessionTemplate session, String userId);
 	
 }
