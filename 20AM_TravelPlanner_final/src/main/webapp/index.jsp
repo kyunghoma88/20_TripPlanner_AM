@@ -13,6 +13,26 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  
+  #loginBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
+
+#enrollBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->
@@ -25,7 +45,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+<link rel="stylesheet" href="${path}/resources/css/common.css"/>
 
 <!-- iamport(결제) -->
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -83,12 +103,12 @@
             <div class="col-sm-2 testDiv">
             	<c:if test='${empty loginMember }'>
 					<!-- <button id="loginBtn">로그인</button>-->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="loginBtn"
 						type="button" data-toggle="modal" data-target="#loginModal">
 						로그인
 					</button>
 					<!--<button id="enrollBtn">회원가입</button> -->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="enrollBtn"
 						type="button" data-toggle="modal" data-target="#enrollModal">
 						회원가입
 					</button>
@@ -205,7 +225,7 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" name="address1" id="sample4_roadAddress" readonly="readonly" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;

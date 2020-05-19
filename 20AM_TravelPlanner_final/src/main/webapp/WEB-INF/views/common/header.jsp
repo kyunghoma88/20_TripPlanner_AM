@@ -14,6 +14,26 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  
+   #loginBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
+
+#enrollBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -58,17 +78,17 @@
                   </ul>
                 </div>
 	            <div class="col-sm-2 testDiv">
-		                <c:if test='${empty loginMember }'>
-						<!-- <button id="loginBtn">로그인</button>-->
-						<button class="btn btn-outline-success my-2 my-sm-0"
-							type="button" data-toggle="modal" data-target="#loginModal">
-							로그인
-						</button>
-						<!--<button id="enrollBtn">회원가입</button> -->
-						<button class="btn btn-outline-success my-2 my-sm-0"
-							type="button" data-toggle="modal" data-target="#enrollModal">
-							회원가입
-						</button>
+            	<c:if test='${empty loginMember }'>
+					<!-- <button id="loginBtn">로그인</button>-->
+					<button id="loginBtn"
+						type="button" data-toggle="modal" data-target="#loginModal">
+						로그인
+					</button>
+					<!--<button id="enrollBtn">회원가입</button> -->
+					<button id="enrollBtn"
+						type="button" data-toggle="modal" data-target="#enrollModal">
+						회원가입
+					</button>
 					</c:if>
 					<c:if test='${not empty loginMember }'>
 						<span>
