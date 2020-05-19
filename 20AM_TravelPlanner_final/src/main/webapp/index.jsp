@@ -115,7 +115,8 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="${path }/member/myPageCheck.do">
+						<%-- <a href="${path }/member/myPageCheck.do"> --%>
+						<a href="${path }/member/preMyPage">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -235,7 +236,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
-						<input type="reset" class="btn btn-outline-success" value="취소">
+						<input type="button" class="btn btn-outline-success" data-dismiss="modal" value="취소">
 					</div>
 				</form>
 			 </div>
