@@ -1,13 +1,20 @@
 package com.kh.spring.member.controller;
 
+import java.util.Map;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +36,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	
 	
@@ -203,6 +213,73 @@ public class MemberController {
 		
 		int result = service.payComplete(userId);
 		
+		return mv;
+	}
+	
+	@RequestMapping("member/lookPw")
+	public ModelAndView lookPw(ModelAndView mv, HttpServletRequest request,
+								@RequestParam Map<String,String> param,
+								String memberId, String memberName, String email) {
+		
+		System.out.println(param);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("memberId", memberId);
+		
+//		mv.addObject("memberId", memberId);
+		
+		String msg = "";
+		String loc = "";
+		
+		Member m = service.lookPw(param);
+		
+		System.out.println("서비스 수행완료");
+		String host = "http://localhost:9090/spring";
+		String setFrom = "studysemiproject@gmail.com";
+		String toMail = request.getParameter("email");
+		String title = "비밀번호 변경을 위한 이메일 입니다.";
+		String content = "링크에 접속하여 비밀번호를 변경 해주세요." + "<a href =" + host + "/lookPwEnd"
+				+ ">비밀번호 변경하기</a>";
+		
+		
+		
+		if(m != null && (m.getMemberId().equals(memberId) && m.getMemberName().equals(memberName)) && m.getEmail().equals(email)) {
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				
+				messageHelper.setFrom(setFrom); // 보내는 사람 이메일
+				messageHelper.setTo(toMail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일 제목
+//				messageHelper.setText(content); //메일 내용
+				messageHelper.setText(content, true);
+				
+				mailSender.send(message);
+				
+				msg = "인증성공. 이메일을 확인해 주세요";
+				loc = "/index.jsp";
+				
+				mv.addObject("msg", msg);
+				mv.addObject("loc", loc);
+				mv.setViewName("common/msg");
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			msg = "인증실패. 인증 값이 옳바르지 않습니다.";
+			loc = "/index.jsp";
+			
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/lookPwEnd")
+	public ModelAndView lookPwEnd(ModelAndView mv) {
+		
+		mv.setViewName("member/lookPwEnd");
 		return mv;
 	}
 	

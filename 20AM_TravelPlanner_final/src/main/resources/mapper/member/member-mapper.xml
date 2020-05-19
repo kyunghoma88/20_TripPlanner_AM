@@ -48,6 +48,12 @@
 	 	 WHERE MEMBER_ID = #{memberId}
 	 
 	 </update>
+	 
+	 <select id="lookPw" parameterType="map" resultMap="memberMap">
+	 	SELECT *
+	 	FROM MEMBER
+	 	WHERE MEMBER_NAME = #{memberName} AND MEMBER_ID = #{memberId} AND EMAIL = #{email} 
+	 </select>
 	
 	
 

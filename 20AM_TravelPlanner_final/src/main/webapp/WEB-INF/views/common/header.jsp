@@ -128,6 +128,7 @@
 					<div class="modal-footer">
 					  <button type="submit" class="btn btn-outline-success" >로그인</button>
 					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">비밀번호 찾기</button>
 					</div>
 				</form>
 			 </div>
