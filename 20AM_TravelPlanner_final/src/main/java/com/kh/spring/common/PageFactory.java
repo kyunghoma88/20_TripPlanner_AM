@@ -3,7 +3,7 @@ package com.kh.spring.common;
 
 public class PageFactory {
 
-	public static String getPage(int totalData, int cPage, int numPerpage, String url) {
+	public static String getPage(int totalData, int cPage, int numPerpage, String url, String area) {
 		
 		String pageBar="";
 		
