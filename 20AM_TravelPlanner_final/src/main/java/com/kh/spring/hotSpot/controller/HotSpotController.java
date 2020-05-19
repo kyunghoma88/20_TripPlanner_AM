@@ -1,6 +1,7 @@
 package com.kh.spring.hotSpot.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,23 @@ public class HotSpotController {
 		HotSpot h=service.selectHotSpotView(name);
 		mv.addObject("hotSpot",h);
 		mv.setViewName("hotSpot/hotSpotView");
+		return mv;
+	}
+	
+	//메인화면 HotSpot검색
+	@RequestMapping("/hotSpot/hotSpotSearch")
+	public ModelAndView hotSpotSearch(String keyword, ModelAndView mv,
+			@RequestParam(required = false, defaultValue = "1") int cPage,
+			@RequestParam(required = false, defaultValue = "3") int numPerpage) {
+		
+		List<Map<String,String>> list = service.hotSpotSearch(keyword, cPage, numPerpage);
+		int totalCount = service.hotSpotSearchCount(keyword);
+		
+		mv.addObject("list", list);
+		mv.addObject("count", totalCount);
+		mv.addObject("pageBar",PageFactory.getPage(totalCount, cPage, numPerpage, "/spring/hotSpot/hotSpotSearch"));
+		mv.setViewName("hotSpot/hotSpotSearch");
+		
 		return mv;
 	}
 	

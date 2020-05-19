@@ -29,6 +29,22 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.selectMember(session, m);
 	}
+
+
+	@Override
+	public int payComplete(String userId) {
+		// TODO Auto-generated method stub
+		return dao.payComplete(session, userId);
+	}
+	
+	
+	
+	
+	@Override
+	public int updateMember(Member result) {
+		// TODO Auto-generated method stub
+		return dao.updateMember(session, result);
+	}
 	
 	
 

@@ -34,9 +34,22 @@ public class BoardController {
 		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
 		mv.setViewName("board/boardList");
 		return mv;
-
 	}
-
+	
+	@RequestMapping("/board/searchBoard.do")
+	public ModelAndView searchBoard(@RequestParam(required = false, defaultValue = "1") int cPage,
+									@RequestParam(required = false, defaultValue = "6") int numPerpage,
+									@RequestParam String keyword, ModelAndView mv) {
+		List<Board> list = service.searchBoard(keyword, cPage, numPerpage);
+		int totalCount = service.searchBoardCount();
+		
+		mv.addObject("list", list);
+		mv.addObject("count", totalCount);
+		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
 	@RequestMapping("board/boardView.do")
 	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map) {
 		Board b = service.selectBoardTitle(map);

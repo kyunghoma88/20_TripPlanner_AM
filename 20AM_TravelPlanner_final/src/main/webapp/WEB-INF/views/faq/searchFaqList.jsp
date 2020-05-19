@@ -6,70 +6,103 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
-	#pTop{
-		font-size:40px;
-		font-weight:bolder;
-		transform:translate(10%,0);
-	}
-	#searchSp p{
-		transform:translate(10%,0);
-	}
-	#searchSp h4{
-		transform:translate(10%,0);
-	}
-	#searchcontent{
-		margin-left:10%;
-	}
-	#divHeader{
-		border-bottom:1px solid black;
-		margin-bottom:10px;
-	}
+	#pTop {
+	font-size: 40px;
+	font-weight: bolder;
+	transform: translate(10%, 0);
+}
 
-	#faqTop{
-		margin-right:300px;
-		margin-left:25px;
-		font-weight:bolder;
-	}
-	#contents{
-		list-style:none;
-		width:100%;
-	}
-	#category{
-		float:left;
-		width:160px;
-		text-align:center;
-	}
-	#title{
-		text-align:left;
-		width:500px;
-		float:left;
-	}
-	ul{
-		padding-inline-start:0px;
-	}
-	#spanCt{
-		display:none;
-		height:auto;
-		padding:0px;
-		position:absolute;
-		z-index:200;
-	}
-	#faqContent{
-		list-style:none;
-	}
-	#title:hover #faqContent ul li span{
-		
-	}
-	#btnTitle{
-		background-color:white;
-		border-color:white;
-		color:black;
-		border:0;
-		outline:0;
-	}
-	#btnTitle:visited{
-		border:none;
-	}
+#searchSp p {
+	transform: translate(10%, 0);
+}
+
+#searchSp h4 {
+	transform: translate(10%, 0);
+}
+
+#searchcontent {
+	margin-left: 10%;
+}
+
+#divHeader {
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+}
+
+#faqTop {
+	margin-right: 300px;
+	margin-left: 25px;
+	font-weight: bolder;
+}
+
+#contents {
+	list-style: none;
+	width: 100%;
+}
+
+#category {
+	float: left;
+	width: 160px;
+	text-align: center;
+	font-weight:bolder;
+}
+
+#title {
+	text-align: left;
+	width: 500px;
+	float: left;
+	font-weight:bolder;
+}
+#date{
+	font-weight:bolder;
+}
+
+ul {
+	padding-inline-start: 0px;
+}
+
+#spanCt {
+	display: none;
+	height: auto;
+	padding: 0px;
+	position: absolute;
+	z-index: 200;
+}
+
+#faqContent {
+	list-style: none;
+}
+
+#title:hover #faqContent ul li span {
+	
+}
+
+#btnTitle {
+	background-color: white;
+	border-color: white;
+	color: black;
+	border:0;
+	outline:0;
+}
+
+#btnTitle:visited {
+	border: none;
+}
+.content{
+	text-align:left;
+	/* transform:translate(50%,0);  */
+	margin-left:160px;
+	width:400px;
+	color:chocolate;
+}
+.image_button{
+	transform:translate(-480%,-30%);
+	float:right;
+	border:0;
+	outline:0;
+	background:white;
+	margin-right:10px;
+}
 </style>
 <section>
 
@@ -91,10 +124,14 @@
 						<button type="button" id="btnTitle">
 							<span id="title"><c:out value="${f['FAQ_TITLE'] }" /></span>
 						</button>
-						<span id="date"><c:out value="${f['FAQ_DATE'] }" /></span>
+						<span id="date"><c:out value="${f['FAQ_DATE'] }" />
+								<c:if test="${loginMember.memberId eq 'admin' }">
+									<a href="${path }/faq/editFaq?faqNo=${f['FAQ_NO']}">편집</a>
+								</c:if>
+						</span>
 						<ul id="faqContent">
 							<li>
-								<div id="demo" class="collapse">
+								<div id="demo" class="content">
 								<!-- <span id="spanCt"> -->
 									<c:out value="${f['FAQ_CONTENT'] }" />
 								<!-- </span> -->
@@ -105,6 +142,13 @@
 			</ul>
 			</c:forEach>
 		</table>
+		<c:if test="${loginMember.memberId eq 'admin' }">
+		<div>
+			<form action="${path }/faq/faqWrite" method="get">
+				<button type="submit" id="writeBtn">글쓰기</button>
+			</form>
+		</div>
+		</c:if>
 	</div>
 		<div id = "page-container">
 			${pageBar }

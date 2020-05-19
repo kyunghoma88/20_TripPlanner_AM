@@ -13,6 +13,26 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  
+  #loginBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
+
+#enrollBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->
@@ -26,6 +46,9 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+
+<!-- iamport(결제) -->
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
   <script>
@@ -37,7 +60,7 @@
 				console.log(data);
 					const contain = $("#hotspotContainer");
 					for(let i = 0;i < data.length; i++){
-						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace(\'${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
+						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace('${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
  						div.append("<img src='${path}" + data[i]['hotspotAreaImg'] + "'class='boardImg' width='300px' height='300px' alt='이미지 없음' >")
 			 			.append("<p class='bold boardTitle'>" + data[i]['tvTitle'] + "</p>")
 				 		.append("<p class='normal boardArea'>" + data[i]['hotspotAreaName'] + "</p>")
@@ -80,19 +103,19 @@
             <div class="col-sm-2 testDiv">
             	<c:if test='${empty loginMember }'>
 					<!-- <button id="loginBtn">로그인</button>-->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="loginBtn"
 						type="button" data-toggle="modal" data-target="#loginModal">
 						로그인
 					</button>
 					<!--<button id="enrollBtn">회원가입</button> -->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="enrollBtn"
 						type="button" data-toggle="modal" data-target="#enrollModal">
 						회원가입
 					</button>
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="#">
+						<a href="${path }/member/myPageCheck.do">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -114,15 +137,15 @@
               <div class="form-group" id="searchBox">
                 <table style="width: 750px;">
                   <tr>
-                    <form>
+                    <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search">
+                        <input type="text" class="form-control" id="search" name="keyword">
                       </td>
-                    </form> 
                       <td style="height: 38px;">
-                        <img src="${path }/resources/images/searchBtn.PNG" id="searchBtn">
+                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
                       </td>
                     </tr>
+                    </form> 
                   </table>
                 </div>
             </center>
@@ -139,7 +162,7 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
       <center>
-        <button id="goBoardBtn">더 많은 여행일정 보기</button>
+	        <button id="goBoardBtn" onclick="fn_board_btn()">더 많은 여행일정 보기</button>
       </center>
     </div>
     <div class="col-sm-3"></div>
@@ -202,11 +225,11 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
 						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
 						
 					</div>
@@ -277,5 +300,56 @@
             }
         }).open();
     }
+    
+    function fn_board_btn(){
+    	console.log("${loginMember.status}");
+    	if("${loginMember.status}" == "Y"){
+    		location.replace("${path}/board/boardList.do");
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 결제 후 이용해주세요");
+    		var userId = "${loginMember.memberId}";
+    		var asdf = 'imp94500117';
+    		var IMP = window.IMP;
+    		IMP.init(asdf); //가맹점 식별코드
+    		IMP.request_pay({
+    			pg:'inicis',
+    			pay_method: 'card', //결제 방법
+    			merchant_uid: 'merchant_' + new Date().getTime(),
+    			name: '주문명 : 이시국에 프리미엄 회원 전환',
+    			amount: '100',
+    			buyer_email: 'iamport@siot.do',
+    			buyer_name: '${loginMember.memberName}',
+    			buyer_tel: '${loginMember.phone}',
+    			buyer_addr: '${loginMember.address}',
+    			buyer_postcode: '${loginMember.postCode}',
+    			m_redirect_url: '${path}/index.jsp'
+    		}, function (rsp) {
+    			if(rsp.success){
+    				var msg = '결제가 완료되었습니다.';
+    				$.ajax({
+    					type:"post",
+    					url:"${path}/member/payComplete",
+    					data:{"userId": userId},
+    					dataType:"json",
+    					success:function(data){
+    						location.replace("${path}/index.jsp");
+    					}
+    				})
+    			} else{
+    				var msg = '결제에 실패 하였습니다.';
+    			}
+    			alert(msg);
+    		})
+    	}else if("${empty loginMember}"){
+    		alert("회원가입이 필요한 서비스 입니다.");
+    	}
+    }
+    
+    $(document).ready(function(){
+    	$.ajax({
+    		url:"${path}/member/memberLogin.do"
+    	});
+    });
+    
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
