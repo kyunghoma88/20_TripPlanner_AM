@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="plan">
-
 	<select id="placeList" resultType="map" parameterType="string">
 		SELECT * FROM HOTSPOT WHERE HOTSPOT_AREA_NAME = #{place}
-	</select>
-	<select  id="placecount" resultType="_int" parameterType="string">
-		SELECT COUNT("HOTSPOT_NAME") FROM HOTSPOT WHERE HOTSPOT_AREA_NAME = #{place}
 	</select>
 	<insert id="insertPlan" parameterType="map">
 		INSERT INTO DAY (TV_SEQ,TR_SEQ,MEMBER_ID,TV_DATE,DAY_O,COMMENTS,HOTSPOT_NAME,HOTSPOT_AREA_NAME,TOTAL_DATE) VALUES (TV_SEQ.NEXTVAL, #{trSeq}, #{memberId}, #{tvDate}, #{dayo}, '코멘트', #{place}, #{area}, #{total})
@@ -16,5 +12,8 @@
 	</insert>
 	<select id="searchMember" resultType="_int" parameterType="string">
 		SELECT TR_SEQ, ROWNUM FROM BOARD WHERE MEMBER_ID=#{memberId} AND ROWNUM=1 ORDER BY TR_SEQ DESC
+	</select>
+	<select id="areadata" resultType="map" parameterType="string">
+		SELECT * FROM HOTSPOT_AREA WHERE HOTSPOT_AREA_NAME=#{place}
 	</select>
 </mapper>

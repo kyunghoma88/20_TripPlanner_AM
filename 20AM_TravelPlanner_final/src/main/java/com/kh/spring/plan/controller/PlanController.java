@@ -22,17 +22,20 @@ public class PlanController {
 	@Autowired
 	private PlanService service;
 	
-	@RequestMapping("/goiljung.do")
-	public String goiljungpage() {
-		return "iljung/iljungpage";
-	};
-	
-	
+	@RequestMapping("/shoot.do")
+	public ModelAndView shoot(String days, String place,ModelAndView mv) {
+		List<Map<String,String>> list = service.placedata(place);
+		List<Map<String,String>> wekyungdo = service.areadata(place);
+		mv.addObject("list",list);
+		mv.addObject("days", days);
+		mv.addObject("place", place);
+		mv.addObject("wekyungdo",wekyungdo);
+		mv.setViewName("iljung/iljungshoot");
+		return mv;
+	}
 	@RequestMapping("/iljung.do")
 	public ModelAndView iljung(String days, String place, ModelAndView mv) {
 		List<Map<String,String>> list = service.placedata(place);
-		int placecount = service.placecount(place);
-		mv.addObject("placecount",placecount);
 		mv.addObject("list",list);
 		mv.addObject("days", days);
 		mv.addObject("place", place);

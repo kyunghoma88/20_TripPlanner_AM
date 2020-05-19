@@ -21,11 +21,11 @@
 		    <option value="전주">전주</option>
 		    <option value="부산">부산</option>
 		</select>
-		<button type="button" id="keepgoing">계획짜기</button>
+		<button type="button" id="keepgoing2">계획짜기</button>
 	</div>
 	<script>
 		
-	$("#keepgoing").click(function(){
+	$("#keepgoing2").click(function(){
 		var days = $("#days").val();
 		var place = $("#place").val();
 		if(!days == '' && !place ==''){

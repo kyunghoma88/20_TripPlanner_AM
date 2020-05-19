@@ -44,7 +44,7 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">일정만들기</a>
+                      <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
@@ -83,7 +83,7 @@
 	            </div>
             </div>
             <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px;"></div>
+                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
             </div>
         </nav>
     </header>

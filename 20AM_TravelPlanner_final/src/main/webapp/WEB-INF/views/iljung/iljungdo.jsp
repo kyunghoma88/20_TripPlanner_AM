@@ -1,32 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="Hello Spring" name="pageTitle"/>
+</jsp:include>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-<section>
-
-<div style="display:inline-block;">
-	<c:forEach var="v" begin="1" end="${days }" varStatus="status">
-		<div class="a b day${v}"><p><c:out value="day - ${v}"/></p></div>
-	</c:forEach>
-</div>	
-<div style="display:inline-block;overflow:scroll;overflow-x:hidden;height:600px;position:absolute;left:573px">
-	<c:forEach items="${list}" var="hs">
-		<div class="test">
-			<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='100px' height='100px'>
-			<p>${hs['HOTSPOT_NAME'] }</p>
-			<p>${hs['HOTSPOT_ADDR'] }</p>
+	<div id="abcd" style="width:1366px;">
+		<div style="display:inline-block;">
+			여행 일수<input type="text" id="days"/><br>
+			여행 지역
+			<select name="place" id='place'>
+			    <option value="">지역선택</option>
+			    <option value="서울">서울</option>
+			    <option value="강릉">강릉</option>
+			    <option value="대전">대전</option>
+			    <option value="전주">전주</option>
+			    <option value="부산">부산</option>
+			</select>
+			<button type="button" id="keepgoing">계획짜기</button>
 		</div>
-	</c:forEach>
-</div>
-<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;float:right;">
-</div>
-<button type="button" id="jujang">저장</button>
-</section>
+		<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;float:right;display:inline-block;">
+		</div>
+	</div>
 <script>
+	$('#keepgoing').click(function(){
+		var days = $('#days').val();
+		var place = $('#place').val();
+		$.ajax({
+			url:"${path}/shoot.do",
+			data:{
+				days:days,
+				place:place
+			},
+			type:"post",
+			dataType:"html",
+			success:function(data){
+				$('#abcd').html(data);
+			}
+		});
+	});
+
+	$(document).on("mouseover",".a",function(){
+		$(this).children('p').css("background-color","#00000021");
+	});
+	
+	$(document).on("mouseleave",".a",function(){
+		$(this).children('p').css("background-color","white");
+	});
+	
 	$(document).on('click','.test',function(){
 		var ptag = $("<p>");
 		var imgtag = $("<img src=''>")
@@ -49,49 +76,6 @@
 	});
 	$(document).on('click','.btnf',function(){
 		$(this).parent().remove();
-	})
-	
-	$('#jujang').click(function(){
-		var han = '${list[0]['HOTSPOT_AREA_NAME']}';
-		var id = '${loginMember['memberId']}';
-		var jArray = new Array();
-		var item = new Array();
-		var count  = 0;
-			for(var i = 0; i< $('.b').length; i++ ){
-				item[i] = new Array();
-				for(var j = 0; j < $('.day'+(i+1)).children('div').length; j++){
-					item[i][j]= $('.day'+(i+1)).children('div').eq(j).children('p').text();
-					console.log(i+'행'+j+'열'+item[i][j]);
-					jArray[count]={
-							tday:i+1,
-							tplace:item[i][j],
-							tarea:han,
-							id:id
-					}
-					count++;
-				};
-		var jsonStr = JSON.stringify(jArray);
-		console.log("호이이잉"+jsonStr);
-			};
-		$.ajax({
-			url:"${path}/jujang.do",
-			data:jsonStr,
-			type:"post",
-			contentType:"application/json;charset=UTF-8",
-			dataType:"json",
-			success:function(data){
-				
-			}
-		});
-	});
-	
-	
-	$(document).on("mouseover",".a",function(){
-		$(this).children('p').css("background-color","#00000021");
-	});
-	
-	$(document).on("mouseleave",".a",function(){
-		$(this).children('p').css("background-color","white");
 	});
 	
 	$(document).on("click",".a.b",function(){
@@ -112,9 +96,16 @@
 		
 	});
 	
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	
+	var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
+	var hal = '${wekyungdo[0]['HOTSPOT_AREA_LAT']}';
+	var hah = '${wekyungdo[0]['HOTSPOT_AREA_HAR']}';
+	if(hal.trim() == '' || hah.trim() == ''){
+		hal = '37.55068892690699';
+		hah = '126.99094670691717';
+	}
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(37.578903164462346, 126.98620550145591), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(hal,hah), // 지도의 중심좌표
 	        level: 9 // 지도의 확대 레벨
 	    };
 
@@ -135,6 +126,7 @@
 					latlng: new kakao.maps.LatLng(placelat[i] , placehar[i])
 			};
 		};
+		
 		
 	for (var i = 0; i < positions.length; i ++) {
 	    // 마커를 생성합니다
@@ -198,4 +190,6 @@
 	    })(marker, infowindow);
 	}
 	*/
+	
+	
 </script>

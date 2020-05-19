@@ -67,7 +67,7 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
+                  <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
