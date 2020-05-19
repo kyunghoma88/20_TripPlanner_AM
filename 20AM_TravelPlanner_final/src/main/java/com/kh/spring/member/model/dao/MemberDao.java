@@ -12,5 +12,6 @@ public interface MemberDao {
 
 	int updateMember(SqlSessionTemplate session, Member result);
 	
+	int payComplete(SqlSessionTemplate session, String userId);
 	
 }

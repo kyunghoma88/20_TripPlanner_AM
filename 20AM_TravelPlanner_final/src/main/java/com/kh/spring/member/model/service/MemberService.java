@@ -10,4 +10,6 @@ public interface MemberService {
 
 	int updateMember(Member result);
 	
+	int payComplete(String userId);
+	
 }

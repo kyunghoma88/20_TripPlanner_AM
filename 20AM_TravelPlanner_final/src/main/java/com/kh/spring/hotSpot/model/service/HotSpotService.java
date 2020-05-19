@@ -7,7 +7,7 @@ import com.kh.spring.hotSpot.model.vo.HotSpot;
 public interface HotSpotService {
 	
 	List<HotSpot> selectHotSpotList(String area,int cPage,int numPerPage);
-	int selectHotSpotCount();
+	int selectHotSpotCount(String area);
 	HotSpot selectHotSpotView(String name);
 
 }

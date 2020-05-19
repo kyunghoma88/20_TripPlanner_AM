@@ -197,6 +197,15 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping("/member/payComplete")
+	public ModelAndView payComplete(ModelAndView mv, String userId) {
+		//결제 완료 후 Member의 STATUS -> 'Y'로 업데이트
+		
+		int result = service.payComplete(userId);
+		
+		return mv;
+	}
+	
 	
 	
 	

@@ -22,6 +22,14 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return session.selectOne("member.selectMember", m);
 	}
+
+
+	@Override
+	public int payComplete(SqlSessionTemplate session, String userId) {
+		// TODO Auto-generated method stub
+		return session.update("member.payComplete", userId);
+	}
+	
 	
 	@Override
 	public int updateMember(SqlSessionTemplate session, Member result) {

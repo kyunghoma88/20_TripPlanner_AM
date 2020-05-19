@@ -26,6 +26,9 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+
+<!-- iamport(결제) -->
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
   <script>
@@ -37,7 +40,7 @@
 				console.log(data);
 					const contain = $("#hotspotContainer");
 					for(let i = 0;i < data.length; i++){
-						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace(\'${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
+						let div = $("<div class='col-sm-4 hotspotContent' onclick=location.replace('${path}/board/boardView.do?no=" + data[i]['trSeq'] + "&id=" + data[i]['memberId'] + "\')>");	
  						div.append("<img src='${path}" + data[i]['hotspotAreaImg'] + "'class='boardImg' width='300px' height='300px' alt='이미지 없음' >")
 			 			.append("<p class='bold boardTitle'>" + data[i]['tvTitle'] + "</p>")
 				 		.append("<p class='normal boardArea'>" + data[i]['hotspotAreaName'] + "</p>")
@@ -61,7 +64,7 @@
             <div class="col-sm-7 testDiv">
               <ul class="nav">
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="#">여행지</a>
+                  <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
@@ -139,7 +142,7 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
       <center>
-        <button id="goBoardBtn">더 많은 여행일정 보기</button>
+	        <button id="goBoardBtn" onclick="fn_board_btn()">더 많은 여행일정 보기</button>
       </center>
     </div>
     <div class="col-sm-3"></div>
@@ -277,5 +280,56 @@
             }
         }).open();
     }
+    
+    function fn_board_btn(){
+    	console.log("${loginMember.status}");
+    	if("${loginMember.status}" == "Y"){
+    		location.replace("${path}/board/boardList.do");
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 결제 후 이용해주세요");
+    		var userId = "${loginMember.memberId}";
+    		var asdf = 'imp94500117';
+    		var IMP = window.IMP;
+    		IMP.init(asdf); //가맹점 식별코드
+    		IMP.request_pay({
+    			pg:'inicis',
+    			pay_method: 'card', //결제 방법
+    			merchant_uid: 'merchant_' + new Date().getTime(),
+    			name: '주문명 : 이시국에 프리미엄 회원 전환',
+    			amount: '100',
+    			buyer_email: 'iamport@siot.do',
+    			buyer_name: '${loginMember.memberName}',
+    			buyer_tel: '${loginMember.phone}',
+    			buyer_addr: '${loginMember.address}',
+    			buyer_postcode: '${loginMember.postCode}',
+    			m_redirect_url: '${path}/index.jsp'
+    		}, function (rsp) {
+    			if(rsp.success){
+    				var msg = '결제가 완료되었습니다.';
+    				$.ajax({
+    					type:"post",
+    					url:"${path}/member/payComplete",
+    					data:{"userId": userId},
+    					dataType:"json",
+    					success:function(data){
+    						location.replace("${path}/index.jsp");
+    					}
+    				})
+    			} else{
+    				var msg = '결제에 실패 하였습니다.';
+    			}
+    			alert(msg);
+    		})
+    	}else if("${empty loginMember}"){
+    		alert("회원가입이 필요한 서비스 입니다.");
+    	}
+    }
+    
+    $(document).ready(function(){
+    	$.ajax({
+    		url:"${path}/member/memberLogin.do"
+    	});
+    });
+    
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

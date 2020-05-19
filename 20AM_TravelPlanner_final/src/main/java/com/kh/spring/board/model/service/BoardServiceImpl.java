@@ -24,11 +24,23 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> selectBoard(int cPage, int numPerpage) {
 		return dao.selectList(session, cPage, numPerpage);
 	}
-
+	
 	@Override
 	public int selectBoardCount() {
 		return dao.selectBoardCount(session);
 	}
+	
+
+	@Override
+	public List<Board> searchBoard(String keyword, int cPage, int numPerpage) {
+		return dao.searchBoard(session, keyword, cPage, numPerpage);
+	}
+
+	@Override
+	public int searchBoardCount() {
+		return dao.searchBoardCount(session);
+	}
+
 	
 	@Override
 	public Board selectBoardTitle(Map map) {

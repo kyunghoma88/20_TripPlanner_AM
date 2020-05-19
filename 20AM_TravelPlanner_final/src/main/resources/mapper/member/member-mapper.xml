@@ -31,6 +31,9 @@
 		<result column="address_detail" property="addressDetail"/>
 	</resultMap>
 	
+	<update id="payComplete" parameterType="string">
+		UPDATE MEMBER SET STATUS = 'Y' WHERE MEMBER_ID = #{userId}
+	</update>
 	
 	<update id="updateMember" parameterType="member">
 	 
