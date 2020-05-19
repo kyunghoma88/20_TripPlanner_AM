@@ -14,6 +14,24 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  
+   #loginBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
+
+#enrollBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -58,21 +76,21 @@
                   </ul>
                 </div>
 	            <div class="col-sm-2 testDiv">
-		                <c:if test='${empty loginMember }'>
-						<!-- <button id="loginBtn">로그인</button>-->
-						<button class="btn btn-outline-success my-2 my-sm-0"
-							type="button" data-toggle="modal" data-target="#loginModal">
-							로그인
-						</button>
-						<!--<button id="enrollBtn">회원가입</button> -->
-						<button class="btn btn-outline-success my-2 my-sm-0"
-							type="button" data-toggle="modal" data-target="#enrollModal">
-							회원가입
-						</button>
+            	<c:if test='${empty loginMember }'>
+					<!-- <button id="loginBtn">로그인</button>-->
+					<button id="loginBtn"
+						type="button" data-toggle="modal" data-target="#loginModal">
+						로그인
+					</button>
+					<!--<button id="enrollBtn">회원가입</button> -->
+					<button id="enrollBtn"
+						type="button" data-toggle="modal" data-target="#enrollModal">
+						회원가입
+					</button>
 					</c:if>
 					<c:if test='${not empty loginMember }'>
 						<span>
-							<a href="#">
+							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</span>
@@ -144,17 +162,17 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
 						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
 						
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
-						<input type="reset" class="btn btn-outline-success" value="취소">
+						<input type="button" class="btn btn-outline-success" data-dismiss="modal" value="취소">
 					</div>
 				</form>
 			 </div>

@@ -1,15 +1,23 @@
 package com.kh.spring.member.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.spring.board.model.service.BoardService;
+import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.common.PageFactory;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
@@ -28,20 +36,13 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private BoardService boardService;
 	
-	
-	
-	/*@RequestMapping("/member/memberEnroll.do")
-	public String enroll() {
-		return "member/enroll";
-	}*/
 	
 	@RequestMapping("/member/memberEnroll.do")
 	public String enroll(Member m, Model model) {
 		m.setPassword(pwEncoder.encode(m.getPassword()));
-		
-		m.setAddress(m.getAddress1()+" "+m.getAddress2());
-		// form 태그 안의 태그의 name값이 vo의 변수명과 일치하면 위처럼 가져올수 있다.
 		
 		int result = service.insertMember(m);
 		
@@ -56,40 +57,14 @@ public class MemberController {
 	}
 	
 	
-	/*@RequestMapping("/member/memberEnrollEnd.do")
-	public String enrollEnd(Member m, Model model) {
-		
-		m.setPassword(pwEncoder.encode(m.getPassword()));
-		
-		int result = service.insertMember(m);
-		
-		String msg = result>0?"환영합니다!":"회원가입에 실패했습니다.";
-		String loc = result>0?"":"member/memberEnroll.do";
-		
-		model.addAttribute("msg",msg);
-		model.addAttribute("loc",loc);
-		
-		
-		return "common/msg";
-	}*/
-	
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String memberLogin(Member m, Model model) {
 		
-		
-		
-		
-//			logger.debug(""+m);
-			
 			Member loginMember = service.selectMember(m);
 			
-//			logger.debug("DB : " + loginMember.getPassword());
-//			logger.debug("param : " + pwEncoder.encode(m.getPassword()));
 			String msg = "";
 			String loc = "/";
-			
-			
 			
 			if(loginMember!=null) {
 				
@@ -119,27 +94,144 @@ public class MemberController {
 	
 	
 	@RequestMapping("/member/logout.do")
-	//public String logout(HttpSession session) {
-	// 세션 객체 이용하는게 아님!
-	
 	public String logout(SessionStatus status) {
-		// HttpSession 객체로 로그아웃 처리하기!
-		
-		/*System.out.println("여기오니?");*/
-		//session.invalidate();
-//		logger.debug("여기오니?");
-		
 		
 		if(!status.isComplete()) {
-			// true가 나오면 complete된거니까 세션 만료됐니? 즉, 로그아웃
-			// false는 로그인상태, 세션 살아있는 상태
-			// 이 경우는 ! 니까 살아있으면   이겠지
+			
 			status.setComplete();
-			// 세션을 종료시킴!
+			
 		}
 		
 		return "redirect:/";
 		
+	}
+	
+	
+	////////  myPage  //////////
+	
+	// 05 19 내 페이지 보기 및 회원정보 수정 넘어가는 페이지
+	@RequestMapping("/member/preMyPage")
+	public ModelAndView preMyPage(@RequestParam(required = false, defaultValue = "1") int cPage, 
+			@RequestParam(required = false, defaultValue = "6") int numPerpage,
+			ModelAndView mv) {
+		//return "member/preMyPage";
+		List<Board> list = boardService.selectBoard(cPage,numPerpage);
+		int totalCount = boardService.selectBoardCount();
+
+		mv.addObject("list",list);
+		mv.addObject("count",totalCount);
+		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		mv.setViewName("member/preMyPage");
+		return mv;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 비번 확인
+	@RequestMapping("/member/myPageCheck.do")
+	public String mypageCheck()
+	{
+		return "member/memberCheck";
+	}
+	
+	@RequestMapping("/member/mypage.do")
+	public ModelAndView mypage(String memberId, String password)
+	{
+		ModelAndView mv = new ModelAndView();
+		logger.info("마이페이지 아이디 : " + memberId);
+		logger.info("마이페이지 비번 : " + password);
+		Member m = new Member();
+		m.setMemberId(memberId);
+		m.setPassword(password);
+		Member result = service.selectMember(m);
+		logger.info("마이페이지 변경 후 비번 : " + m.getPassword());
+		logger.info(result+"");
+		String msg="";
+		String loc="/";
+		if(result != null)
+		{
+			if(pwEncoder.matches(m.getPassword(), result.getPassword()))
+			{
+				mv.setViewName("member/myPage");
+				return mv;
+			}
+			else
+			{
+				msg = "패스워드가 일치하지 않습니다.";
+				loc = "/member/myPageCheck.do";
+			}
+		}
+		else
+		{
+			msg = "존재하지 않는 아이디입니다.";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		
+		return mv;
+	} 
+	
+	
+	////////  회원정보 수정  /////////
+	@RequestMapping("/member/memberUpdateEnd.do")
+	public ModelAndView memberUpdate(String memberId, String password, String memberName, String email, String phone, String address, String postCode, String addressDetail, HttpSession session)
+	{
+		ModelAndView mv = new ModelAndView();
+
+		//Member m = new Member(memberId, pwEncoder.encode(password),memberName, phone, email, "", "", position, location, null, "","","",0);
+		
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member result = service.selectMember(m);
+		
+		//logger.info("update시 id로 회원조회결과 : "+ result);
+		
+		//비밀번호가 넘어온 경우 암호화처리해서 set.
+		
+		if(password!=null && !password.equals("")) 
+		{
+			result.setPassword(pwEncoder.encode(password));
+		}
+		result.setMemberName(memberName);
+		result.setEmail(email);
+		result.setPhone(phone);
+		result.setAddress(address);
+		result.setPostCode(postCode);
+		result.setAddressDetail(addressDetail);
+		
+		int updateResult = service.updateMember(result);
+		
+
+		String msg = "";
+		String loc = "/";
+		if(updateResult>0)
+		{
+			session.setAttribute("loginMember", service.selectMember(result));
+			msg = "정상적으로 수정되었습니다.";
+		}
+		else
+		{
+			msg = "정보 수정이 실패했습니다.";
+		}
+	
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+
+
+		return mv;
 		
 	}
 	
@@ -151,6 +243,10 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	
+	
+	
 	
 	
 

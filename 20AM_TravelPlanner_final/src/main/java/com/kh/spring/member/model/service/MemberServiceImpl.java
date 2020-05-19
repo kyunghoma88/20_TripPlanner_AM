@@ -40,5 +40,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	
+	@Override
+	public int updateMember(Member result) {
+		// TODO Auto-generated method stub
+		return dao.updateMember(session, result);
+	}
+	
+	
 
 }

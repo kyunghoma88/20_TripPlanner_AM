@@ -3,14 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet"
-	href="${path }/resources/css/hotSpotMain.css?ver=1.1" type="text/css" />
+	href="${path }/resources/css/hotSpotMain.css?ver=1.43" type="text/css" />
 
-
-
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="Hello Spring" name="pageTitle" />
+</jsp:include>
 
 
 <div class="container">
@@ -76,53 +75,28 @@
 	<div id="hotSpotListContainer">
 
 		<c:forEach items="${list }" var="h">
-			<a href="${path }/hotSpot/hotSpotView.do?name=${h.hotSpot_Name}"
+			<a href="${path }/hotSpot/hotSpotView.do?name=${h['HOTSPOT_NAME']}"
 				class="hotSpotAList">
 				<div>
-					<img src="${path }${h.hotSpot_Image } " width="250px"
+					<img src="${path }${h['HOTSPOT_IMAGE'] } " width="250px"
 						height="200px">
 				</div>
-				<div>${h.hotSpot_Name }</div>
+				<div>${h['HOTSPOT_NAME'] }</div>
 				<div>
 					<img src="${path }/resources/images/eyes.png" width="25px"
-						height="25px"> <span>${h.hotSpot_View }</span>
+						height="25px"> <span>${h['HOTSPOT_VIEW'] }</span>
 				</div>
 			</a>
 		</c:forEach>
 	</div>
+	<div>${pageBar }</div>
+
+
+
+	<input type="button" id="hotSpotMoreBtn" value="여행지 더보기"
+		onclick="javascript:moreContent()">
+
+
 </div>
-<div class="row">
-	<div class="col-sm-3"></div>
-	<div class="col-sm-6">
-		<center>
-			<div>${pageBar }</div>
-		</center>
-	</div>
-	<div class="col-sm-3"></div>
-</div>
-
-
-
-<!-- <input type="button" id="hotSpotMoreBtn" value="여행지 더보기" onclick="javascript:moreContent()"> -->
-
-
-<!-- 	<script>
-		function fn_search_btn(cPage){
-			var keyword = $("input[name=keyword]").val();
-			$.ajax({
-				url:"${path}/faq/searchFaq",
-				type:"get",
-				data:{cPage:cPage,
-					"keyword":keyword},
-				success:function(data){
-					$("#tbl_faq, #page-container").hide();
-					$("#tbl_container").html(data);
-				}
-			})
-			
-		}
-	</script> -->
-
-
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -6,7 +6,7 @@
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>   
   <footer>
-      <div class="row footer">
+      <div class="row footer" style="margin-top: 40px;">
           <div class="col-sm-1 footer"></div>
           <div class="col-sm-2 footer">
               <ul style="list-style: none;">

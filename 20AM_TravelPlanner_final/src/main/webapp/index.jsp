@@ -13,6 +13,24 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  
+  #loginBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
+
+#enrollBtn{
+  margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->
@@ -67,10 +85,10 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
+                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
+                  <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="#">INFORMATION</a>
@@ -83,19 +101,20 @@
             <div class="col-sm-2 testDiv">
             	<c:if test='${empty loginMember }'>
 					<!-- <button id="loginBtn">로그인</button>-->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="loginBtn"
 						type="button" data-toggle="modal" data-target="#loginModal">
 						로그인
 					</button>
 					<!--<button id="enrollBtn">회원가입</button> -->
-					<button class="btn btn-outline-success my-2 my-sm-0"
+					<button id="enrollBtn"
 						type="button" data-toggle="modal" data-target="#enrollModal">
 						회원가입
 					</button>
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="#">
+						<%-- <a href="${path }/member/myPageCheck.do"> --%>
+						<a href="${path }/member/preMyPage">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -117,15 +136,15 @@
               <div class="form-group" id="searchBox">
                 <table style="width: 750px;">
                   <tr>
-                    <form>
+                    <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search">
+                        <input type="text" class="form-control" id="search" name="keyword">
                       </td>
-                    </form> 
                       <td style="height: 38px;">
-                        <img src="${path }/resources/images/searchBtn.PNG" id="searchBtn">
+                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
                       </td>
                     </tr>
+                    </form> 
                   </table>
                 </div>
             </center>
@@ -205,17 +224,17 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
 						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
 						
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
-						<input type="reset" class="btn btn-outline-success" value="취소">
+						<input type="button" class="btn btn-outline-success" data-dismiss="modal" value="취소">
 					</div>
 				</form>
 			 </div>
@@ -321,7 +340,7 @@
     			alert(msg);
     		})
     	}else if("${empty loginMember}"){
-    		alert("회원가입이 필요한 서비스 입니다.");
+    		alert("로그인이 필요한 서비스입니다.");
     	}
     }
     
@@ -330,6 +349,22 @@
     		url:"${path}/member/memberLogin.do"
     	});
     });
+    
+    $("#boardBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/board/boardList.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
+    
+    $("#makePlanBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/goiljung.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
     
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
