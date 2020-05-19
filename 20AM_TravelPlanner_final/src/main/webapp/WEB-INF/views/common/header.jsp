@@ -103,7 +103,7 @@
 	            </div>
             </div>
             <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px;"></div>
+                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
             </div>
         </nav>
     </header>
