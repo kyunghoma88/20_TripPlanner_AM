@@ -1,6 +1,7 @@
 package com.kh.spring.hotSpot.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -47,6 +48,23 @@ public class HotSpotServiceImpl implements HotSpotService {
 		// TODO Auto-generated method stub
 		return dao.selectHotSpotView(session,name);
 	}
+
+
+	@Override
+	public List<Map<String, String>> hotSpotSearch(String keyword, int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+		return dao.hotSpotSearch(session, keyword, cPage, numPerpage);
+	}
+
+
+	@Override
+	public int hotSpotSearchCount(String keyword) {
+		// TODO Auto-generated method stub
+		return dao.hotSpotSearchCount(session, keyword);
+	}
+	
+	
+	
 	
 	
 

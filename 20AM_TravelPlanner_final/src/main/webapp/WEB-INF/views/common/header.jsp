@@ -92,7 +92,7 @@
 					</c:if>
 					<c:if test='${not empty loginMember }'>
 						<span>
-							<a href="#">
+							<a href="${path }/member/myPageCheck.do">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</span>
@@ -164,11 +164,11 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
 						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
 						
 					</div>

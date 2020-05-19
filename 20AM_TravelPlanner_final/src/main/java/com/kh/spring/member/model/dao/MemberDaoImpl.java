@@ -31,7 +31,11 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	
-	
-	
+	@Override
+	public int updateMember(SqlSessionTemplate session, Member result) {
+		
+		return session.update("member.updateMember",result);
+	}
+
 
 }

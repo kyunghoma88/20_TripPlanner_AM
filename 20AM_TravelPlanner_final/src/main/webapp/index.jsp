@@ -45,7 +45,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${path}/resources/css/common.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
 
 <!-- iamport(결제) -->
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -115,7 +115,7 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="#">
+						<a href="${path }/member/myPageCheck.do">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -137,15 +137,15 @@
               <div class="form-group" id="searchBox">
                 <table style="width: 750px;">
                   <tr>
-                    <form>
+                    <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search">
+                        <input type="text" class="form-control" id="search" name="keyword">
                       </td>
-                    </form> 
                       <td style="height: 38px;">
-                        <img src="${path }/resources/images/searchBtn.PNG" id="searchBtn">
+                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
                       </td>
                     </tr>
+                    </form> 
                   </table>
                 </div>
             </center>
@@ -225,11 +225,11 @@
 						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" name="address1" id="sample4_roadAddress" readonly="readonly" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" name="address2" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
+						<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;">
 						<!-- <input type="text" id="sample4_extraAddress" placeholder="참고항목"> -->
 						
 					</div>

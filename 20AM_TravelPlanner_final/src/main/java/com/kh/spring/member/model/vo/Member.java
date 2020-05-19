@@ -20,9 +20,7 @@ public class Member {
 	private Date enrollDate;
 	private String status;
 	private String postCode;
+	private String addressDetail;
 	
-	
-	private String address1;
-	private String address2;
 
 }
