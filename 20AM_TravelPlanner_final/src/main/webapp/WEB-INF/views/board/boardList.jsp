@@ -28,10 +28,12 @@
     <div class="row">
         <div class="col-sm-8"></div>
         <div class="col-sm-4" style="margin-bottom: 20px; padding-left: 20px;">
-            <div>
-                <input placeholder="작성자, 게시물 제목으로 검색" style="width: 250px;" type="text" name="boardSearchBox" id="boardSearchBox">
-                <button id="searchBoardBtn">검색</button>
-            </div>
+			<form id="searchBoardForm" action="${path }/board/searchBoard.do" method="post">
+				<div>
+	                <input placeholder="작성자, 제목, 지역으로 검색" style="width: 250px;" type="text" name="keyword" id="boardSearchBox">
+	                <button type="submit" id="searchBoardBtn" onclick="searchBoard();">검색</button>
+				</div>
+	        </form>
         </div>
     </div>
     <div id="hotspotContainer">
@@ -54,5 +56,11 @@
           </center>
         </div>
         <div class="col-sm-3"></div>
-      </div>
+     </div>
+     <script>
+     	function searchBoard(){
+     		var keyword = $("#boardSearchBox").val();
+     		$("#searchBoardForm").submit();
+     	}
+     </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
