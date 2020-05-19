@@ -13,7 +13,7 @@
 		<div class="a b day${v}"><p><c:out value="day - ${v}"/></p></div>
 	</c:forEach>
 </div>	
-<div style="display:inline-block">
+<div style="display:inline-block;overflow:scroll;overflow-x:hidden;height:600px;position:absolute;left:573px">
 	<c:forEach items="${list}" var="hs">
 		<div class="test">
 			<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='100px' height='100px'>
@@ -32,18 +32,25 @@
 		var imgtag = $("<img src=''>")
 		var imgsrc = $(this).find('img').attr('src');
 		var divtag = $('<div>');
+		var btntag = $("<button class='btnf'>");
+		btntag.append('x');
 		imgtag.attr('width','100px');
 		imgtag.attr('height','100px');
 		imgtag.attr('src',imgsrc);
 		ptag.append($(this).find('img').next().text());
 		divtag.append(imgtag);
 		divtag.append(ptag);
+		divtag.append(btntag);
 		$(".b.c.d").append(divtag);
 		var count = (($(".b.c.d").children().length)-1)/2;
 		//console.log($(".b.c.d").children('div').children('p').text());
 		//console.log($(".b.c.d").children('div').children('img').attr('src'));
 		//console.log(count);
 	});
+	$(document).on('click','.btnf',function(){
+		$(this).parent().remove();
+	})
+	
 	$('#jujang').click(function(){
 		var han = '${list[0]['HOTSPOT_AREA_NAME']}';
 		var id = '${loginMember['memberId']}';
@@ -80,11 +87,11 @@
 	
 	
 	$(document).on("mouseover",".a",function(){
-		$(this).css("background-color","#00000021");
+		$(this).children('p').css("background-color","#00000021");
 	});
 	
 	$(document).on("mouseleave",".a",function(){
-		$(this).css("background-color","white");
+		$(this).children('p').css("background-color","white");
 	});
 	
 	$(document).on("click",".a.b",function(){
@@ -93,14 +100,14 @@
 		$(".a.b.c.d").removeClass("b");
 		$(".a.c.d").removeClass("c");
 		$(".a.d").removeClass("d");
-		$(".a").css("background-color","white");
-		$(".a").css("color","black");
+		$(".a").children('p').css("background-color","white");
+		$(".a").children('p').css("color","black");
 		$(".a").addClass("b");
 		$(this).addClass("c");
 		$(this).addClass("d");
 		$(this).removeClass("a");
-		$(this).css("background-color","black");
-		$(this).css("color","white");
+		$(this).children('p').css("background-color","black");
+		$(this).children('p').css("color","white");
 		$(this).children('div').toggle('slow');
 		
 	});
