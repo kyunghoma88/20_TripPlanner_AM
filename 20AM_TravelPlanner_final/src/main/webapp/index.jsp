@@ -19,7 +19,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -29,7 +28,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
