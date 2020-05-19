@@ -312,7 +312,7 @@
     					data:{"userId": userId},
     					dataType:"json",
     					success:function(data){
-    						location.replace("${path}/member/memberLogin.do");
+    						location.replace("${path}/index.jsp");
     					}
     				})
     			} else{
