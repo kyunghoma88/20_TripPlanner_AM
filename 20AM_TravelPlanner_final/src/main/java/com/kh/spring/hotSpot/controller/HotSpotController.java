@@ -3,6 +3,8 @@ package com.kh.spring.hotSpot.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,6 +99,7 @@ public class HotSpotController {
 	@RequestMapping("/hotSpot/hotSpotView.do")
 	public ModelAndView hotSpotView(String name,ModelAndView mv) {
 		HotSpot h=service.selectHotSpotView(name);
+//		HttpSession session = session.getAttribute(name)
 		mv.addObject("hotSpot",h);
 		mv.setViewName("hotSpot/hotSpotView");
 		return mv;
