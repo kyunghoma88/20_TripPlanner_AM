@@ -12,7 +12,8 @@
 			#{address},
 			SYSDATE,
 			DEFAULT,
-			#{postCode}
+			#{postCode},
+			#{addressDetail}
 	)
 	</insert>
 	
@@ -27,11 +28,26 @@
 		<result column="member_name" property="memberName"/>
 		<result column="enroll_date" property="enrollDate"/>
 		<result column="post_code" property="postCode"/>
+		<result column="address_detail" property="addressDetail"/>
 	</resultMap>
 	
 	<update id="payComplete" parameterType="string">
 		UPDATE MEMBER SET STATUS = 'Y' WHERE MEMBER_ID = #{userId}
 	</update>
+	
+	<update id="updateMember" parameterType="member">
+	 
+	 	UPDATE MEMBER 
+	 	   SET PASSWORD = #{password},
+	 	     MEMBER_NAME = #{memberName},
+	 	           EMAIL = #{email},
+	 	           PHONE = #{phone},
+	 	         ADDRESS = #{address},
+	 	  ADDRESS_DETAIL = #{addressDetail},
+	 	       POST_CODE = #{postCode}
+	 	 WHERE MEMBER_ID = #{memberId}
+	 
+	 </update>
 	
 	
 

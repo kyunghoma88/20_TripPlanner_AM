@@ -15,12 +15,22 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public List<Board> selectList(SqlSessionTemplate session, int cPage, int numPerpage) {
-		return session.selectList("board.selectList",null,new RowBounds((cPage-1)*numPerpage,numPerpage));
+		return session.selectList("board.selectList",null,new RowBounds((cPage - 1) * numPerpage, numPerpage));
 	}
 
 	@Override
 	public int selectBoardCount(SqlSessionTemplate session) {
 		return session.selectOne("board.selectBoardCount");
+	}
+
+	@Override
+	public List<Board> searchBoard(SqlSessionTemplate session, String keyword, int cPage, int numPerpage) {
+		return session.selectList("board.searchBoard", keyword, new RowBounds((cPage - 1) * numPerpage, numPerpage));
+	}
+
+	@Override
+	public int searchBoardCount(SqlSessionTemplate session) {
+		return session.selectOne("board.searchBoardCount");
 	}
 
 	@Override
