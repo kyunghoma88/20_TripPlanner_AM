@@ -21,4 +21,13 @@
   <select id="selectHotSpotView" parameterType="string" resultType="hotSpot">
   	SELECT * FROM HOTSPOT WHERE HOTSPOT_NAME=#{name}
   </select>
+  
+  <select id="hotSpotSearch" parameterType="string" resultType="map">
+  	SELECT * FROM HOTSPOT
+		WHERE 1=1 AND (HOTSPOT_NAME LIKE '%'||#{keyword}||'%' OR HOTSPOT_AREA_NAME LIKE '%'||#{keyword}||'%')
+  </select>
+  <select id="hotSpotSearchCount" parameterType="string" resultType="_int">
+  	SELECT COUNT(*) FROM HOTSPOT
+		WHERE 1=1 AND (HOTSPOT_NAME LIKE '%'||#{keyword}||'%' OR HOTSPOT_AREA_NAME LIKE '%'||#{keyword}||'%')
+  </select>
 </mapper>

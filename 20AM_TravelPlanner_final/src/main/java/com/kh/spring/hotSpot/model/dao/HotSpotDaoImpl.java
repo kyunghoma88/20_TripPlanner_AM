@@ -1,6 +1,7 @@
 package com.kh.spring.hotSpot.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -44,6 +45,25 @@ public class HotSpotDaoImpl implements HotSpotDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("hotSpot.selectHotSpotView",name);
 	}
+
+
+	@Override
+	public List<Map<String, String>> hotSpotSearch(SqlSessionTemplate session, String keyword, int cPage,
+			int numPerpage) {
+		// TODO Auto-generated method stub
+		return session.selectList("hotSpot.hotSpotSearch", keyword, new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+
+	@Override
+	public int hotSpotSearchCount(SqlSessionTemplate session, String keyword) {
+		// TODO Auto-generated method stub
+		return session.selectOne("hotSpot.hotSpotSearchCount", keyword);
+	}
+	
+	
+	
+	
 	
 	
 

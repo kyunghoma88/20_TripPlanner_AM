@@ -117,15 +117,15 @@
               <div class="form-group" id="searchBox">
                 <table style="width: 750px;">
                   <tr>
-                    <form>
+                    <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search">
+                        <input type="text" class="form-control" id="search" name="keyword">
                       </td>
-                    </form> 
                       <td style="height: 38px;">
-                        <img src="${path }/resources/images/searchBtn.PNG" id="searchBtn">
+                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
                       </td>
                     </tr>
+                    </form> 
                   </table>
                 </div>
             </center>
