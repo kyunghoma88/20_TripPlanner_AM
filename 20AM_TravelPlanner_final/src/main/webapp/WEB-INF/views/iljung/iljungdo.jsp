@@ -55,6 +55,7 @@
 	});
 	
 	$(document).on('click','.test',function(){
+		var tatag = $("<input type='textarea'>")
 		var ptag = $("<p>");
 		var imgtag = $("<img src=''>")
 		var imgsrc = $(this).find('img').attr('src');
@@ -67,6 +68,7 @@
 		ptag.append($(this).find('img').next().text());
 		divtag.append(imgtag);
 		divtag.append(ptag);
+		divtag.append(tatag);
 		divtag.append(btntag);
 		$(".b.c.d").append(divtag);
 		var count = (($(".b.c.d").children().length)-1)/2;

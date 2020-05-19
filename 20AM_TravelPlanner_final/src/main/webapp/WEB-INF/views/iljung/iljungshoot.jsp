@@ -36,6 +36,7 @@
 	<div id="map" style="width:600px;height:600px;position:absolute;overflow:hidden;left:766px;top:141px;">
 	</div>
 	<button type="button" id="jujang">저장</button>
+	<button type="button" id="jujang1">1234</button>
 <script>
 $('#keepgoing').click(function(){
 	var days = $('#days').val();
@@ -114,18 +115,23 @@ $('#jujang').click(function(){
 	var han = '${list[0]['HOTSPOT_AREA_NAME']}';
 	var id = '${loginMember['memberId']}';
 	var jArray = new Array();
+	var jArray2 = new Array();
 	var item = new Array();
+	var item2 = new Array();
 	var count  = 0;
 		for(var i = 0; i< $('.b').length; i++ ){
 			item[i] = new Array();
+			item2[i] = new Array();
 			for(var j = 0; j < $('.day'+(i+1)).children('div').length; j++){
 				item[i][j]= $('.day'+(i+1)).children('div').eq(j).children('p').text();
+				item2[i][j]= $('.day'+(i+1)).children('div').eq(j).children('input').val();
 				console.log(i+'행'+j+'열'+item[i][j]);
 				jArray[count]={
 						tday:i+1,
 						tplace:item[i][j],
 						tarea:han,
-						id:id
+						id:id,
+						comment:item2[i][j]
 				}
 				count++;
 			};
@@ -143,4 +149,7 @@ $('#jujang').click(function(){
 		}
 	});
 });
+$('#jujang1').click(function(){
+	console.log($('.day1').children('div').children('input').val());
+})
 </script>

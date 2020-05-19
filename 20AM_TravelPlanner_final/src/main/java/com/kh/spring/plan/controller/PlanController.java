@@ -64,6 +64,7 @@ public class PlanController {
 				mapda.put("tvDate",list.get(i).get("tday"));
 				mapda.put("total",(int)list.get(fn-1).get("tday"));
 				mapda.put("memberId", list.get(i).get("id"));
+				mapda.put("comments", list.get(i).get("comment"));
 				if(i>0) {
 					if(list.get(i-1).get("tday") == list.get(i).get("tday")) {
 						order++;
