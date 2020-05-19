@@ -33,9 +33,62 @@ public class HotSpotController {
 	public ModelAndView hotSpotList(@RequestParam(required=false,defaultValue="1") int cPage, @RequestParam(required=false,defaultValue="3") int numPerPage,@RequestParam("area") String area,ModelAndView mv) {	
 		List<HotSpot> list=service.selectHotSpotList(area,cPage,numPerPage);
 		int totalCount=service.selectHotSpotCount(area);
+		
+		String pageBar="";
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		int totalPage=(int)Math.ceil((double)totalCount/numPerPage);
+		
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='/spring/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
+		pageBar+="'}";
+		pageBar+="</script>";
+		
+		
 		mv.addObject("list",list);
 		mv.addObject("count",totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount, cPage, numPerPage, "/spring/hotSpot/hotSpotList"));
+		mv.addObject("pageBar",pageBar);
 		mv.setViewName("hotSpot/hotSpotMain");
 		return mv;
 	}
