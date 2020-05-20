@@ -15,13 +15,6 @@ public class PlanDaoImpl implements PlanDao {
 	}
 
 	@Override
-	public int placecount(SqlSessionTemplate session, String place) {
-		// TODO Auto-generated method stub
-		return session.selectOne("plan.placecount",place);
-	}
-	
-
-	@Override
 	public int insertBoard(SqlSessionTemplate session, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return session.insert("plan.insertBoard", map);
@@ -38,6 +31,13 @@ public class PlanDaoImpl implements PlanDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("plan.searchMember",member);
 	}
+
+	@Override
+	public List<Map<String, String>> areadata(SqlSessionTemplate session, String place) {
+		// TODO Auto-generated method stub
+		return session.selectList("plan.areadata", place);
+	}
+	
 	
 	
 	

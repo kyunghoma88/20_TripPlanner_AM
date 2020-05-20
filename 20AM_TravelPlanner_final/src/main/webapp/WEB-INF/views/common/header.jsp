@@ -64,7 +64,7 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">일정만들기</a>
+                      <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
@@ -128,6 +128,7 @@
 					<div class="modal-footer">
 					  <button type="submit" class="btn btn-outline-success" >로그인</button>
 					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">비밀번호 찾기</button>
 					</div>
 				</form>
 			 </div>

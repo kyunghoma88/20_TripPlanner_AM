@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.service;
 
+import java.util.Map;
+
 import com.kh.spring.member.model.vo.Member;
 
 public interface MemberService {
@@ -11,5 +13,7 @@ public interface MemberService {
 	int updateMember(Member result);
 	
 	int payComplete(String userId);
+	
+	Member lookPw(Map<String,String> param);
 	
 }
