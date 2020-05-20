@@ -60,6 +60,16 @@ public class HotSpotDaoImpl implements HotSpotDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("hotSpot.hotSpotSearchCount", keyword);
 	}
+
+
+	@Override
+	public int updateHotSpotViewCount(SqlSessionTemplate session, String name) {
+		// TODO Auto-generated method stub
+		return session.update("hotSpot.updateHotSpotViewCount", name);
+	}
+	
+	
+	
 	
 	
 	
