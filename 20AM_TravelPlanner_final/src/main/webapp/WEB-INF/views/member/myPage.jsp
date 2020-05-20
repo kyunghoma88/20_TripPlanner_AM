@@ -8,6 +8,127 @@ pageEncoding="UTF-8"%>
 	
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+
+<style>
+    	section
+    	{
+    		position: relative;
+    	}
+    	
+		.mypage-wrapper
+        {
+            width: 850px;
+            height: auto;
+            margin : auto;
+            display: flex;
+            flex-flow: column nowrap;
+            align-self: center;
+        }
+
+        .mypage-header
+        {
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mypage-title
+        {
+            font-size: 35px;
+            margin: auto;
+            font-weight: bold;
+            color: black;
+        }
+              
+       
+        
+        .member-update-wrapper
+        {
+            font-family: 'Noto Sans KR';
+            width: 100%;
+            
+        }
+
+        .member-update-header
+        {
+            font-size: 25px;
+            margin: 30px 0;
+            /* border-bottom: 2px solid rgb(42, 71, 114); */
+            padding-bottom: 25px;
+        }
+
+        .member-update-wrapper input
+        {
+            font-family: 'Noto Sans KR';
+            border: 1px solid #ccc;
+            padding: 5px;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+
+        #member-id
+        {
+            background-color: lightgray;
+        }
+
+        .member-update-wrapper input[type="submit"]
+        {
+            /* background-color: black; */
+            /* border: none; */
+            /* color: white; */
+        }
+
+        .member-update-frm
+        {
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        .member-update-frm > div
+        {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .member-update-frm > div > div
+        {
+            padding: 15px;
+        }
+
+        .member-update-frm > div > div:nth-of-type(1){flex: 1 1 0; align-self: flex-start;}
+        .member-update-frm > div > div:nth-of-type(2){flex: 4 1 0;}
+        
+
+        .valid-msg
+        {
+            font-size: 13px;
+			display:none;
+			float:right;
+        }
+
+        
+        .update-btn-set
+        {
+            width: 502px;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .update-btn-set input{
+        
+        	margin-right : 10px;
+        	height : 40px;
+        	width : 65px;
+        	font-size : 20px;
+        
+        }
+        
+</style>
+
+
 <section>
 	<div class="mypage-wrapper">
 		<div class="mypage-header">
@@ -60,23 +181,23 @@ pageEncoding="UTF-8"%>
 						<div>주소</div>
 						<div>
 							
-							<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" value="${loginMember.postCode }">
+							<input type="text" name="postCode" id="sample4_postcode2" placeholder="우편번호" value="${loginMember.postCode }">
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 							<br/>
-							<input type="text" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" value="${loginMember.address }">
+							<input type="text" name="address" id="sample4_roadAddress2" placeholder="도로명주소" style="width:450px; margin-bottom:10px;" value="${loginMember.address }">
 							
 							<span id="guide" style="color:#999;display:none"></span>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="text" name="addressDetail" id="sample4_detailAddress" placeholder="상세주소" style="width:250px;" value="${loginMember.addressDetail }">
+							<br/>
+							<input type="text" name="addressDetail" id="sample4_detailAddress2" placeholder="상세주소" style="width:450px;" value="${loginMember.addressDetail }">
 							
 						</div>
 					</div>
 					
 					<div class="update-btn-set">
-						<input type="submit" value="수정">
-						<input id="cancel" type="button" value="취소">
+						<input type="submit" value="수정" class="btn btn-outline-secondary">
+						<input id="cancel" type="button" value="취소" class="btn btn-outline-secondary">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input id="leave" type="button" value="탈퇴"> 
+						<input id="leave" type="button" value="탈퇴" class="btn btn-outline-danger"> 
 					</div>
 				</form>
 			</div>
@@ -113,8 +234,8 @@ pageEncoding="UTF-8"%>
 	                }
 	
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('sample4_postcode').value = data.zonecode;
-	                document.getElementById("sample4_roadAddress").value = roadAddr;
+	                document.getElementById('sample4_postcode2').value = data.zonecode;
+	                document.getElementById("sample4_roadAddress2").value = roadAddr;
 	                //document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 	                
 	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.

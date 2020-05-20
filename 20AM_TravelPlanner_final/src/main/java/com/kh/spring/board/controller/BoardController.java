@@ -58,6 +58,7 @@ public class BoardController {
 		mv.addObject("date", date);
 		mv.addObject("board", b);
 		mv.addObject("day", d);
+		System.out.println("board : " + b);
 		System.out.println("day : " + d);
 		mv.setViewName("board/boardView");
 		return mv;

@@ -28,12 +28,6 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public int placecount(String place) {
-		// TODO Auto-generated method stub
-		return dao.placecount(session, place);
-	}
-	
-	@Override
 	public int insertBoard(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return dao.insertBoard(session, map);
@@ -50,6 +44,13 @@ public class PlanServiceImpl implements PlanService {
 		// TODO Auto-generated method stub
 		return dao.searchMember(session, member);
 	}
+
+	@Override
+	public List<Map<String, String>> areadata(String place) {
+		// TODO Auto-generated method stub
+		return dao.areadata(session, place);
+	}
+	
 	
 	
 	

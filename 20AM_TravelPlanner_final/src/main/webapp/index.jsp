@@ -19,7 +19,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -29,7 +28,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -87,10 +85,10 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
+                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
+                  <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="#">INFORMATION</a>
@@ -115,7 +113,8 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="${path }/member/myPageCheck.do">
+						<%-- <a href="${path }/member/myPageCheck.do"> --%>
+						<a href="${path }/member/preMyPage">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -189,11 +188,41 @@
 					<div class="modal-footer">
 					  <button type="submit" class="btn btn-outline-success" >로그인</button>
 					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+					  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#lookPwModal">비밀번호 찾기</button>
 					</div>
 				</form>
 			 </div>
 		</div>
 	</div>
+	
+	<!-- 비밀번호 찾기 모달 -->
+	<!-- Modal -->
+  <div class="modal fade" id="lookPwModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">비밀번호 찾기</h4>
+        </div>
+        <div class="modal-body">
+          <p>가입시 입력하신 정보를 입력해주세요.</p>
+          <form action="${path }/member/lookPw.do" method="post">
+	          <input type="text" class="form-control" name="memberName" placeholder="이름" autocomplete="off" required><br>
+	          <input type="text" class="form-control" name="memberId" placeholder="아이디" autocomplete="off" required><br>
+	          <input type="email" class="form-control" name="email" placeholder="이메일" autocomplete="off" required><br>
+	          <input type="submit" class="form-control" value="확인">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
 	
 	<!-- 회원가입 모달 -->
 	<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" 
@@ -222,10 +251,10 @@
 						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
 						<!-- 주소 API 받아오기 -->
 						<br/>
-						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required>
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" required readonly>
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -235,7 +264,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
-						<input type="reset" class="btn btn-outline-success" value="취소">
+						<input type="button" class="btn btn-outline-success" data-dismiss="modal" value="취소">
 					</div>
 				</form>
 			 </div>
@@ -341,7 +370,7 @@
     			alert(msg);
     		})
     	}else if("${empty loginMember}"){
-    		alert("회원가입이 필요한 서비스 입니다.");
+    		alert("로그인이 필요한 서비스입니다.");
     	}
     }
     
@@ -350,6 +379,22 @@
     		url:"${path}/member/memberLogin.do"
     	});
     });
+    
+    $("#boardBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/board/boardList.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
+    
+    $("#makePlanBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/goiljung.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
     
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

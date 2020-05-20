@@ -6,57 +6,91 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- dataBase설정내용을 작성 -->	
-	<bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:xe"/>
-		<property name="username" value="trip"/>
-		<property name="password" value="trip"/>
+	<!-- dataBase설정내용을 작성 -->
+	<bean id="realDataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@rclass.iptime.org:1521:xe" />
+		<property name="username" value="trip" />
+		<property name="password" value="trip" />
 	</bean>
-	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-		<constructor-arg ref="realDataSource"/>
+	<bean id="dataSource"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="realDataSource" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-				<property name="loggingType" value="MULTI_LINE"/>
-				<property name="sqlPrefix" value="[SQL]"/>
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="[SQL]" />
 			</bean>
 		</property>
 	</bean>
-	
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath*:mapper/**/*.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml" />
 	</bean>
-	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
+
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
 	</bean>
-	
+
 	<!-- 트렌젝션 매니저 등록하기 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
+	<!-- 메일인증 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="tripfinalproject@gmail.com" />
+		<property name="password" value="tripfinal" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+
 	<!-- 트렌젝션 어노테이션방식 적용하기 -->
 	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
-	
+
 	<!-- 선언적방식으로 트렌젝션 처리하기 -->
-	<tx:advice id="txAdivce" transaction-manager="transactionManager">
+	<tx:advice id="txAdivce"
+		transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="insert*" rollback-for="Exception"/>
-			<tx:method name="update*"/>
-			<tx:method name="delete*"/>
+			<tx:method name="insert*" rollback-for="Exception" />
+			<tx:method name="update*" />
+			<tx:method name="delete*" />
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="serviceMethod"/>
-		<aop:advisor advice-ref="txAdivce" pointcut-ref="serviceMethod"/>
+		<aop:pointcut
+			expression="execution(* com.kh.spring..*ServiceImpl.*(..))"
+			id="serviceMethod" />
+		<aop:advisor advice-ref="txAdivce"
+			pointcut-ref="serviceMethod" />
 	</aop:config>
-	
-	<bean id="encryptor" class="com.kh.spring.common.encryptor.AESEncrypt">
-		<constructor-arg index="0" value="c:\dev\"/>
+
+	<bean id="encryptor"
+		class="com.kh.spring.common.encryptor.AESEncrypt">
+		<constructor-arg index="0" value="c:\dev\" />
 	</bean>
 </beans>
