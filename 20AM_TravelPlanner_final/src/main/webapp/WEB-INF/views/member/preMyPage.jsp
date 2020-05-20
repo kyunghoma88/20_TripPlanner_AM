@@ -10,11 +10,7 @@ pageEncoding="UTF-8"%>
 
 <style>
 
-	.mypage-container{
-		margin-top : 50px;
-	}
 	
-
 	.mypage-side-bar{
 		/* border : 1px solid black; */
 		width : 150px;
@@ -47,7 +43,8 @@ pageEncoding="UTF-8"%>
         }
         
         .mypage-header
-        {
+        {	
+        	
             height: 120px;
             display: flex;
             align-items: center;
@@ -86,7 +83,13 @@ pageEncoding="UTF-8"%>
 	
 
 </style>
+
+<div class="mypage-header">
+	<div class="mypage-title">마이페이지</div>
+</div>
+	
 <div class="row mypage-container">
+	
 <div class="col-sm-2 mypage-side-bar">
 
 	<%-- <div class="btn-container">
@@ -101,6 +104,8 @@ pageEncoding="UTF-8"%>
 	<div class="btn-container">
 		<a href="#">탈퇴하기</a> 
 	</div> --%>
+	
+	
 	<div class="list-group">
 	  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
 	  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
@@ -110,7 +115,7 @@ pageEncoding="UTF-8"%>
 
 </div>
 <div class="col-sm-7">
-	
+
 	<form method="POST" name="updateForm" class="form-group">
 		<table class="table table-bordered">
 		    <tbody>
