@@ -18,4 +18,6 @@ public interface MemberDao {
 	
 	Member lookPw(SqlSessionTemplate session, Map<String,String> param);
 	
+	int lookPwUpdate(SqlSessionTemplate session, Map<String,String> param);
+	
 }

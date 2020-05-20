@@ -16,4 +16,6 @@ public interface MemberService {
 	
 	Member lookPw(Map<String,String> param);
 	
+	int lookPwUpdate(Map<String,String> param);
+	
 }

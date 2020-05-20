@@ -47,6 +47,15 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 
+	@Override
+	public int lookPwUpdate(SqlSessionTemplate session, Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.update("member.lookPwUpdate", param);
+	}
+	
+	
+
+
 
 	
 	
