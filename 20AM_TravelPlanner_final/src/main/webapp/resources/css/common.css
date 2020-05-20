@@ -40,13 +40,14 @@ body{
   font-weight: bolder;
   color: black;
   margin-top: 6px;
-  
+  cursor: pointer;
 }
 
 .menubarLink:hover{
   color: #ff7531;
   border-bottom: 3px solid #ff7531;
   padding-bottom: 0;
+  cursor: pointer;
 }
 
 #loginBtn{
@@ -54,7 +55,6 @@ body{
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -64,7 +64,6 @@ body{
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }

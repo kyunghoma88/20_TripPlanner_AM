@@ -20,7 +20,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -30,7 +29,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -64,7 +62,7 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">일정만들기</a>
+                      <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
@@ -92,7 +90,7 @@
 					</c:if>
 					<c:if test='${not empty loginMember }'>
 						<span>
-							<a href="${path }/member/myPageCheck.do">
+							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</span>
@@ -103,7 +101,7 @@
 	            </div>
             </div>
             <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px;"></div>
+                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
             </div>
         </nav>
     </header>
@@ -175,7 +173,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-outline-success" value="가입" >&nbsp;
-						<input type="reset" class="btn btn-outline-success" value="취소">
+						<input type="button" class="btn btn-outline-success" data-dismiss="modal" value="취소">
 					</div>
 				</form>
 			 </div>

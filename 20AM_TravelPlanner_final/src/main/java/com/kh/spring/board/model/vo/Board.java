@@ -15,4 +15,6 @@ public class Board {
 	String hotspotAreaName;
 	int viewCount;
 	String hotspotAreaImg;
+	String hotspotAreaLat;
+	String hotspotAreaHar;
 }

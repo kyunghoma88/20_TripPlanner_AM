@@ -1,5 +1,6 @@
 package com.kh.spring.member.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.spring.board.model.service.BoardService;
+import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.common.PageFactory;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
@@ -39,6 +43,8 @@ public class MemberController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private BoardService boardService;
 	
 	
 	
@@ -110,6 +116,36 @@ public class MemberController {
 	
 	
 	////////  myPage  //////////
+	
+	// 05 19 내 페이지 보기 및 회원정보 수정 넘어가는 페이지
+	@RequestMapping("/member/preMyPage")
+	public ModelAndView preMyPage(@RequestParam(required = false, defaultValue = "1") int cPage, 
+			@RequestParam(required = false, defaultValue = "6") int numPerpage,
+			ModelAndView mv) {
+		//return "member/preMyPage";
+		List<Board> list = boardService.selectBoard(cPage,numPerpage);
+		int totalCount = boardService.selectBoardCount();
+
+		mv.addObject("list",list);
+		mv.addObject("count",totalCount);
+		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		mv.setViewName("member/preMyPage");
+		return mv;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 비번 확인
 	@RequestMapping("/member/myPageCheck.do")
 	public String mypageCheck()
 	{

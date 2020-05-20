@@ -19,7 +19,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -29,7 +28,6 @@
   background-color: #203341;
   color: white;
   border-radius: 5px;
-  width: 70px;
   font-size: 17px;
   height: 38px;
 }
@@ -87,10 +85,10 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/goiljung.do">일정만들기</a>
+                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
+                  <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="#">INFORMATION</a>
@@ -115,7 +113,8 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<a href="${path }/member/myPageCheck.do">
+						<%-- <a href="${path }/member/myPageCheck.do"> --%>
+						<a href="${path }/member/preMyPage">
 							<c:out value='${loginMember.memberName }'/>
 						</a>님, 안녕하세요!
 					</span>
@@ -371,7 +370,7 @@
     			alert(msg);
     		})
     	}else if("${empty loginMember}"){
-    		alert("회원가입이 필요한 서비스 입니다.");
+    		alert("로그인이 필요한 서비스입니다.");
     	}
     }
     
@@ -380,6 +379,22 @@
     		url:"${path}/member/memberLogin.do"
     	});
     });
+    
+    $("#boardBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/board/boardList.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
+    
+    $("#makePlanBtn").click(function(){
+    	if(${not empty loginMember}){
+    		location.replace("${path}/goiljung.do");
+    	}else{
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
     
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -52,77 +52,76 @@
 
 
 <div class="btn-group btn-group-lg">
-	<a href="${path }/hotSpot/hotSpotList.do?area=서울"><button type="button" class="btn btn-secondary btnS">서울</button></a>
-	<a href="${path }/hotSpot/hotSpotList.do?area=강릉"><button type="button" class="btn btn-secondary btnG">강릉</button></a>
-	<a href="${path }/hotSpot/hotSpotList.do?area=대전"><button type="button" class="btn btn-secondary btnD">대전</button></a>
-	<a href="${path }/hotSpot/hotSpotList.do?area=부산"><button type="button" class="btn btn-secondary btnB">부산</button></a>
-	<a href="${path }/hotSpot/hotSpotList.do?area=전주"><button type="button" class="btn btn-secondary btnJ">전주</button></a>
+	<a href="${path }/hotSpot/hotSpotList.do?area=서울"><button
+			type="button" class="btn btn-secondary btnS">서울</button></a> <a
+		href="${path }/hotSpot/hotSpotList.do?area=강릉"><button
+			type="button" class="btn btn-secondary btnG">강릉</button></a> <a
+		href="${path }/hotSpot/hotSpotList.do?area=대전"><button
+			type="button" class="btn btn-secondary btnD">대전</button></a> <a
+		href="${path }/hotSpot/hotSpotList.do?area=부산"><button
+			type="button" class="btn btn-secondary btnB">부산</button></a> <a
+		href="${path }/hotSpot/hotSpotList.do?area=전주"><button
+			type="button" class="btn btn-secondary btnJ">전주</button></a>
 </div>
 
 <div id="hotSpotListContainer">
 
 
 
-	
 
 
-	
+
+
 
 	<div id="hotSpotListContainer">
-	
+
 		<c:forEach items="${list }" var="h">
-			<a href="${path }/hotSpot/hotSpotView.do?name=${h.hotSpot_Name}" class="hotSpotAList">
+			<a href="${path }/hotSpot/hotSpotView.do?name=${h.hotSpot_Name}"
+				class="hotSpotAList">
 				<div>
-					<img src="${path }${h.hotSpot_Image } " width="250px" height="200px">
+					<img src="${path }${h.hotSpot_Image } " width="250px"
+						height="200px">
 				</div>
 				<div>${h.hotSpot_Name }</div>
 				<div>
-					<img src="${path }/resources/images/eyes.png" width="25px" height="25px"> 
-					<span>${h.hotSpot_View }</span>
+					<img src="${path }/resources/images/eyes.png" width="25px"
+						height="25px"> <span>${h.hotSpot_View }</span>
 				</div>
-		</a> 
+			</a>
 		</c:forEach>
 	</div>
-		<div>
-			${pageBar }
-		</div>
-		
-
-	
-		<input type="button" id="hotSpotMoreBtn" value="여행지 더보기" onclick="javascript:moreContent()">
-	
-
+</div>
+<div class="row">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-6">
+		<center>
+			<div>${pageBar }</div>
+		</center>
+	</div>
+	<div class="col-sm-3"></div>
 </div>
 
-<script>
-	/* function moreContent(){
-		$.ajax({
-			url:"${path}/hotSpot/hotSpotList.do",
-			data:{"area":area},
-			success:function(data){
-				if(data.length==0){
-					$("#hotSpotMoreBtn").attr("class","disabled");
-				}else{
-					var content="";
-					for(let i=0;i<3;i++){
-						content+=
-							"<a href='${path}/hotSpot/hotSpotView.do?name=$hotSpot.hotSpot_Name' class='hotSpotAlist'>"
-							+"<div><img src='${path}${hotSpot.hotSpot_Image}' width='250px' height='200px'></div>"
-							+"<div>'${hotSpot.hotSpotName}'</div>"
-							+"<div><img src='${path}/resources/images/eyes.png' width='25px' height='25px'><span>'${hotSpot.hotSpot_View}'</span></div>"
-							+"</a>"
-					}
-					$("#hotSpotListContainer").append(content);
+
+
+<!-- <input type="button" id="hotSpotMoreBtn" value="여행지 더보기" onclick="javascript:moreContent()"> -->
+
+
+<!-- 	<script>
+		function fn_search_btn(cPage){
+			var keyword = $("input[name=keyword]").val();
+			$.ajax({
+				url:"${path}/faq/searchFaq",
+				type:"get",
+				data:{cPage:cPage,
+					"keyword":keyword},
+				success:function(data){
+					$("#tbl_faq, #page-container").hide();
+					$("#tbl_container").html(data);
 				}
-			}error : function(){
-				alert("ajax통신실패");
-			}
-		})
-	} */
-	
-
-</script>
-
+			})
+			
+		}
+	</script> -->
 
 
 
