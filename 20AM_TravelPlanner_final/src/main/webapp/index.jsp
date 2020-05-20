@@ -208,7 +208,7 @@
         </div>
         <div class="modal-body">
           <p>가입시 입력하신 정보를 입력해주세요.</p>
-          <form action="member/lookPw" method="post">
+          <form action="${path }/member/lookPw.do" method="post">
 	          <input type="text" class="form-control" name="memberName" placeholder="이름" autocomplete="off" required><br>
 	          <input type="text" class="form-control" name="memberId" placeholder="아이디" autocomplete="off" required><br>
 	          <input type="email" class="form-control" name="email" placeholder="이메일" autocomplete="off" required><br>
@@ -222,7 +222,7 @@
     </div>
   </div>
   
-</div>
+
 	
 	<!-- 회원가입 모달 -->
 	<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" 

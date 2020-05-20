@@ -128,12 +128,39 @@
 					<div class="modal-footer">
 					  <button type="submit" class="btn btn-outline-success" >로그인</button>
 					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
-					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">비밀번호 찾기</button>
+					  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#lookPwModal">비밀번호 찾기</button>
 					</div>
 				</form>
 			 </div>
 		</div>
 	</div>
+	
+	<!-- 비밀번호 찾기 모달 -->
+	<!-- Modal -->
+  <div class="modal fade" id="lookPwModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">비밀번호 찾기</h4>
+        </div>
+        <div class="modal-body">
+          <p>가입시 입력하신 정보를 입력해주세요.</p>
+          <form action="${path }/member/lookPw.do" method="post">
+	          <input type="text" class="form-control" name="memberName" placeholder="이름" autocomplete="off" required><br>
+	          <input type="text" class="form-control" name="memberId" placeholder="아이디" autocomplete="off" required><br>
+	          <input type="email" class="form-control" name="email" placeholder="이메일" autocomplete="off" required><br>
+	          <input type="submit" class="form-control" value="확인">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 	
 	<!-- 회원가입 모달 -->
 	<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" 

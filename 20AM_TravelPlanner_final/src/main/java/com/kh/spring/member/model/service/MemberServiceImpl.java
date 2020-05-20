@@ -56,6 +56,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public int lookPwUpdate(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return dao.lookPwUpdate(session, param);
+	}
+	
+	
+
 
 	
 	

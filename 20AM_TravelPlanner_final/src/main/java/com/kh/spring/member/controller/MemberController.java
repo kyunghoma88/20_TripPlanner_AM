@@ -252,7 +252,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping("member/lookPw")
+	@RequestMapping("/member/lookPw.do")
 	public ModelAndView lookPw(ModelAndView mv, HttpServletRequest request,
 								@RequestParam Map<String,String> param,
 								String memberId, String memberName, String email) {
@@ -302,7 +302,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		}else {
-			msg = "인증실패. 인증 값이 옳바르지 않습니다.";
+			msg = "인증실패. 입력 값이 옳바르지 않습니다.";
 			loc = "/index.jsp";
 			
 			mv.addObject("msg", msg);
@@ -316,6 +316,22 @@ public class MemberController {
 	public ModelAndView lookPwEnd(ModelAndView mv) {
 		
 		mv.setViewName("member/lookPwEnd");
+		return mv;
+	}
+	
+	
+	@RequestMapping("/member/lookPwUpdate")
+	public ModelAndView lookPwUpdate(ModelAndView mv, @RequestParam Map<String,String> param, String memberId) {
+		
+		System.out.println("비밀번호변경 파라미터 : " + param);
+		param.put("password", pwEncoder.encode(param.get("password")));
+		int result = service.lookPwUpdate(param);
+		
+		String msg = "";
+		String loc = "";
+		if(result > 0) {
+			mv.setViewName("/index.jsp");
+		}
 		return mv;
 	}
 	

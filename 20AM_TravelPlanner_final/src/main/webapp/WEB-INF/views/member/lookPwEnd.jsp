@@ -11,11 +11,11 @@
 
 <section>
 	<form action="${path}/member/lookPwUpdate" method="post" onsubmit="return checkIt()">
-		<input type="password" name="pw" id="changePw" placeholder="변경하실 비밀번호를 입력하세요" class="form-pw"><br>
+		<input type="password" name="password" id="changePw" placeholder="변경하실 비밀번호를 입력하세요" class="form-pw"><br>
 		<input type="password" name="pw2" id="changePw2" placeholder="비밀번호확인" class="form-pw"><br>
 		<div class="" id="checkPw">비밀번호가 일치합니다.</div>
 		<div class="" id="checkPw2">비밀번호가 일치하지 않습니다.</div>
-		<input type="hidden" name="id" value="${memberId }"/>
+		<input type="hidden" name="memberId" value="${memberId }"/>
 		<input type="submit" value="변경하기" id="pwSubmit">
 	</form>
 </section>
