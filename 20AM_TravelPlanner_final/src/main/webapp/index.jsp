@@ -115,7 +115,12 @@
 					<span>
 						<%-- <a href="${path }/member/myPageCheck.do"> --%>
 						<a href="${path }/member/preMyPage">
-							<c:out value='${loginMember.memberName }'/>
+							<c:if test="${loginMember.status eq 'Y'}">
+								<c:out value='★${loginMember.memberName }★'/>
+							</c:if>
+							<c:if test="${loginMember.status eq 'N' }">
+								<c:out value='${loginMember.memberName }'/>
+							</c:if>
 						</a>님, 안녕하세요!
 					</span>
 					&nbsp;
@@ -141,7 +146,7 @@
                         <input type="text" class="form-control" id="search" name="keyword">
                       </td>
                       <td style="height: 38px;">
-                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
+                        <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
                       </td>
                     </tr>
                     </form> 
