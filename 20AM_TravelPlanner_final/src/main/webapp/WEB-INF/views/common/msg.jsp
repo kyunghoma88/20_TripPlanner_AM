@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-		if('${not empty msg}'==true){
+		if('${not empty msg}'== 'true'){
 			/* ==true 안해주면 무조건 true겠지!? 헷갈리면 다시 질문! */
 			alert("${msg}");
 		}

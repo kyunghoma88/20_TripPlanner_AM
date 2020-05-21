@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
 		  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
 		  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
 		  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
-		  <a href="#" class="list-group-item list-group-item-action">회원 탈퇴</a>
+		  <a href="${path }/member/signOut.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
 		</div>
 	
 	</div>

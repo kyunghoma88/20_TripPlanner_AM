@@ -14,7 +14,7 @@
 		<result column="LIKE_CHECK" property="like_check"/>
 		<result column="LIKE_UP" property="like_up"/>
 	</resultMap>
-		<resultMap type="Day" id="dayMap">
+	<resultMap type="Day" id="dayMap">
 		<result column="TR_SEQ" property="trSeq"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="TV_DATE" property="tvDate"/>
@@ -32,6 +32,16 @@
 		<result column="HOTSPOT_HAR" property="hotspotHar"/>
 		<result column="LIKE_CHECK" property="like_check"/>
 		<result column="LIKE_UP" property="like_up"/>
+	</resultMap>
+	<resultMap type="BoardComment" id="commentMap">
+		<result column="BOARD_COMMENT_NO" property="boardCommentNo"/>
+		<result column="BOARD_COMMENT_LEVEL" property="boardCommentLevel"/>
+		<result column="BOARD_COMMENT_WRITER" property="boardCommentWriter"/>
+		<result column="BOARD_COMMENT_CONTENT" property="boardCommentContent"/>
+		<result column="BOARD_COMMENT_DATE" property="boardCommentDate"/>
+		<result column="TR_SEQ" property="trSeq"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="BOARD_COMMENT_REF" property="boardCommentRef"/>
 	</resultMap>
 	<select id="selectList" resultMap="boardMap">
 		SELECT * FROM BOARD
@@ -58,5 +68,11 @@
 	</select>
 	<select id="boardDetail" parameterType="map" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT USING (HOTSPOT_NAME) WHERE TV_DATE=#{date} AND TR_SEQ=#{no} ORDER BY DAY_O
+	</select>
+	<insert id="insertBoardComment" parameterType="map">
+		INSERT INTO BOARD_COMMENT VALUES(BOARD_COMMENT_SEQ.NEXTVAL, #{commentLevel}, #{commentWriter}, #{commentContent}, SYSDATE, #{no}, #{id}, #{commentRef})
+	</insert>
+	<select id="selectBoardComment" parameterType="map" resultMap="commentMap">
+		SELECT * FROM BOARD_COMMENT WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} START WITH BOARD_COMMENT_LEVEL=1 CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF
 	</select>
 </mapper>

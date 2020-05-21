@@ -148,7 +148,7 @@
                         <input type="text" class="form-control" id="search" name="keyword">
                       </td>
                       <td style="height: 38px;">
-                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
+                        <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
                       </td>
                     </tr>
                     </form> 

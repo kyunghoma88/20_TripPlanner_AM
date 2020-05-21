@@ -33,6 +33,25 @@
     .commentTr{
     	font-size: 22px;
     }
+    table#tbl-comment button.btn-reply{display:none;}
+    table#tbl-comment tr:hover button.btn-reply{display:inline;}
+    table#tbl-comment{width:1160px; margin:0 auto; border-collapse:collapse; clear:both; } 
+    table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
+    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+    table#tbl-comment tr td:last-of-type {text-align:right; width:100px;}
+    table#tbl-comment tr:hover {background:lightgray;}
+    table#tbl-comment tr.level2 {color:gray; font-size: 16px;}
+    table#tbl-comment sub.comment-writer {color:navy; font-size:20px}
+    table#tbl-comment sub.comment-date {color:tomato; font-size:15px}
+    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
+    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff;font-size:20px}
+    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a;font-size:15px}
+    
+    #comment-container{
+    	margin-top: 80px;
+	    margin-bottom: 50px;
+	    text-align: right;
+    }
 
 </style>
 
@@ -59,6 +78,66 @@
         </div>
       </div>
       <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-1"></div>
+    	<div class="col-sm-10">
+			<div id="comment-container">
+	   			<div class="comment-editor">
+	   				<form action="${path }/board/boardCommentInsert.do" method="post">
+	   					<c:if test="${not empty loginMember}">
+	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
+	   						<button type="submit" id="btn-insert">등록</button>
+	   					</c:if>
+	   					<c:if test="${empty loginMember}">
+	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
+	   					</c:if>
+	   					<input type="hidden" name="no" value="${board.trSeq }"/>
+	   					<input type="hidden" name="id" value="${board.memberId }"/>
+	   					<input type="hidden" name="commentWriter" value="${loginMember.memberId}"/>
+	   					<input type="hidden" name="commentLevel" value="1"/>
+	   					<input type="hidden" name="commentRef" value="0"/>
+	   				</form>
+	   			</div>
+   			</div>
+   			<!-- 댓글출력하기 -->
+			<table id="tbl-comment">
+			<c:if test="${empty comment or comment eq null}">
+				<b>등록된 댓글이 없습니다.</b>
+			</c:if>
+   			<c:if test="${not empty comment or comment ne null}">
+   				<c:forEach items="${comment }" var="bc">
+   					<c:if test="${bc['boardCommentLevel'] eq '1' }">
+						<tr class="level1">
+		   					<td>
+		   						<sub class="comment-writer">${bc['boardCommentWriter'] }</sub>
+		   						<sub class="comment-date">${bc['boardCommentDate'] }</sub>
+		   						<br/>
+		   						${bc['boardCommentContent']}
+		   					</td>
+   							<td>
+   								<c:if test="${not empty loginMember}">
+		   							<button type="button" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   						</c:if>
+		   					</td>
+		   				</tr>
+   					</c:if>
+   					<c:if test="${bc.boardCommentLevel eq '2'}">
+   						<tr class="level2">
+		   					<td>
+		   						<sub class="comment-writer">${bc.boardCommentWriter }</sub>
+		   						<sub class="comment-date">${bc.boardCommentDate }</sub>
+		   						<br/>
+		   						${bc.boardCommentContent}
+		   					</td>
+   							<td></td>
+   						</tr>
+   					</c:if>
+   				</c:forEach>
+   			</c:if>
+   		</table>
+    	</div>
+    	<div class="col-sm-1"></div>
     </div>
 	<script>
  	 function fn_boardDetail(el, seq, whatDay){
@@ -142,5 +221,28 @@
 		        infowindow.close();
 		    };
 		}
+		
+		
+		$(".btn-reply").click(function(){
+			if("${not empty loginMember}"){
+				const tr = $("<tr>");
+				const td = $("<td>").css({"display" : "none", "text-align" : "left"}).attr("colspan", 2);
+				const form = $("<form>").attr({"action" : "${path}/board/boardCommentInsert.do","method" : "post"});
+				const no = $("<input>").attr({"type" : "hidden", "name" : "no", "value" : "${board.trSeq}"});
+				const id = $("<input>").attr({"type" : "hidden", "name" : "id", "value" : "${board.memberId }"});
+				const writer = $("<input>").attr({"type" : "hidden","name" : "commentWriter","value" : "┖ ${loginMember.memberId}"});
+				const level = $("<input>").attr({"type" : "hidden", "name" : "commentLevel", "value" : "2"});
+				const commentRef = $("<input>").attr({"type" : "hidden", "name" : "commentRef", "value" : $(this).val()});
+				const commentContent = $("<input>").attr({"type" : "text", "name" : "commentContent"});
+				const btn = $("<button>").attr({"type" : "submit", "class" : "btn-insert2"}).html("등록");
+				
+				form.append(no).append(id).append(writer).append(level).append(commentRef).append(commentContent).append(btn);
+				td.append(form);
+				tr.append(td);
+				($(this).parent().parent()).after(tr);
+				tr.children("td").slideDown(50);
+			}
+		});
+
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
