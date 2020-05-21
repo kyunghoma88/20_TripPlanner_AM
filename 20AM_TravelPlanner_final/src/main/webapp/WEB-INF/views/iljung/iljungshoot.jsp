@@ -5,39 +5,66 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
-		<div style="display:inline-block;">
-			여행 일수<input type="text" id="days"/><br>
-			여행 지역
+		<div>
+			<p id="titletext">여행 제목</p>
+			<input type='text' id="plantitle" placeholder="${title} ">
+			<p>여행 일수</p>
+			<select name="days" id='days'>
+			    <option value="">일수 선택</option>
+			    <option value="1" name='day1'>1</option>
+			    <option value="2" name='day2'>2</option>
+			    <option value="3" name='day3'>3</option>
+			    <option value="4" name='day4'>4</option>
+			    <option value="5" name='day5'>5</option>
+			    <option value="6" name='day6'>6</option>
+			    <option value="7" name='day7'>7</option>
+			    <option value="8" name='day8'>8</option>
+			    <option value="9" name='day9'>9</option>
+			    <option value="10" name='day10'>10</option>
+			</select>
+			<p>여행 지역</p>
 			<select name="place" id='place'>
-			    <option value="">지역선택</option>
-			    <option value="서울">서울</option>
-			    <option value="강릉">강릉</option>
-			    <option value="대전">대전</option>
-			    <option value="전주">전주</option>
-			    <option value="부산">부산</option>
+			    <option value="">지역 선택</option>
+			    <option value="서울" name='Seoul'>서울</option>
+			    <option value="강릉" name=' Gangneung'>강릉</option>
+			    <option value="대전" name='Daejeon'>대전</option>
+			    <option value="전주" name='Jeonju'>전주</option>
+			    <option value="부산" name='Busan'>부산</option>
 			</select>
 			<button type="button" id="keepgoing">계획짜기</button>
 		</div>
-	<div style="width:471px;">
+	<div id="daysbox">
 		<c:forEach var="v" begin="1" end="${days }" varStatus="status">
 			<div class="a b day${v}""><p><c:out value="day - ${v}"/></p></div>
 		</c:forEach>
 	</div>	
-	<div style="display:inline-block;overflow:scroll;overflow-x:hidden;width:296;height:600px;position:absolute;left:471px;top:141px;">
+	<div id="hotspotlist">
 		<c:forEach items="${list}" var="hs">
 			<div class="test">
-				<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='279px' height='160px'>
+				<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
 				<p>${hs['HOTSPOT_NAME'] }</p>
 				<p>${hs['HOTSPOT_ADDR'] }</p>
 			</div>
 		</c:forEach>
 	</div>
-	<div id="map" style="width:600px;height:600px;position:absolute;overflow:hidden;left:766px;top:141px;">
+	<div id="mapa">
 	</div>
 	<button type="button" id="jujang">저장</button>
-	<button type="button" id="jujang1">1234</button>
 <script>
+$(document).ready(function(){
+	for(var i=1; i<11; i++){
+		if(${days} == i){
+			$("option[name=day"+i+"]").attr('selected','selected');
+		};
+	};
+	switch("${place}"){
+	case "서울": $("option[name=Seoul]").attr('selected','selected');break;
+	case "강릉": $("option[name=Gangneung]").attr('selected','selected');break;
+	case "대전": $("option[name=Daejeon]").attr('selected','selected');break;
+	case "전주": $("option[name=Jeonju]").attr('selected','selected');break;
+	case "부산": $("option[name=Busan]").attr('selected','selected');break;
+	}
+});
 $('#keepgoing').click(function(){
 	var days = $('#days').val();
 	var place = $('#place').val();
@@ -55,7 +82,7 @@ $('#keepgoing').click(function(){
 	});
 });
 
-var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
+var mapContainer = document.getElementById('mapa'); // 지도를 표시할 div  
 var hal = '${wekyungdo[0]['HOTSPOT_AREA_LAT']}';
 var hah = '${wekyungdo[0]['HOTSPOT_AREA_HAR']}';
 if(hal.trim() == '' || hah.trim() == ''){
@@ -149,7 +176,4 @@ $('#jujang').click(function(){
 		}
 	});
 });
-$('#jujang1').click(function(){
-	console.log($('.day1').children('div').children('input').val());
-})
 </script>
