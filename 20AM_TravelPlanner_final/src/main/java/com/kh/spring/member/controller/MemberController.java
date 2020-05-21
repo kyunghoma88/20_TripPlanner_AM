@@ -1,11 +1,16 @@
 package com.kh.spring.member.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,13 +42,17 @@ public class MemberController {
 	private MemberService service;
 	
 	@Autowired
+	private JavaMailSender mailSender;
+	@Autowired
 	private BoardService boardService;
+	
 	
 	
 	@RequestMapping("/member/memberEnroll.do")
 	public String enroll(Member m, Model model) {
 		m.setPassword(pwEncoder.encode(m.getPassword()));
-		
+		Member loginMember = service.selectMember(m);
+		//if(loginMember.getMemberId())
 		int result = service.insertMember(m);
 		
 		String msg = result>0?"회원가입 성공! 환영합니다! ":"회원가입에 실패했습니다.";
@@ -66,10 +75,10 @@ public class MemberController {
 			String msg = "";
 			String loc = "/";
 			
-			if(loginMember!=null) {
+			if(loginMember!=null && !loginMember.getStatus().equals("F")  ) {
 				
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
-					msg = "로그인 성공!";
+					//msg = "로그인 성공!";
 					
 					model.addAttribute("loginMember", loginMember);
 					
@@ -80,7 +89,7 @@ public class MemberController {
 				}
 			} else {
 				
-				msg = "로그인 실패! 아이디를 확인하세요!";
+				msg = "등록되지 않은 아이디입니다.";
 			}
 			
 			model.addAttribute("msg", msg);
@@ -244,8 +253,150 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/lookPw.do")
+	public ModelAndView lookPw(ModelAndView mv, HttpServletRequest request,
+								@RequestParam Map<String,String> param,
+								String memberId, String memberName, String email) {
+		
+		System.out.println(param);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("memberId", memberId);
+		
+//		mv.addObject("memberId", memberId);
+		
+		String msg = "";
+		String loc = "";
+		
+		Member m = service.lookPw(param);
+		
+		System.out.println("서비스 수행완료");
+		String host = "http://localhost:9090/spring";
+		String setFrom = "studysemiproject@gmail.com";
+		String toMail = request.getParameter("email");
+		String title = "비밀번호 변경을 위한 이메일 입니다.";
+		String content = "링크에 접속하여 비밀번호를 변경 해주세요." + "<a href =" + host + "/lookPwEnd"
+				+ ">비밀번호 변경하기</a>";
+		
+		
+		
+		if(m != null && (m.getMemberId().equals(memberId) && m.getMemberName().equals(memberName)) && m.getEmail().equals(email)) {
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				
+				messageHelper.setFrom(setFrom); // 보내는 사람 이메일
+				messageHelper.setTo(toMail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일 제목
+//				messageHelper.setText(content); //메일 내용
+				messageHelper.setText(content, true);
+				
+				mailSender.send(message);
+				
+				msg = "인증성공. 이메일을 확인해 주세요";
+				loc = "/index.jsp";
+				
+				mv.addObject("msg", msg);
+				mv.addObject("loc", loc);
+				mv.setViewName("common/msg");
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			msg = "인증실패. 입력 값이 옳바르지 않습니다.";
+			loc = "/index.jsp";
+			
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/lookPwEnd")
+	public ModelAndView lookPwEnd(ModelAndView mv) {
+		
+		mv.setViewName("member/lookPwEnd");
+		return mv;
+	}
 	
 	
+	@RequestMapping("/member/lookPwUpdate")
+	public ModelAndView lookPwUpdate(ModelAndView mv, @RequestParam Map<String,String> param, String memberId) {
+		
+		System.out.println("비밀번호변경 파라미터 : " + param);
+		param.put("password", pwEncoder.encode(param.get("password")));
+		int result = service.lookPwUpdate(param);
+		
+		String msg = "";
+		String loc = "";
+		if(result > 0) {
+			msg = "비밀번호 변경 완료";
+			loc = "/index.jsp";
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/member/membership.do")
+	public ModelAndView membership() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/membership");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	/////////////// 회원 탈퇴 로직  ////////////////////////
+	@RequestMapping("/member/signOut")
+	public String signOut() {
+		
+		return "member/signOut";
+		
+	}
+	
+	
+	@RequestMapping("/member/signOutEnd.do")
+	public ModelAndView memberSignOut(String memberId, String password, String memberName, String email, String phone, String address, String postCode, String addressDetail, HttpSession session)
+	{
+		ModelAndView mv = new ModelAndView();
+
+		//Member m = new Member(memberId, pwEncoder.encode(password),memberName, phone, email, "", "", position, location, null, "","","",0);
+		
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member result = service.selectMember(m);
+		
+		
+		int signOutResult = service.memberSignOut(result);
+		
+
+		String msg = "";
+		String loc = "/";
+		if(signOutResult>0)
+		{
+			session.setAttribute("loginMember", service.selectMember(result));
+			msg = "정상적으로 수정되었습니다.";
+		}
+		else
+		{
+			msg = "정보 수정이 실패했습니다.";
+		}
+	
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+
+
+		return mv;
+		
+	}
 	
 	
 	

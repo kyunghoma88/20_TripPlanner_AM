@@ -8,7 +8,10 @@
 </head>
 <body>
 	<script>
-		alert("${msg}");
+		if('${not empty msg}'==true){
+			/* ==true 안해주면 무조건 true겠지!? 헷갈리면 다시 질문! */
+			alert("${msg}");
+		}
 		if('${not empty loc}'){
 			location.replace("${pageContext.request.contextPath}${loc}");
 		}else if('${not empty referer}'){

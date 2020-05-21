@@ -10,9 +10,20 @@ pageEncoding="UTF-8"%>
 
 <style>
 
+	
+	.mypage-side-bar{
+		/* border : 1px solid black; */
+		width : 150px;
+		margin-left : 80px;
+		/* //margin-top : 20px; */
+	}
+	
+	
+
+
 	.btn-container{
-		margin-bottom: 35px;
-    	margin-left: 120px;
+		margin-bottom: 15px;
+    	margin-left: 25px;
 	}
 	
 	.btn-container a{
@@ -32,7 +43,8 @@ pageEncoding="UTF-8"%>
         }
         
         .mypage-header
-        {
+        {	
+        	
             height: 120px;
             display: flex;
             align-items: center;
@@ -72,8 +84,97 @@ pageEncoding="UTF-8"%>
 
 </style>
 
-<section>
-	<div class="mypage-wrapper">
+<div class="mypage-header">
+	<div class="mypage-title">마이페이지</div>
+</div>
+	
+<div class="row mypage-container">
+	
+<div class="col-sm-2 mypage-side-bar">
+
+	<%-- <div class="btn-container">
+		<a href="${path }/member/preMyPage">내 일정보기</a>
+	</div>
+	<div class="btn-container">
+		<a href="${path }/member/myPageCheck.do">회원정보 수정</a>
+	</div>
+	<div class="btn-container">
+		<a href="#">결제하기</a> 
+	</div>
+	<div class="btn-container">
+		<a href="#">탈퇴하기</a> 
+	</div> --%>
+	
+	
+	<div class="list-group">
+	  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
+	  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
+	  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
+	  <!-- 20200520  회원탈퇴 수정중 -->
+	  <a href="${path }/member/signOut" class="list-group-item list-group-item-action">회원 탈퇴</a>
+	
+	</div>
+
+</div>
+<div class="col-sm-7">
+
+	<form method="POST" name="updateForm" class="form-group">
+		<table class="table table-bordered">
+		    <tbody>
+		        <tr>
+		            <td style="width: 100px;">
+		                <label for="myPageId">아이디</label>
+		            </td>
+		            <td style="width: 400px;">
+		                <input type="text" name="id" id="myPageId" value="${loginMember.memberId }" style="display:none;">
+		              <span>${loginMember.memberId}</span>
+		          </td>
+		      </tr>
+		      <tr>
+		          <td>
+		              <label for="myPagePwd">이름</label>
+		          </td>
+		          <td>
+		              <input type="text" name="username" id="myPageUsername" value="${loginMember.memberName}" style="display:none;">
+		              <span>${loginMember.memberName}</span>
+		          </td>
+		      </tr>
+		      
+		      <tr>
+		          <td>
+		              <label for="myPageEmail">이메일</label>
+		          </td>
+		          <td>
+		              <input type="text" name="email" id="myPageEmail" value="${loginMember.email}" style="display:none;">
+		              <span>${loginMember.email}</span>
+		            </td>
+		        </tr>
+		        <tr>
+		          <td>
+		              <label for="myPagePhone">전화번호</label>
+		          </td>
+		          <td>
+		              <input type="text" name="phone" id="myPagePhone" value="${loginMember.phone}" style="display:none;">
+		              <span>${loginMember.phone}</span>
+		            </td>
+		        </tr>
+		        <tr>
+		          <td>
+		              <label for="myPageAddress">주소</label>
+		          </td>
+		          <td>
+		              <input type="text" name="address" id="myPageAddress" value="${loginMember.address}" style="display:none;">
+		              <span>${loginMember.address}</span>
+		              <input type="text" name="address" id="myPageAddressDetail" value="${loginMember.addressDetail}" style="display:none;">
+		              <span>${loginMember.addressDetail}</span>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+	</form>
+	
+
+	<%-- <div class="mypage-wrapper">
 		<div class="mypage-header">
 			<div class="mypage-title">마이페이지</div>
 		</div>
@@ -114,7 +215,8 @@ pageEncoding="UTF-8"%>
 		</div>
 	
 	
-	</div>
-</section>	
-
+	</div> --%>
+</div>
+<div class="col-sm-5"></div>
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

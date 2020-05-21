@@ -14,4 +14,5 @@ public interface HotSpotService {
 	List<Map<String,String>> hotSpotSearch(String keyword, int cPage, int numPerPage);
 	int hotSpotSearchCount(String keyword);
 
+	int updateHotSpotViewCount(String name);
 }

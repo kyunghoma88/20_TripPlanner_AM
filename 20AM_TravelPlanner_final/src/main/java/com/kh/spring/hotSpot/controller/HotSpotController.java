@@ -1,8 +1,13 @@
 package com.kh.spring.hotSpot.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.spring.common.PageFactory;
 import com.kh.spring.hotSpot.model.service.HotSpotService;
 import com.kh.spring.hotSpot.model.vo.HotSpot;
+import com.kh.spring.member.model.service.MemberService;
 
 @Controller
 public class HotSpotController {
@@ -24,6 +30,9 @@ public class HotSpotController {
 	
 	@Autowired
 	private Logger logger;
+	
+	@Autowired
+	private MemberService serviceMember;
 	
 	
 	
@@ -84,7 +93,7 @@ public class HotSpotController {
 		pageBar+="</ul>";
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage){";
-		pageBar+="location.href='/spring/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
+		pageBar+="location.href='/20AM_TravelPlanner_final/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
 		pageBar+="'}";
 		pageBar+="</script>";
 		
@@ -97,9 +106,35 @@ public class HotSpotController {
 	}
 	
 	@RequestMapping("/hotSpot/hotSpotView.do")
-	public ModelAndView hotSpotView(String name,ModelAndView mv) {
+	public ModelAndView hotSpotView(String name,ModelAndView mv,HttpSession session, HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
 		HotSpot h=service.selectHotSpotView(name);
-//		HttpSession session = session.getAttribute(name)
+		
+		Cookie[] cookies = request.getCookies();
+		String cookieVal="";
+		boolean hasRead = false;
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				String names = c.getName();
+				String value = c.getValue();
+				if("hotSpot".equals(names)) {
+					cookieVal = value;
+					if(value.contains("|"+name+"|")) {
+						hasRead = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(!hasRead) {
+			Cookie c = new Cookie("hotSpot",cookieVal+"|"+name+"|");
+			c.setMaxAge(-1);
+			service.updateHotSpotViewCount(name);
+			response.addCookie(c);
+		}
+		
+		
+		
 		mv.addObject("hotSpot",h);
 		mv.setViewName("hotSpot/hotSpotView");
 		return mv;

@@ -17,4 +17,6 @@ public class Board {
 	String hotspotAreaImg;
 	String hotspotAreaLat;
 	String hotspotAreaHar;
+	int like_check;
+	int like_up;
 }

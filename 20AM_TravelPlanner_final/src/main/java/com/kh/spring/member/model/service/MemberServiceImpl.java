@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,28 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.updateMember(session, result);
 	}
+
+
+	@Override
+	public Member lookPw(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return dao.lookPw(session, param);
+	}
+
+
+	@Override
+	public int lookPwUpdate(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return dao.lookPwUpdate(session, param);
+	}
+
+
+	@Override
+	public int memberSignOut(Member result) {
+		// TODO Auto-generated method stub
+		return dao.signOut(session, result);
+	}
+	
 	
 	
 

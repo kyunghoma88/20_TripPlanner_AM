@@ -18,7 +18,9 @@
 	</insert>
 	
 	<select id="selectMember" resultMap="memberMap" parameterType="member">
-		SELECT * FROM MEMBER WHERE MEMBER_ID=#{memberId}
+		SELECT * 
+		  FROM MEMBER 
+		 WHERE MEMBER_ID=#{memberId} 
 	</select>
 	
 	
@@ -45,6 +47,27 @@
 	 	         ADDRESS = #{address},
 	 	  ADDRESS_DETAIL = #{addressDetail},
 	 	       POST_CODE = #{postCode}
+	 	 WHERE MEMBER_ID = #{memberId}
+	 
+	 </update>
+	 
+	 <select id="lookPw" parameterType="map" resultMap="memberMap">
+	 	SELECT *
+	 	FROM MEMBER
+	 	WHERE MEMBER_NAME = #{memberName} AND MEMBER_ID = #{memberId} AND EMAIL = #{email} 
+	 </select>
+	 
+	 <update id="lookPwUpdate" parameterType="map">
+	 	UPDATE MEMBER
+	 	SET PASSWORD = #{password}
+	 	WHERE MEMBER_ID = #{memberId}
+	 </update>
+	 
+	 <!-- 탈퇴 -->
+	 <update id="signOutMember" parameterType="member">
+	 
+	 	UPDATE MEMBER 
+	 	   SET STATUS = 'F'
 	 	 WHERE MEMBER_ID = #{memberId}
 	 
 	 </update>

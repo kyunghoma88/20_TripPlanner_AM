@@ -109,13 +109,16 @@ ul {
 	background:white;
 	margin-right:10px;
 }
+.categoryC{
+	color:#002266;
+}
 </style>
 <section>
 	<br>
 	<p id="pTop">자주 묻는 질문</p>
-	<span><a href="${path }/faq/infoFaq" class="image_button"><img src="${path}/resources/images/infofaq.png" width="70px" height="70px"/></a></span>
-	<span><a href="${path }/faq/memberFaq" class="image_button"><img src="${path}/resources/images/memberfaq.png" width="70px" height="70px"/></a></span>
-	<span><a href="${path }/faq/cashFaq" class="image_button"><img src="${path}/resources/images/cashfaq.png" width="70px" height="70px"/></a></span>
+	<span><a href="${path }/faq/infoFaq" class="image_button categoryC">이용안내</a></span>
+	<span><a href="${path }/faq/cashFaq" class="image_button categoryC">결제</a></span>
+	<span><a href="${path }/faq/memberFaq" class="image_button categoryC">회원관리</a></span>
 	<br> <span id="searchSp">
 		<h4>도움말 검색</h4>
 		<p>키워드로 빠르게 도움말을 찾아보실 수 있습니다.</p>

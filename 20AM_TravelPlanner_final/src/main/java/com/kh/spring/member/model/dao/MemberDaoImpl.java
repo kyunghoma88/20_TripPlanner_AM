@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,32 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updateMember",result);
 	}
 
+
+	@Override
+	public Member lookPw(SqlSessionTemplate session, Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.lookPw", param);
+	}
+
+
+	@Override
+	public int lookPwUpdate(SqlSessionTemplate session, Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.update("member.lookPwUpdate", param);
+	}
+
+
+	@Override
+	public int signOut(SqlSessionTemplate session, Member result) {
+		// TODO Auto-generated method stub
+		return session.update("member.signOutMember", result);
+	}
+	
+	
+	
+
+
+	
+	
 
 }

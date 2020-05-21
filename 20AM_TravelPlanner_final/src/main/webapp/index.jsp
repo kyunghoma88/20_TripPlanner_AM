@@ -113,10 +113,17 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<%-- <a href="${path }/member/myPageCheck.do"> --%>
-						<a href="${path }/member/preMyPage">
-							<c:out value='${loginMember.memberName }'/>
-						</a>님, 안녕하세요!
+						<c:if test="${loginMember.status == 'Y' }">
+							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<a href="${path }/member/preMyPage">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</c:if>
+						<c:if test="${loginMember.status == 'N' }">
+							<a href="${path }/member/preMyPage">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</c:if>
 					</span>
 					&nbsp;
 					<button class="btn btn-outline-success my-2 my-sm-0" type="button"
@@ -188,11 +195,41 @@
 					<div class="modal-footer">
 					  <button type="submit" class="btn btn-outline-success" >로그인</button>
 					  <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
+					  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#lookPwModal">비밀번호 찾기</button>
 					</div>
 				</form>
 			 </div>
 		</div>
 	</div>
+	
+	<!-- 비밀번호 찾기 모달 -->
+	<!-- Modal -->
+  <div class="modal fade" id="lookPwModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">비밀번호 찾기</h4>
+        </div>
+        <div class="modal-body">
+          <p>가입시 입력하신 정보를 입력해주세요.</p>
+          <form action="${path }/member/lookPw.do" method="post">
+	          <input type="text" class="form-control" name="memberName" placeholder="이름" autocomplete="off" required><br>
+	          <input type="text" class="form-control" name="memberId" placeholder="아이디" autocomplete="off" required><br>
+	          <input type="email" class="form-control" name="email" placeholder="이메일" autocomplete="off" required><br>
+	          <input type="submit" class="form-control" value="확인">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
 	
 	<!-- 회원가입 모달 -->
 	<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" 
@@ -221,10 +258,10 @@
 						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
 						<!-- 주소 API 받아오기 -->
 						<br/>
-						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호">
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required>
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
-						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;">
+						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" required readonly>
 						<!-- <input type="text" id="sample4_jibunAddress" placeholder="지번주소"> -->
 						<span id="guide" style="color:#999;display:none"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -305,40 +342,7 @@
     	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
     	}else if("${loginMember.status}" == "N"){
-    		alert("프리미엄 회원만 이용 가능합니다. 결제 후 이용해주세요");
-    		var userId = "${loginMember.memberId}";
-    		var asdf = 'imp94500117';
-    		var IMP = window.IMP;
-    		IMP.init(asdf); //가맹점 식별코드
-    		IMP.request_pay({
-    			pg:'inicis',
-    			pay_method: 'card', //결제 방법
-    			merchant_uid: 'merchant_' + new Date().getTime(),
-    			name: '주문명 : 이시국에 프리미엄 회원 전환',
-    			amount: '100',
-    			buyer_email: 'iamport@siot.do',
-    			buyer_name: '${loginMember.memberName}',
-    			buyer_tel: '${loginMember.phone}',
-    			buyer_addr: '${loginMember.address}',
-    			buyer_postcode: '${loginMember.postCode}',
-    			m_redirect_url: '${path}/index.jsp'
-    		}, function (rsp) {
-    			if(rsp.success){
-    				var msg = '결제가 완료되었습니다.';
-    				$.ajax({
-    					type:"post",
-    					url:"${path}/member/payComplete",
-    					data:{"userId": userId},
-    					dataType:"json",
-    					success:function(data){
-    						location.replace("${path}/index.jsp");
-    					}
-    				})
-    			} else{
-    				var msg = '결제에 실패 하였습니다.';
-    			}
-    			alert(msg);
-    		})
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
     	}else if("${empty loginMember}"){
     		alert("로그인이 필요한 서비스입니다.");
     	}
@@ -351,9 +355,11 @@
     });
     
     $("#boardBtn").click(function(){
-    	if(${not empty loginMember}){
+    	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
-    	}else{
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
+    	}else if("${empty loginMember}"){
     		alert("로그인이 필요한 서비스입니다.");
     	}
     })
