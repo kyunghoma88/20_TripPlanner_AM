@@ -113,10 +113,17 @@
 				</c:if>
 				<c:if test='${not empty loginMember }'>
 					<span>
-						<%-- <a href="${path }/member/myPageCheck.do"> --%>
-						<a href="${path }/member/preMyPage">
-							<c:out value='${loginMember.memberName }'/>
-						</a>님, 안녕하세요!
+						<c:if test="${loginMember.status == 'Y' }">
+							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<a href="${path }/member/preMyPage">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</c:if>
+						<c:if test="${loginMember.status == 'N' }">
+							<a href="${path }/member/preMyPage">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</c:if>
 					</span>
 					&nbsp;
 					<button class="btn btn-outline-success my-2 my-sm-0" type="button"
