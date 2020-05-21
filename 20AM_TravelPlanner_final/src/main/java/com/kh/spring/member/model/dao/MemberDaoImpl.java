@@ -52,9 +52,16 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.update("member.lookPwUpdate", param);
 	}
-	
-	
 
+
+	@Override
+	public int signOut(SqlSessionTemplate session, Member result) {
+		// TODO Auto-generated method stub
+		return session.update("member.signOutMember", result);
+	}
+	
+	
+	
 
 
 	
