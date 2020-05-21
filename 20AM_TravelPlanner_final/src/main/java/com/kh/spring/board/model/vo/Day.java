@@ -24,5 +24,6 @@ public class Day {
 	String hotspotAddr;
 	String hotspotLat;
 	String hotspotHar;
-	
+	int like_check;
+	int like_up;
 }

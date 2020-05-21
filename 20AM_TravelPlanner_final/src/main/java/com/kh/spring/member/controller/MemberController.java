@@ -51,7 +51,8 @@ public class MemberController {
 	@RequestMapping("/member/memberEnroll.do")
 	public String enroll(Member m, Model model) {
 		m.setPassword(pwEncoder.encode(m.getPassword()));
-		
+		Member loginMember = service.selectMember(m);
+		//if(loginMember.getMemberId())
 		int result = service.insertMember(m);
 		
 		String msg = result>0?"회원가입 성공! 환영합니다! ":"회원가입에 실패했습니다.";
@@ -74,10 +75,10 @@ public class MemberController {
 			String msg = "";
 			String loc = "/";
 			
-			if(loginMember!=null) {
+			if(loginMember!=null && !loginMember.getStatus().equals("F")  ) {
 				
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
-					msg = "로그인 성공!";
+					//msg = "로그인 성공!";
 					
 					model.addAttribute("loginMember", loginMember);
 					
@@ -88,7 +89,7 @@ public class MemberController {
 				}
 			} else {
 				
-				msg = "로그인 실패! 아이디를 확인하세요!";
+				msg = "등록되지 않은 아이디입니다.";
 			}
 			
 			model.addAttribute("msg", msg);
@@ -166,8 +167,7 @@ public class MemberController {
 		logger.info(result+"");
 		String msg="";
 		String loc="/";
-		if(result != null)
-		{
+		if(result != null) {
 			if(pwEncoder.matches(m.getPassword(), result.getPassword()))
 			{
 				mv.setViewName("member/myPage");
@@ -339,8 +339,74 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/membership.do")
+	public ModelAndView membership() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/membership");
+		return mv;
+	}
 	
 	
+	
+	
+	
+	/////////////// 회원 탈퇴 로직  ////////////////////////
+	@RequestMapping("/member/signOut")
+	public String signOut() {
+		
+		return "member/signOut";
+		
+	}
+	
+	
+	@RequestMapping("/member/signOutEnd.do")
+	public ModelAndView memberSignOut(String memberId, String password, String memberName, String email, String phone, String address, String postCode, String addressDetail, HttpSession session, SessionStatus status)
+	{
+		ModelAndView mv = new ModelAndView();
+
+		//Member m = new Member(memberId, pwEncoder.encode(password),memberName, phone, email, "", "", position, location, null, "","","",0);
+		
+		Member m = new Member();
+		m.setMemberId(memberId);
+		Member result = service.selectMember(m);
+		
+		logger.info("탈퇴 화면 member m : " + m);
+		logger.info("탈퇴 화면 result : " + result);
+		
+		
+
+		String msg = "";
+		String loc = "/";
+		
+		
+		if(pwEncoder.matches(password, result.getPassword())) {
+			int signOutResult = service.memberSignOut(result);
+			if(signOutResult>0 && !status.isComplete()) {
+				session.setAttribute("loginMember", service.selectMember(result));
+				msg = "탈퇴 처리되었습니다.";
+				
+				status.setComplete();
+			}else {
+				msg = "";
+			}
+		}
+		else
+		{
+			msg = "패스워드가 일치하지 않습니다.";
+			loc = "/member/preMyPage";
+			
+		}
+	
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+
+
+		return mv;
+		
+	}
 	
 	
 	

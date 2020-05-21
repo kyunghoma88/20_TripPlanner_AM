@@ -67,7 +67,7 @@
                       <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
+                      <a class="nav-link menubarLink" id="boardBtn">게시판</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
@@ -92,9 +92,18 @@
 					</c:if>
 					<c:if test='${not empty loginMember }'>
 						<span>
+						<c:if test="${loginMember.status == 'Y' }">
+							<img src="${path }/resources/images/premium.png" width="50px" height="50px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
+						</c:if>
+						<c:if test="${loginMember.status == 'N' }">
+							<img src="${path }/resources/images/normal.png" width="50px" height="50px"/>
+							<a href="${path }/member/preMyPage">
+								<c:out value='${loginMember.memberName }'/>
+							</a>님, 안녕하세요!
+						</c:if>
 						</span>
 						&nbsp;
 						<button class="btn btn-outline-success my-2 my-sm-0" type="button"
@@ -266,4 +275,14 @@
             }
         }).open();
     }
+    
+    $("#boardBtn").click(function(){
+    	if("${loginMember.status}" == "Y"){
+    		location.replace("${path}/board/boardList.do");
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
+    	}else if("${empty loginMember}"){
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
 </script>

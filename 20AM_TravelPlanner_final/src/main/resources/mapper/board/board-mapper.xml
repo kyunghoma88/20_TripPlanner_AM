@@ -11,6 +11,8 @@
 		<result column="HOTSPOT_AREA_IMAGE" property="hotspotAreaImg"/>
 		<result column="HOTSPOT_AREA_LAT" property="hotspotAreaLat"/>
 		<result column="HOTSPOT_AREA_HAR" property="hotspotAreaHar"/>
+		<result column="LIKE_CHECK" property="like_check"/>
+		<result column="LIKE_UP" property="like_up"/>
 	</resultMap>
 	<resultMap type="Day" id="dayMap">
 		<result column="TR_SEQ" property="trSeq"/>
@@ -28,6 +30,8 @@
 		<result column="HOTSPOT_ADDR" property="hotspotAddr"/>
 		<result column="HOTSPOT_LAT" property="hotspotLat"/>
 		<result column="HOTSPOT_HAR" property="hotspotHar"/>
+		<result column="LIKE_CHECK" property="like_check"/>
+		<result column="LIKE_UP" property="like_up"/>
 	</resultMap>
 	<resultMap type="BoardComment" id="commentMap">
 		<result column="BOARD_COMMENT_NO" property="boardCommentNo"/>

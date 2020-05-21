@@ -74,6 +74,7 @@ public class BoardController {
 		return d;
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("board/boardCommentInsert.do")
 	public ModelAndView insertBoardComment(ModelAndView mv, @RequestParam Map map, HttpServletRequest request) {
 		int result = service.insertBoardComment(map);
@@ -93,5 +94,8 @@ public class BoardController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+=======
+	
+>>>>>>> branch 'developer' of https://github.com/kyunghoma88/20_TripPlanner_AM.git
 
 }

@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <style>
-		.mypage-side-bar{
+	.mypage-side-bar{
 			/* border : 1px solid black; */
 			width : 150px;
 			margin-left : 80px;
@@ -107,22 +107,29 @@ pageEncoding="UTF-8"%>
         	position : relative;
         	align-self: center;
         }
+	
+
+
 
 </style>
 
+
+
 <div class="mypage-header">
-	<div class="mypage-title">마이페이지</div>
+	<div class="mypage-title">회원탈퇴</div>
 </div>
 
 <div class="row mypage-container">
+
 	<div class="col-sm-2 mypage-side-bar">
 		<div class="list-group">
 		  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
 		  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
-		  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
+		  <a href="#" class="list-group-item list-group-item-action">유료서비스 이용</a>
+		  <!-- 20200520  회원탈퇴 수정중 -->
 		  <a href="${path }/member/signOut.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
+		
 		</div>
-	
 	</div>
 
 	<div class="col-sm-7 section">
@@ -133,7 +140,7 @@ pageEncoding="UTF-8"%>
 			</div>
 			<div class="mypage-body">
 				<div class="member-update-wrapper">
-					<form action="${path }/member/mypage.do" method="post" class="member-update-frm" autocomplete="off" enctype="multipart/form-data" >
+					<form action="${path }/member/signOutEnd.do" method="post" class="member-update-frm" autocomplete="off" enctype="multipart/form-data" >
 						<div class="form-group">
 							<input type="text" class="form-control" value="${loginMember.memberId }" name="memberId" readonly="readonly">
 						</div>
@@ -142,20 +149,17 @@ pageEncoding="UTF-8"%>
 					    </div>
 	
 						<div class="update-btn-set">
-							<input type="submit" class="btn btn-primary" value="확인">
-							<input type="button" id="cancel" class="btn btn-secondary" value="취소"> 
+							<input type="submit" class="btn btn-outline-danger" value="탈퇴">
+							<a class="btn btn-outline-dark" href="${path }/member/preMyPage">취소</a>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-	
 	</div>
-	
+
 	<div class="col-sm-5"></div>
-	
+
 </div>
-
-
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
