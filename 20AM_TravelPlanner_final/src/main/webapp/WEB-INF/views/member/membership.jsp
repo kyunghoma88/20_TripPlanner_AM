@@ -79,8 +79,12 @@
 
 #membershipBtn{
 	color : white;
-	transform : translate(200%, -250%);
+	transform : translate(240%, -250%);
 	background-color : #203341;
+}
+
+.col-sm-7{
+	transform : translate(5%,0);
 }
 </style>
 
@@ -133,20 +137,22 @@ function fn_membership_btn(){
 			m_redirect_url: '${path}/index.jsp'
 		}, function (rsp) {
 			if(rsp.success){
-				var msg = '결제가 완료되었습니다.';
+				var msg = '결제가 완료되었습니다. 다시 로그인 해주세요.';
 				$.ajax({
 					type:"post",
 					url:"${path}/member/payComplete",
 					data:{"userId": userId},
 					dataType:"json",
 					success:function(data){
-						location.replace("${path}/index.jsp");
+						
 					}
 				})
 			} else{
 				var msg = '결제에 실패 하였습니다.';
 			}
 			alert(msg);
+			location.replace("${path}/index.jsp");
+			location.replace("${path}/member/logout.do");
 		})
 	}else if("${empty loginMember}"){
 		alert("로그인이 필요한 서비스입니다.");

@@ -67,7 +67,7 @@
                       <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" id="boardBtn" href="${path}/board/boardList.do">게시판</a>
+                      <a class="nav-link menubarLink" id="boardBtn">게시판</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
