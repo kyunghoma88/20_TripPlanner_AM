@@ -227,6 +227,7 @@ public class MemberController {
 		{
 			session.setAttribute("loginMember", service.selectMember(result));
 			msg = "정상적으로 수정되었습니다.";
+			loc = "/member/preMyPage";
 		}
 		else
 		{
