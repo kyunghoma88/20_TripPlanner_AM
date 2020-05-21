@@ -52,6 +52,7 @@ public class PlanController {
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
 		map.put("memberId",list.get(0).get("id"));
+		map.put("title",list.get(0).get("title"));
 		service.insertBoard(map);
 		String member = (String)list.get(0).get("id");
 		int seq = service.searchMember(member);

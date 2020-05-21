@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.1.2"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.1.3"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle"/>
 </jsp:include>
@@ -40,7 +40,10 @@
 			</select>
 			<button type="button" id="keepgoing">계획짜기</button>
 		</div>
-		<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;float:right;display:inline-block;">
+		<div id='jacksungbub'>
+			<img src='${path}/resources/images/작성법.JPG'>
+		</div>
+		<div id="map">
 		</div>
 	</div>
 </div>
@@ -74,7 +77,7 @@
 	});
 	
 	$(document).on('click','.test',function(){
-		var tatag = $("<textarea rows='4' cols='58' class='textsoksung'>")
+		var tatag = $("<textarea rows='4' cols='55' class='textsoksung'>")
 		var ptag = $("<p class='ptagposition'>");
 		var imgtag = $("<img src='' class='imgposition'>")
 		var imgsrc = $(this).find('img').attr('src');

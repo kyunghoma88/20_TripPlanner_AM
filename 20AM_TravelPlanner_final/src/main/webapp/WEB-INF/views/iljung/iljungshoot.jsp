@@ -7,7 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 		<div>
 			<p id="titletext">여행 제목</p>
-			<input type='text' id="plantitle" placeholder="${title} ">
+			<input type='text' id="plantitle" placeholder="${title} " value="${title}">
 			<p>여행 일수</p>
 			<select name="days" id='days'>
 			    <option value="">일수 선택</option>
@@ -68,11 +68,13 @@ $(document).ready(function(){
 $('#keepgoing').click(function(){
 	var days = $('#days').val();
 	var place = $('#place').val();
+	var title = $('#plantitle').val();
 	$.ajax({
 		url:"${path}/shoot.do",
 		data:{
 			days:days,
-			place:place
+			place:place,
+			title:title
 		},
 		type:"post",
 		dataType:"html",
@@ -137,10 +139,12 @@ function makeOverListener(map, marker, infowindow) {
     return function() {
         infowindow.open(map, marker);
     };
-}
+};
+
 $('#jujang').click(function(){
 	var han = '${list[0]['HOTSPOT_AREA_NAME']}';
 	var id = '${loginMember['memberId']}';
+	var title = $('#plantitle').val();
 	var jArray = new Array();
 	var jArray2 = new Array();
 	var item = new Array();
@@ -151,14 +155,15 @@ $('#jujang').click(function(){
 			item2[i] = new Array();
 			for(var j = 0; j < $('.day'+(i+1)).children('div').length; j++){
 				item[i][j]= $('.day'+(i+1)).children('div').eq(j).children('p').text();
-				item2[i][j]= $('.day'+(i+1)).children('div').eq(j).children('input').val();
+				item2[i][j]= $('.day'+(i+1)).children('div').eq(j).children('textarea').val();
 				console.log(i+'행'+j+'열'+item[i][j]);
 				jArray[count]={
 						tday:i+1,
 						tplace:item[i][j],
 						tarea:han,
 						id:id,
-						comment:item2[i][j]
+						comment:item2[i][j],
+						title:title
 				}
 				count++;
 			};
