@@ -62,6 +62,15 @@ public class HotSpotServiceImpl implements HotSpotService {
 		// TODO Auto-generated method stub
 		return dao.hotSpotSearchCount(session, keyword);
 	}
+
+
+	@Override
+	public int updateHotSpotViewCount(String name) {
+		// TODO Auto-generated method stub
+		return dao.updateHotSpotViewCount(session,name);
+	}
+	
+	
 	
 	
 	

@@ -30,4 +30,7 @@
   	SELECT COUNT(*) FROM HOTSPOT
 		WHERE 1=1 AND (HOTSPOT_NAME LIKE '%'||#{keyword}||'%' OR HOTSPOT_AREA_NAME LIKE '%'||#{keyword}||'%')
   </select>
+  <update id="updateHotSpotViewCount" parameterType="string">
+  	UPDATE HOTSPOT SET HOTSPOT_VIEW=HOTSPOT_VIEW+1 WHERE HOTSPOT_NAME=#{area}
+  </update>
 </mapper>

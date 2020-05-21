@@ -15,4 +15,5 @@ public interface HotSpotDao {
 	
 	List<Map<String,String>> hotSpotSearch(SqlSessionTemplate session, String keyword, int cPage, int numPerpage);
 	int hotSpotSearchCount(SqlSessionTemplate session, String keyword);
+	int updateHotSpotViewCount(SqlSessionTemplate session,String name);
 }

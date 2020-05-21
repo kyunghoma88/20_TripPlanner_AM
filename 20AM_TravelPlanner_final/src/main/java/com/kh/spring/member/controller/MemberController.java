@@ -331,8 +331,20 @@ public class MemberController {
 		String msg = "";
 		String loc = "";
 		if(result > 0) {
-			mv.setViewName("/index.jsp");
+			msg = "비밀번호 변경 완료";
+			loc = "/index.jsp";
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
 		}
+		return mv;
+	}
+	
+	@RequestMapping("/member/membership.do")
+	public ModelAndView membership() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/membership");
 		return mv;
 	}
 	
