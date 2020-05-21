@@ -18,7 +18,10 @@
 	</insert>
 	
 	<select id="selectMember" resultMap="memberMap" parameterType="member">
-		SELECT * FROM MEMBER WHERE MEMBER_ID=#{memberId}
+		SELECT * 
+		  FROM MEMBER 
+		 WHERE MEMBER_ID=#{memberId} 
+		   AND STATUS = #{status}
 	</select>
 	
 	
@@ -59,6 +62,15 @@
 	 	UPDATE MEMBER
 	 	SET PASSWORD = #{password}
 	 	WHERE MEMBER_ID = #{memberId}
+	 </update>
+	 
+	 <!-- 탈퇴 -->
+	 <update id="signOutMember" parameterType="member">
+	 
+	 	UPDATE MEMBER 
+	 	   SET STATUS = 'F'
+	 	 WHERE MEMBER_ID = #{memberId}
+	 
 	 </update>
 	
 	

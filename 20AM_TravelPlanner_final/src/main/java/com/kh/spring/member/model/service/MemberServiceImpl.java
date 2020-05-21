@@ -61,10 +61,13 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.lookPwUpdate(session, param);
 	}
-	
-	
 
 
+	@Override
+	public int memberSignOut(Member result) {
+		// TODO Auto-generated method stub
+		return dao.signOut(session, result);
+	}
 	
 	
 	
