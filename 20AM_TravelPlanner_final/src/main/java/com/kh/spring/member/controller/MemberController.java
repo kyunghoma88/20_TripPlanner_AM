@@ -75,10 +75,10 @@ public class MemberController {
 			String msg = "";
 			String loc = "/";
 			
-			if(loginMember!=null && !loginMember.getStatus().equals('F')  ) {
+			if(loginMember!=null && !loginMember.getStatus().equals("F")  ) {
 				
 				if(pwEncoder.matches(m.getPassword(), loginMember.getPassword())) {
-					msg = "로그인 성공!";
+					//msg = "로그인 성공!";
 					
 					model.addAttribute("loginMember", loginMember);
 					

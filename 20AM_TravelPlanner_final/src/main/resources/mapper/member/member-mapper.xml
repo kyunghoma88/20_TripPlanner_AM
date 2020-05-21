@@ -21,7 +21,6 @@
 		SELECT * 
 		  FROM MEMBER 
 		 WHERE MEMBER_ID=#{memberId} 
-		   AND STATUS = #{status}
 	</select>
 	
 	
