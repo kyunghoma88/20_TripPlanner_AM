@@ -67,7 +67,7 @@
                       <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="${path}/board/boardList.do">게시판</a>
+                      <a class="nav-link menubarLink" id="boardBtn" href="${path}/board/boardList.do">게시판</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="#">INFORMATION</a>
@@ -266,4 +266,14 @@
             }
         }).open();
     }
+    
+    $("#boardBtn").click(function(){
+    	if("${loginMember.status}" == "Y"){
+    		location.replace("${path}/board/boardList.do");
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
+    	}else if("${empty loginMember}"){
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
 </script>

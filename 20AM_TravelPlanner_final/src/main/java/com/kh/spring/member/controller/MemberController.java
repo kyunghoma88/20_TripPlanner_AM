@@ -339,6 +339,14 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/membership.do")
+	public ModelAndView membership() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/membership");
+		return mv;
+	}
+	
 	
 	
 	

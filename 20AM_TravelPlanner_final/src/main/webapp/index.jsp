@@ -335,7 +335,7 @@
     	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
     	}else if("${loginMember.status}" == "N"){
-    		alert("프리미엄 회원만 이용 가능합니다. 결제 후 이용해주세요");
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
     		var userId = "${loginMember.memberId}";
     		var asdf = 'imp94500117';
     		var IMP = window.IMP;
@@ -381,9 +381,11 @@
     });
     
     $("#boardBtn").click(function(){
-    	if(${not empty loginMember}){
+    	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
-    	}else{
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
+    	}else if("${empty loginMember}"){
     		alert("로그인이 필요한 서비스입니다.");
     	}
     })
