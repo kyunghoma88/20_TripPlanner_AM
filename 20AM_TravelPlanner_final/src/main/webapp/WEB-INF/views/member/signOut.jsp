@@ -8,8 +8,115 @@ pageEncoding="UTF-8"%>
 	
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<style>
+	.mypage-side-bar{
+			/* border : 1px solid black; */
+			width : 150px;
+			margin-left : 80px;
+			/* //margin-top : 20px; */
+		}
+
+    	.section
+    	{
+    		position: relative;
+    		height: 500px;
+    	}
+    	
+		.mypage-wrapper
+        {
+            width: 650px;
+            height: auto;
+            margin : auto;
+            display: flex;
+            flex-flow: column nowrap;
+            align-self: center;
+        }
+
+        .mypage-header
+        {
+            height: 120px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mypage-title
+        {
+            font-size: 35px;
+            margin: auto;
+            font-weight: bold;
+            color: black;
+        }
+              
+       
+        .mypage-span
+        {
+            width: 100%;
+            
+            margin-bottom : 70px;
+            position: relative;
+            text-align: center;
+            align-self: center;
+        }
+        
+        .mypage-span > span
+        {
+        	font-size: 22px;
+        	color : #4582EC;
+        }
+
+        .mypage-span
+        {
+            flex: 1 1 0;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .member-update-wrapper
+        {
+            font-family: 'Noto Sans KR';
+            width: 100%;
+            position: relative;
+            
+        }
+
+        .member-update-header
+        {
+            font-size: 25px;
+            margin: 30px 0;
+            /* border-bottom: 2px solid rgb(42, 71, 114); */
+            padding-bottom: 25px;
+        }
+
+     	.member-update-frm
+        {
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+        }
+        
+        .form-group
+        {
+        	width : 50%;
+        	align-self: center;
+        	margin : 0 0 7px 0;
+        }
+        
+        .update-btn-set
+        {
+        	margin-top : 25px;
+        	position : relative;
+        	align-self: center;
+        }
+	
+
+
+
+</style>
+
+
+
 <div class="mypage-header">
-	<div class="mypage-title">마이페이지</div>
+	<div class="mypage-title">회원탈퇴</div>
 </div>
 
 <div class="row mypage-container">
@@ -42,8 +149,8 @@ pageEncoding="UTF-8"%>
 					    </div>
 	
 						<div class="update-btn-set">
-							<input type="submit" class="btn btn-primary" value="탈퇴하기">
-							<input type="button" id="cancel" class="btn btn-secondary" value="취소"> 
+							<input type="submit" class="btn btn-outline-danger" value="탈퇴">
+							<a class="btn btn-outline-dark" href="${path }/member/preMyPage">취소</a>
 						</div>
 					</form>
 				</div>
