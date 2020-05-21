@@ -4,19 +4,34 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.1.2"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle"/>
 </jsp:include>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
-	<div id="abcd" style="width:1366px;">
-		<div style="display:inline-block;">
-			여행 일수<input type="text" id="days"/><br>
-			여행 지역
+<div id="daddydiv">
+	<div id="abcd">
+		<div>
+			<p id="titletext">여행 제목</p>
+			<input type='text' id="plantitle">
+			<p>여행 일수</p>
+			<select name="days" id='days' >
+			    <option value="">일수 선택</option>
+			    <option value="1">1</option>
+			    <option value="2">2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			    <option value="5">5</option>
+			    <option value="6">6</option>
+			    <option value="7">7</option>
+			    <option value="8">8</option>
+			    <option value="9">9</option>
+			    <option value="10">10</option>
+			</select>
+			<p>여행 지역</p>
 			<select name="place" id='place'>
-			    <option value="">지역선택</option>
+			    <option value="">지역 선택</option>
 			    <option value="서울">서울</option>
 			    <option value="강릉">강릉</option>
 			    <option value="대전">대전</option>
@@ -28,15 +43,19 @@
 		<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;float:right;display:inline-block;">
 		</div>
 	</div>
+</div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script>
 	$('#keepgoing').click(function(){
 		var days = $('#days').val();
 		var place = $('#place').val();
+		var title = $('#plantitle').val();
 		$.ajax({
 			url:"${path}/shoot.do",
 			data:{
 				days:days,
-				place:place
+				place:place,
+				title:title
 			},
 			type:"post",
 			dataType:"html",
@@ -55,21 +74,21 @@
 	});
 	
 	$(document).on('click','.test',function(){
-		var tatag = $("<input type='textarea'>")
-		var ptag = $("<p>");
-		var imgtag = $("<img src=''>")
+		var tatag = $("<textarea rows='4' cols='58' class='textsoksung'>")
+		var ptag = $("<p class='ptagposition'>");
+		var imgtag = $("<img src='' class='imgposition'>")
 		var imgsrc = $(this).find('img').attr('src');
-		var divtag = $('<div>');
+		var divtag = $("<div class='divposition'>");
 		var btntag = $("<button class='btnf'>");
 		btntag.append('x');
 		imgtag.attr('width','100px');
 		imgtag.attr('height','100px');
 		imgtag.attr('src',imgsrc);
 		ptag.append($(this).find('img').next().text());
-		divtag.append(imgtag);
-		divtag.append(ptag);
-		divtag.append(tatag);
 		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
 		$(".b.c.d").append(divtag);
 		var count = (($(".b.c.d").children().length)-1)/2;
 		//console.log($(".b.c.d").children('div').children('p').text());
@@ -97,7 +116,6 @@
 		$(this).children('div').toggle('slow');
 		
 	});
-	
 	
 	var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
 	var hal = '${wekyungdo[0]['HOTSPOT_AREA_LAT']}';

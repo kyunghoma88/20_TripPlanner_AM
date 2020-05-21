@@ -23,12 +23,13 @@ public class PlanController {
 	private PlanService service;
 	
 	@RequestMapping("/shoot.do")
-	public ModelAndView shoot(String days, String place,ModelAndView mv) {
+	public ModelAndView shoot(String days, String place,String title,ModelAndView mv) {
 		List<Map<String,String>> list = service.placedata(place);
 		List<Map<String,String>> wekyungdo = service.areadata(place);
 		mv.addObject("list",list);
 		mv.addObject("days", days);
 		mv.addObject("place", place);
+		mv.addObject("title",title);
 		mv.addObject("wekyungdo",wekyungdo);
 		mv.setViewName("iljung/iljungshoot");
 		return mv;
