@@ -93,7 +93,7 @@ public class HotSpotController {
 		pageBar+="</ul>";
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage){";
-		pageBar+="location.href='/spring/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
+		pageBar+="location.href='/20AM_TravelPlanner_final/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
 		pageBar+="'}";
 		pageBar+="</script>";
 		
