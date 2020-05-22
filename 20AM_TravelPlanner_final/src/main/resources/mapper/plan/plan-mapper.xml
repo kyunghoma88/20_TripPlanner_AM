@@ -17,6 +17,9 @@
 		SELECT * FROM HOTSPOT_AREA WHERE HOTSPOT_AREA_NAME=#{place}
 	</select>
 	<select id="myplanselect" resultType="map" parameterType="map">
-		SELECT * FROM DAY WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId}
+		SELECT * FROM DAY JOIN HOTSPOT ON DAY.HOTSPOT_NAME=HOTSPOT.HOTSPOT_NAME WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId} ORDER BY TV_SEQ
+	</select>
+	<select id="totaldays" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM DAY WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId}
 	</select>
 </mapper>

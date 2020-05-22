@@ -56,6 +56,14 @@ public class PlanServiceImpl implements PlanService {
 		// TODO Auto-generated method stub
 		return dao.myplanselect(session, map);
 	}
+
+	@Override
+	public int totaldays(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.totaldays(session, map);
+	}
+	
+	
 	
 	
 	

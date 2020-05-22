@@ -13,4 +13,5 @@ public interface PlanDao {
 	int searchMember(SqlSessionTemplate session, String member);
 	List<Map<String, String>> areadata(SqlSessionTemplate session, String place);
 	List<Map<String,Object>> myplanselect(SqlSessionTemplate session, Map<String,Object> map);
+	int totaldays(SqlSessionTemplate session, Map<String,Object> map);
 }

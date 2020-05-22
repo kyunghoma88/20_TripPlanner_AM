@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.0"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.1"/>
 <style>
 /* The Modal (background) */
 .searchModal {
@@ -23,7 +23,7 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 /* Modal Content/Box */
 .search-modal-content {
 	background-color: #fefefe;
-    margin-top: 191px;
+    margin-top: 233px;
     border: 1px solid #888;
     width: 1366px;
     height: 600px;

@@ -11,4 +11,5 @@ public interface PlanService {
 	int searchMember(String member);
 	List<Map<String,String>> areadata(String place);
 	List<Map<String,Object>> myplanselect(Map<String,Object> map);
+	int totaldays(Map<String,Object> map);
 }

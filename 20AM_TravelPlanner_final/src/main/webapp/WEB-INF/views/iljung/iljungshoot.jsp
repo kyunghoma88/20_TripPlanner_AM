@@ -8,7 +8,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 		<div>
 			<p id="titletext">여행 제목</p>
-			<input type='text' id="plantitle" placeholder="${title} " value="${title}">
+			<input type='text' id="plantitle" value="${title}">
 			<p>여행 일수</p>
 			<select name="days" id='days'>
 			    <option value="">일수 선택</option>
@@ -36,7 +36,9 @@
 		</div>
 	<div id="daysbox">
 		<c:forEach var="v" begin="1" end="${days }" varStatus="status">
-			<div class="a b day${v}"><p><c:out value="day - ${v}"/></p></div>
+			<div class="a b day${v}">
+				<p><c:out value="day - ${v}"/></p>
+			</div>
 		</c:forEach>
 	</div>	
 	<div id="hotspotlist">
@@ -60,6 +62,37 @@
 
 
 <script>
+
+$('#keepgoing').click(function(){
+	var days = $('#days').val();
+	var place = $('#place').val();
+	var title = $('#plantitle').val();
+	if(title == ''){
+		alert("타이틀을 작성해주세요.");
+		$('#plantitle').focus();
+	}else if(days == ''){
+		alert("일수를 선택해주세요.")
+		$('#days').focus();
+	}else if(place == ''){
+		alert("지역을 선택해주세요.");
+		$('#place').focus();
+	}else{
+		$.ajax({
+			url:"${path}/shoot.do",
+			data:{
+				days:days,
+				place:place,
+				title:title
+			},
+			type:"post",
+			dataType:"html",
+			success:function(data){
+				$('#abcd').html(data);
+			}
+		});
+	}
+});
+
 $(document).ready(function () {
 	for(var i=4; i>0;i--){
 		var divtag = $("<div class='modals' name='modals"+i+"'>");

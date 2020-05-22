@@ -93,8 +93,10 @@ public class PlanController {
 		String place = (String) list.get(0).get("HOTSPOT_AREA_NAME");
 		List<Map<String,String>> wekyungdo = service.areadata(place);
 		List<Map<String,String>> pd = service.placedata(place);
+		int result = service.totaldays(map);
 		System.out.println(list);
 		
+		mv.addObject("result",result);
 		mv.addObject("tvTitle",tvTitle);
 		mv.addObject("list",list);
 		mv.addObject("wekyungdo",wekyungdo);

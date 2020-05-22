@@ -15,7 +15,7 @@
 <div id="bcda">
 	<div>
 			<p id="titletext">여행 제목</p>
-			<input type='text' id="plantitle" placeholder="${tvTitle} " value="${tvTitle}">
+			<input type='text' id="plantitle" value="${tvTitle}">
 			<p>여행 일수</p>
 			<select name="days" id='days'>
 			    <option value="">일수 선택</option>
@@ -47,6 +47,7 @@
 				<p><c:out value="day - ${v}"/></p>
 			</div>
 		</c:forEach>
+		<button type="button" id="jujang">저장</button>
 	</div>	
 	<div id="hotspotlist">
 		<c:forEach items="${pd}" var="hs">
@@ -59,7 +60,8 @@
 	</div>
 	<div id="mapadu">
 	</div>
-	<button type="button" id="jujang">저장</button>
+	<button type="button" id="jujang1">수정하기</button>
+	<button type="button" id="jujang2">취소</button>
 	
 	<div id="modal" class="searchModal">
 		<div class="search-modal-content">
@@ -70,6 +72,229 @@
 </div>
 
 <script>
+
+$('#keepgoing').click(function(){
+	var days = $('#days').val();
+	var place = $('#place').val();
+	var title = $('#plantitle').val();
+	if(title == ''){
+		alert("타이틀을 작성해주세요.");
+		$('#plantitle').focus();
+	}else if(days == ''){
+		alert("일수를 선택해주세요.")
+		$('#days').focus();
+	}else if(place == ''){
+		alert("지역을 선택해주세요.");
+		$('#place').focus();
+	}else{
+		$.ajax({
+			url:"${path}/shoot.do",
+			data:{
+				days:days,
+				place:place,
+				title:title
+			},
+			type:"post",
+			dataType:"html",
+			success:function(data){
+				$('#abcd').html(data);
+			}
+		});
+	}
+});
+
+$(document).on("mouseover",".a",function(){
+	$(this).children('p').css("background-color","#00000021");
+});
+
+$(document).on("mouseleave",".a",function(){
+	$(this).children('p').css("background-color","white");
+});
+
+$(document).on('click','.btnf',function(){
+	$(this).parent().remove();
+});
+
+$(document).on("click",".a.b",function(){
+	$('.b.c.d').children('div').toggle();
+	$(".b.c.d").addClass("a");
+	$(".a.b.c.d").removeClass("b");
+	$(".a.c.d").removeClass("c");
+	$(".a.d").removeClass("d");
+	$(".a").children('p').css("background-color","white");
+	$(".a").children('p').css("color","black");
+	$(".a").addClass("b");
+	$(this).addClass("c");
+	$(this).addClass("d");
+	$(this).removeClass("a");
+	$(this).children('p').css("background-color","turquoise");
+	$(this).children('p').css("color","white");
+	$(this).children('div').toggle('slow');
+});
+
+
+var placeimg = new Array();
+var tvDate = new Array();
+var hsName = new Array();
+var comments = new Array();
+<c:forEach items="${list}" var="item">
+	placeimg.push("${path}${item['HOTSPOT_IMAGE'] }");
+	tvDate.push("${item['TV_DATE']}");
+	hsName.push("${item['HOTSPOT_NAME']}");
+	comments.push("${item['COMMENTS']}");
+</c:forEach>
+for(var i=0; i<${result} ; i++){
+	var btntag = $("<button class='btnf'>")
+	var divtag = $("<div class='divposition'>");
+	var imgtag = $("<img src='' class='imgposition' width='100px' height='100px'>");
+	var tatag = $("<textarea rows='4' cols='55' class='textsoksung'>");
+	var ptag = $("<p class='ptagposition'>");
+	if(tvDate[i] == 1){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day1").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 2){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day2").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 3){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day3").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 4){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day4").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 5){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day5").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 6){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day6").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 7){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day7").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 8){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day8").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 9){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day9").append(divtag);
+		$(".divposition").hide();
+	}else if(tvDate[i] == 10){
+		btntag.append('x');
+		tatag.append(comments[i]);
+		imgtag.attr("src",placeimg[i]);
+		ptag.addClass('e');
+		ptag.addClass('f');
+		ptag.append(hsName[i]);
+		divtag.append(btntag);
+		divtag.append(imgtag);
+		divtag.append(tatag);
+		divtag.append(ptag);
+		$(".day10").append(divtag);
+		$(".divposition").hide();
+	}
+}
+
+for(var i=1; i<11; i++){
+	if(${list[0]['TOTAL_DATE']} == i){
+		$("option[name=day"+i+"]").attr('selected','selected');
+	};
+};
+switch("${list[0]['HOTSPOT_AREA_NAME']}"){
+case "서울": $("option[name=Seoul]").attr('selected','selected');break;
+case "강릉": $("option[name=Gangneung]").attr('selected','selected');break;
+case "대전": $("option[name=Daejeon]").attr('selected','selected');break;
+case "전주": $("option[name=Jeonju]").attr('selected','selected');break;
+case "부산": $("option[name=Busan]").attr('selected','selected');break;
+}
+
 var mapContainer = document.getElementById('mapadu'); // 지도를 표시할 div  
 var hal = '${wekyungdo[0]['HOTSPOT_AREA_LAT']}';
 var hah = '${wekyungdo[0]['HOTSPOT_AREA_HAR']}';
@@ -125,5 +350,19 @@ function makeOverListener(map, marker, infowindow) {
      infowindow.open(map, marker);
  };
 };
+$(document).on("click",".e.f",function(){
+	$(".f.g.h").addClass("e");
+	$(".e.f.g.h").removeClass("f");
+	$(".e.g.h").removeClass("g");
+	$(".e.h").removeClass("h");
+	$(".e").css("background-color","white");
+	$(".e").css("color","black");
+	$(".e").addClass("b");
+	$(this).addClass("g");
+	$(this).addClass("h");
+	$(this).removeClass("e");
+	$(this).css("background-color","red");
+	$(this).css("color","white");
+});
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
