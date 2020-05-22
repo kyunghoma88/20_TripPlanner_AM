@@ -105,6 +105,9 @@
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
 	   					</c:if>
+	   					<c:if test="${loginMember.memberId eq board.memberId}">
+	   						<button class="allbtn" id="crystal">게시물 수정</button>
+	   					</c:if>
 	   					<input type="hidden" name="no" value="${board.trSeq }"/>
 	   					<input type="hidden" name="id" value="${board.memberId }"/>
 	   					<input type="hidden" name="commentWriter" value="${loginMember.memberId}"/>
@@ -257,5 +260,26 @@
 			}
 		});
 
+		console.log("${board.tvTitle }");
+		console.log("${board.trSeq}");
+		
+		var memberId = "${loginMember.memberId }";
+		var tvTitle = "${board.tvTitle }";
+		var trSeq = "${board.trSeq}";
+		/* $("#crystal").click(function(){
+			$.ajax({
+				url:"${path}/iljung/iljungcrystal.do",
+				data:{
+					memberId:memberId,
+					tvTitle:tvTitle,
+					trSeq:trSeq
+				},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					
+				}
+			});
+		}); */
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

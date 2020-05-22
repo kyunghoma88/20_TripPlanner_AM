@@ -113,7 +113,6 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 		</div>
 	</div>
 </div>
-<a href='${path }/iljung/iljungcrystal'>test</a>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script>
 	
