@@ -103,9 +103,9 @@
     	<div class="col-sm-10">
 			<div id="comment-container">
 	   			<div class="comment-editor">
-  					<c:if test="${loginMember.memberId eq board.memberId}">
-  						<button class="allbtn">게시물 수정</button>
-  					</c:if>
+	   				<c:if test="${loginMember.memberId eq board.memberId}">
+	   					<button class="allbtn" id="crystal">게시물 수정</button>
+	   				</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
@@ -288,13 +288,11 @@
 			}
 		});
 
-		console.log("${board.tvTitle }");
-		console.log("${board.trSeq}");
 		
 		var memberId = "${loginMember.memberId }";
 		var tvTitle = "${board.tvTitle }";
 		var trSeq = "${board.trSeq}";
-		/* $("#crystal").click(function(){
+		 $("#crystal").click(function(){
 			$.ajax({
 				url:"${path}/iljung/iljungcrystal.do",
 				data:{
@@ -303,11 +301,11 @@
 					trSeq:trSeq
 				},
 				type:"post",
-				dataType:"json",
+				dataType:"html",
 				success:function(data){
-					
+					$("body").html(data);
 				}
 			});
-		}); */
+		}); 
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

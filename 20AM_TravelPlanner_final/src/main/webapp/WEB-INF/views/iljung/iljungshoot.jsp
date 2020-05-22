@@ -36,7 +36,7 @@
 		</div>
 	<div id="daysbox">
 		<c:forEach var="v" begin="1" end="${days }" varStatus="status">
-			<div class="a b day${v}""><p><c:out value="day - ${v}"/></p></div>
+			<div class="a b day${v}"><p><c:out value="day - ${v}"/></p></div>
 		</c:forEach>
 	</div>	
 	<div id="hotspotlist">
@@ -201,9 +201,8 @@ $('#jujang').click(function(){
 		data:jsonStr,
 		type:"post",
 		contentType:"application/json;charset=UTF-8",
-		dataType:"json",
-		success:function(data){
-			
+		success:function(){
+		location.replace("${path}/views/index"); 
 		}
 	});
 });
