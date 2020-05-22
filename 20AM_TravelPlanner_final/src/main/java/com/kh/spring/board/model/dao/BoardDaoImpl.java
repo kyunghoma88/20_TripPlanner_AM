@@ -30,8 +30,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int searchBoardCount(SqlSessionTemplate session) {
-		return session.selectOne("board.searchBoardCount");
+	public int searchBoardCount(SqlSessionTemplate session, String keyword) {
+		return session.selectOne("board.searchBoardCount", keyword);
 	}
 
 	@Override
