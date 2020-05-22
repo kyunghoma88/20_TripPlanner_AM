@@ -289,7 +289,7 @@ public class MemberController {
 		Member m = service.lookPw(param);
 		
 		System.out.println("서비스 수행완료");
-		String host = "https://rclass.iptime.org:9999/20AM_TravelPlanner_final";
+		String host = "https://rclass.iptime.org/20AM_TravelPlanner_final";
 //		String host = "localhost:9090/spring";
 		String setFrom = "studysemiproject@gmail.com";
 		String toMail = request.getParameter("email");
