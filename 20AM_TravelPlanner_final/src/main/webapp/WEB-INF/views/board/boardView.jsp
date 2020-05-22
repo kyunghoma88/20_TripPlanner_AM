@@ -33,6 +33,16 @@
     .commentTr{
     	font-size: 22px;
     }
+    
+    .allbtn{
+      margin-top: 15px;
+	  background-color: #203341;
+	  color: white;
+	  border-radius: 5px;
+	  font-size: 17px;
+	  height: 38px;
+  }
+   
     table#tbl-comment button.btn-reply{display:none;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
     table#tbl-comment{width:1160px; margin:0 auto; border-collapse:collapse; clear:both; } 
@@ -87,10 +97,13 @@
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
-	   						<button type="submit" id="btn-insert">등록</button>
+	   						<button type="submit" class="allbtn" id="btn-insert">등록</button>
 	   					</c:if>
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
+	   					</c:if>
+	   					<c:if test="${loginMember.memberId eq board.memberId}">
+	   						<button class="allbtn">게시물 수정</button>
 	   					</c:if>
 	   					<input type="hidden" name="no" value="${board.trSeq }"/>
 	   					<input type="hidden" name="id" value="${board.memberId }"/>
@@ -117,7 +130,7 @@
 		   					</td>
    							<td>
    								<c:if test="${not empty loginMember}">
-		   							<button type="button" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
 		   						</c:if>
 		   					</td>
 		   				</tr>
