@@ -289,7 +289,7 @@ public class MemberController {
 		Member m = service.lookPw(param);
 		
 		System.out.println("서비스 수행완료");
-		String host = "http://localhost:9090/spring";
+		String host = "20AM_TravelPlanner_final";
 		String setFrom = "studysemiproject@gmail.com";
 		String toMail = request.getParameter("email");
 		String title = "비밀번호 변경을 위한 이메일 입니다.";

@@ -73,6 +73,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.selectMyBoard(session, cPage, numPerpage, id);
 	}
+
 	
 	
 	

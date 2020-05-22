@@ -33,6 +33,16 @@
     .commentTr{
     	font-size: 22px;
     }
+    
+    .allbtn{
+      margin-top: 15px;
+	  background-color: #203341;
+	  color: white;
+	  border-radius: 5px;
+	  font-size: 17px;
+	  height: 38px;
+  }
+   
     table#tbl-comment button.btn-reply{display:none;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
     table#tbl-comment{width:1160px; margin:0 auto; border-collapse:collapse; clear:both; } 
@@ -67,11 +77,14 @@
     </div>
     <div class="row boardContent">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5" id="testContent">
+      <div class="col-sm-4" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
 	        <c:set var="whatDay" value="${v }"/>
          	<button type="button" class="dayBtn" id="dayBtn${v }" onclick="fn_boardDetail(this, '${board.trSeq}', '${whatDay }');">Day${v }</button><br>
    		</c:forEach>
+      </div>
+      <div class="col-sm-1">
+      	<button id="likeBtn" style="display:inline-block" onclick="like_fn('${board.trSeq}')"><img src="${path }/resources/images/LIKE0.png" id="like_img" width="50px" height="20x"><span></span></button>
       </div>
       <div class="col-sm-5">
         <div id="map" style="border: 1px solid black; height: 380px; width: 565px">
@@ -84,13 +97,19 @@
     	<div class="col-sm-10">
 			<div id="comment-container">
 	   			<div class="comment-editor">
+  					<c:if test="${loginMember.memberId eq board.memberId}">
+  						<button class="allbtn">게시물 수정</button>
+  					</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
-	   						<button type="submit" id="btn-insert">등록</button>
+	   						<button type="submit" class="allbtn" id="btn-insert">등록</button>
 	   					</c:if>
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
+	   					</c:if>
+	   					<c:if test="${loginMember.memberId eq board.memberId}">
+	   						<button class="allbtn" id="crystal">게시물 수정</button>
 	   					</c:if>
 	   					<input type="hidden" name="no" value="${board.trSeq }"/>
 	   					<input type="hidden" name="id" value="${board.memberId }"/>
@@ -117,7 +136,7 @@
 		   					</td>
    							<td>
    								<c:if test="${not empty loginMember}">
-		   							<button type="button" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
 		   						</c:if>
 		   					</td>
 		   				</tr>
@@ -137,9 +156,31 @@
    			</c:if>
    		</table>
     	</div>
-    	<div class="col-sm-1"></div>
     </div>
 	<script>
+	$(document).ready(function(){
+ 		var memberId = ${board.memberId};
+ 		
+ 	})
+
+
+	function like_fn(trSeq){
+		console.log(trSeq);
+		/* console.log(memberId); */
+		$.ajax({
+			url:"boardLike.do",
+			data:{"trSeq":trSeq},
+			success:function(data){
+				alert("dd");
+			}
+		})
+	}
+
+
+	
+	
+	
+	
  	 function fn_boardDetail(el, seq, whatDay){
 		$.ajax({
 			url : "${path}/board/boardDetail.do",
@@ -244,5 +285,26 @@
 			}
 		});
 
+		console.log("${board.tvTitle }");
+		console.log("${board.trSeq}");
+		
+		var memberId = "${loginMember.memberId }";
+		var tvTitle = "${board.tvTitle }";
+		var trSeq = "${board.trSeq}";
+		/* $("#crystal").click(function(){
+			$.ajax({
+				url:"${path}/iljung/iljungcrystal.do",
+				data:{
+					memberId:memberId,
+					tvTitle:tvTitle,
+					trSeq:trSeq
+				},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					
+				}
+			});
+		}); */
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

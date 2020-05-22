@@ -65,10 +65,7 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.selectMyList",id,new RowBounds((cPage - 1) * numPerpage, numPerpage));
 	}
 	
-	
-	
-	
-	
+
 	
 	
 

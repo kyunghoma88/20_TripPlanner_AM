@@ -51,16 +51,16 @@ public class HotSpotServiceImpl implements HotSpotService {
 
 
 	@Override
-	public List<Map<String, String>> hotSpotSearch(String keyword, int cPage, int numPerpage) {
+	public List<Map<String, String>> hotSpotSearch(String area, int cPage, int numPerpage) {
 		// TODO Auto-generated method stub
-		return dao.hotSpotSearch(session, keyword, cPage, numPerpage);
+		return dao.hotSpotSearch(session, area, cPage, numPerpage);
 	}
 
 
 	@Override
-	public int hotSpotSearchCount(String keyword) {
+	public int hotSpotSearchCount(String area) {
 		// TODO Auto-generated method stub
-		return dao.hotSpotSearchCount(session, keyword);
+		return dao.hotSpotSearchCount(session, area);
 	}
 
 

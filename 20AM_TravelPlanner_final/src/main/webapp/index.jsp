@@ -37,6 +37,14 @@
 	display:none;
 	float:right;
 }
+
+.logoutBtn{
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->

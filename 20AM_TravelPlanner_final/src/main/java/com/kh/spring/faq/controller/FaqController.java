@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.PageFactory;
-import com.kh.spring.common.PageFactory2;
+import com.kh.spring.common.FaqSearchPaging;
 import com.kh.spring.faq.model.service.FaqService;
 
 @Controller
@@ -64,7 +64,7 @@ public class FaqController {
 		mv.addObject("list",list);
 		mv.addObject("count", totalCount);
 		mv.addObject("param", param);
-		mv.addObject("pageBar", PageFactory2.getPage(totalCount, cPage, numPerpage, "/spring/faq/searchFaq"));
+		mv.addObject("pageBar", FaqSearchPaging.getPage(totalCount, cPage, numPerpage, "/spring/faq/searchFaq"));
 		mv.setViewName("faq/searchFaqList");
 		return mv;
 	}

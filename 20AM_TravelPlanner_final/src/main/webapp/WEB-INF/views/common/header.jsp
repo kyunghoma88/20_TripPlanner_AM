@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +39,15 @@
 	float:right;
 }
 
+
+
+.logoutBtn{
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -58,7 +67,7 @@
 <body>
     <header>
         <nav>
-            <div class="row navBar">
+            <div class="row">
                 <div class="col-sm-1 testDiv"></div>
                 <div class="col-sm-2 logoDiv">
                   <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
@@ -69,7 +78,7 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
+                      <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" id="boardBtn">게시판</a>
@@ -80,6 +89,11 @@
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                     </li>
+                    <c:if test="${not empty loginMember }">
+						<li class="nav-item">
+							<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
+						</li>
+                    </c:if>
                   </ul>
                 </div>
 	            <div class="col-sm-2 testDiv">
@@ -96,30 +110,30 @@
 					</button>
 					</c:if>
 					<c:if test='${not empty loginMember }'>
-						<span>
+ 						<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="50px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</c:if>
 						<c:if test="${loginMember.status == 'N' }">
-							<img src="${path }/resources/images/normal.png" width="50px" height="50px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</c:if>
 						</span>
 						&nbsp;
-						<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+						<button class="logoutBtn" type="button"
 						onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 					</c:if>
 	            </div>
             </div>
-            <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
-            </div>
         </nav>
+<!--             <div class="row">
+                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
+            </div> -->
+            <hr style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0; margin-top: 25px;">
     </header>
     
     <!-- 로그인 모달 -->
@@ -424,4 +438,12 @@
     
     
     
+    
+    $("#makePlanBtn").click(function(){
+    	if(${empty loginMember}){
+    		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
+    	}
+    })
 </script>

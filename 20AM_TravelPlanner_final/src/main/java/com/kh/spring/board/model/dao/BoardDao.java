@@ -21,4 +21,5 @@ public interface BoardDao {
 	List<BoardComment> selectBoardComment(SqlSessionTemplate session, Map map);
 	int insertBoardComment(SqlSessionTemplate session, Map map);
 	List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id);
+
 }
