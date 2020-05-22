@@ -3,6 +3,10 @@ package com.kh.spring.board.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +74,15 @@ public class BoardController {
 		List<Day> d = service.boardDetail(map);
 		System.out.println(d);
 		return d;
+	}
+	
+	@RequestMapping("/boardLike.do")
+	public ModelAndView BoardLike(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		int trSeq=Integer.parseInt(request.getParameter("trSeq"));
+		System.out.println(trSeq);
+		
+		
+		return mv;
 	}
 	
 	

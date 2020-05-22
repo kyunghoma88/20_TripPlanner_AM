@@ -43,7 +43,6 @@
             <img src="${path}${b.hotspotAreaImg }" width="300px" height="300px" alt="이미지 없음" onclick="location.replace('${path}/board/boardView.do?no=${b.trSeq}&id=${b.memberId}')">
             <div>
             	<p class="bold" style=display:inline-block;width:210px>${b.tvTitle }</p>
-            	<button id="likeBtn" style="display:inline-block" onclick="location.replace('${path}/')"><img src="${path }/resources/images/LIKE0.png" id="like_img" width="50px" height="20x"><span>${b.like_up }</span></button>
             </div>
             <p class="normal">${b.hotspotAreaName }</p>
             <p class="normal">${b.memberId }</p>
@@ -56,43 +55,18 @@
           <center>
             <div>
             	${pageBar }
-            	${l[0]['trSeq'] }
             </div>
           </center>
         </div>
         <div class="col-sm-3"></div>
      </div>
      <script>
-/*      var jarray = new Array();
-     <c:forEach items="${l}" var="item">
-     	jarray.push(${item['trSeq']});	
-     </c:forEach>
-     var larray = new Array();
-     <c:forEach items = "${l}" var = "item2">
-     	larray.push(${item['like_check']});
-     </c:forEach> */
-     
-    
-    /* console.log(jarray);
-    console.log(larray); */
-     	function searchBoard(){ 		var keyword = $("#boardSearchBox").val();
+
+     	function searchBoard(){ 		
+    		var keyword = $("#boardSearchBox").val();
      		$("#searchBoardForm").submit();
      	}
     
-    
      	
-     	/* function likeBtn().click(){
-     		var title = $(this).parent('div').children('p').text();
-     		
-     		
-     		$.ajax({
-     			url:"boardLike.do",
-     			data:{"jarray":jarray,"larray":larray},
-     			success:function(data){
-     				
-     			}
-     			
-     		})
-     	} */
      </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -17,4 +17,6 @@ public interface BoardDao {
 	Board selectBoardTitle(SqlSessionTemplate session, Map map);
 	List<Day> selectBoardView(SqlSessionTemplate session, Map map);
 	List<Day> boardDetail(SqlSessionTemplate session, Map map);
+	
+
 }

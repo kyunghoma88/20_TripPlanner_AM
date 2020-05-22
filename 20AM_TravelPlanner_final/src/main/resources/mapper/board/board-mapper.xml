@@ -59,4 +59,6 @@
 	<select id="boardDetail" parameterType="map" resultMap="dayMap">
 		SELECT * FROM DAY JOIN HOTSPOT USING (HOTSPOT_NAME) WHERE TV_DATE=#{date} AND TR_SEQ=#{no} ORDER BY DAY_O
 	</select>
+	
+	
 </mapper>

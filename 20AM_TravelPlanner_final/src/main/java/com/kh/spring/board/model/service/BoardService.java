@@ -15,4 +15,6 @@ public interface BoardService {
 	Board selectBoardTitle(Map map);
 	List<Day> selectBoardView(Map map);
 	List<Day> boardDetail(Map map);
+	
+
 }

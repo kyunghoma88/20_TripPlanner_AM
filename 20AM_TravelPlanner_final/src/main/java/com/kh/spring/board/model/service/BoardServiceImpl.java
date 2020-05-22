@@ -56,6 +56,15 @@ public class BoardServiceImpl implements BoardService{
 	public List<Day> boardDetail(Map map) {
 		return dao.boardDetail(session, map);
 	}
+
+	
+	
+
+
+	
+	
+	
+	
 	
 	
 	

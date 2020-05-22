@@ -48,11 +48,14 @@
     </div>
     <div class="row boardContent">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5" id="testContent">
+      <div class="col-sm-4" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
 	        <c:set var="whatDay" value="${v }"/>
          	<button type="button" class="dayBtn" id="dayBtn${v }" onclick="fn_boardDetail(this, '${board.trSeq}', '${whatDay }');">Day${v }</button><br>
    		</c:forEach>
+      </div>
+      <div class="col-sm-1">
+      	<button id="likeBtn" style="display:inline-block" onclick="like_fn('${board.trSeq}')"><img src="" id="like_img" width="50px" height="20x"><span></span></button>
       </div>
       <div class="col-sm-5">
         <div id="map" style="border: 1px solid black; height: 380px; width: 565px">
@@ -60,7 +63,34 @@
       </div>
       <div class="col-sm-1"></div>
     </div>
+    <div>
+    	${board.memberId }
+    	${lCheck }
+    </div>
 	<script>
+	$(document).ready(function(){
+ 		var memberId = ${board.memberId};
+ 		
+ 	})
+
+
+	function like_fn(trSeq){
+		console.log(trSeq);
+		/* console.log(memberId); */
+		$.ajax({
+			url:"boardLike.do",
+			data:{"trSeq":trSeq},
+			success:function(data){
+				alert("dd");
+			}
+		})
+	}
+
+
+	
+	
+	
+	
  	 function fn_boardDetail(el, seq, whatDay){
 		$.ajax({
 			url : "${path}/board/boardDetail.do",

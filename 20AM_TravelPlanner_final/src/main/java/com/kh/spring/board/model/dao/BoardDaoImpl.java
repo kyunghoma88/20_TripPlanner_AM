@@ -47,6 +47,12 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Day> boardDetail(SqlSessionTemplate session, Map map) {
 		return session.selectList("board.boardDetail", map);
 	}
+
+
+
+	
+	
+	
 	
 	
 	
