@@ -13,7 +13,7 @@ public interface HotSpotDao {
 	int selectHotSpotCount(SqlSessionTemplate session,String area);
 	HotSpot selectHotSpotView(SqlSessionTemplate session,String name);
 	
-	List<Map<String,String>> hotSpotSearch(SqlSessionTemplate session, String keyword, int cPage, int numPerpage);
-	int hotSpotSearchCount(SqlSessionTemplate session, String keyword);
+	List<Map<String,String>> hotSpotSearch(SqlSessionTemplate session, String area, int cPage, int numPerpage);
+	int hotSpotSearchCount(SqlSessionTemplate session, String area);
 	int updateHotSpotViewCount(SqlSessionTemplate session,String name);
 }

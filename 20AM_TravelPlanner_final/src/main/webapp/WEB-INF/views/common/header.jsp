@@ -71,7 +71,7 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="${path}/iljung.do">일정만들기</a>
+                      <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" id="boardBtn">게시판</a>
@@ -294,6 +294,14 @@
     		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
     	}else if("${empty loginMember}"){
     		alert("로그인이 필요한 서비스입니다.");
+    	}
+    })
+    
+    $("#makePlanBtn").click(function(){
+    	if(${empty loginMember}){
+    		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
     	}
     })
 </script>
