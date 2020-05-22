@@ -75,4 +75,14 @@
 	<select id="selectBoardComment" parameterType="map" resultMap="commentMap">
 		SELECT * FROM BOARD_COMMENT WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} START WITH BOARD_COMMENT_LEVEL=1 CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF
 	</select>
+	
+	
+	<select id="selectMyList" parameterType="string" resultMap="boardMap">
+		SELECT * FROM BOARD
+		JOIN HOTSPOT_AREA USING (HOTSPOT_AREA_NAME)
+		WHERE MEMBER_ID=#{id}
+		ORDER BY BOARD.VIEW_COUNT DESC
+	</select>
+	
+	
 </mapper>

@@ -58,6 +58,12 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertBoardComment(SqlSessionTemplate session, Map map) {
 		return session.insert("board.insertBoardComment", map);
 	}
+
+	@Override
+	public List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectMyList",id,new RowBounds((cPage - 1) * numPerpage, numPerpage));
+	}
 	
 	
 	

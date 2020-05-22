@@ -19,5 +19,7 @@ public interface MemberService {
 	int lookPwUpdate(Map<String,String> param);
 
 	int memberSignOut(Member result);
+
+	Member checkId(String memberId);
 	
 }

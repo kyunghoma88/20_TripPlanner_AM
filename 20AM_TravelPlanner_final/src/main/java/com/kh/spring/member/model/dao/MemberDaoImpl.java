@@ -59,6 +59,13 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.update("member.signOutMember", result);
 	}
+
+
+	@Override
+	public Member checkId(SqlSessionTemplate session, String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.checkId", memberId);
+	}
 	
 	
 	

@@ -68,6 +68,13 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.signOut(session, result);
 	}
+
+
+	@Override
+	public Member checkId(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.checkId(session, memberId);
+	}
 	
 	
 	

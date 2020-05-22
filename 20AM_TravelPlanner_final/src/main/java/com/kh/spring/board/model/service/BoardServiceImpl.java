@@ -67,6 +67,12 @@ public class BoardServiceImpl implements BoardService{
 	public int insertBoardComment(Map map) {
 		return dao.insertBoardComment(session, map);
 	}
+
+	@Override
+	public List<Board> selectMyBoard(int cPage, int numPerpage, String id) {
+		// TODO Auto-generated method stub
+		return dao.selectMyBoard(session, cPage, numPerpage, id);
+	}
 	
 	
 	
