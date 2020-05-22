@@ -130,10 +130,7 @@
 	            </div>
             </div>
         </nav>
-<!--             <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
-            </div> -->
-            <hr style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0; margin-top: 25px;">
+            <hr style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0; margin-top: 5px;">
     </header>
     
     <!-- 로그인 모달 -->
