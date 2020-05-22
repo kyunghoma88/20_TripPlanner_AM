@@ -42,6 +42,13 @@
 	  font-size: 17px;
 	  height: 38px;
   }
+  
+  #btn-reply{
+	  background-color: #203341;
+	  color: white;
+	  border-radius: 5px;
+	  font-size: 17px;
+  }
    
     table#tbl-comment button.btn-reply{display:none;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
@@ -108,9 +115,6 @@
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
 	   					</c:if>
-	   					<c:if test="${loginMember.memberId eq board.memberId}">
-	   						<button class="allbtn" id="crystal">게시물 수정</button>
-	   					</c:if>
 	   					<input type="hidden" name="no" value="${board.trSeq }"/>
 	   					<input type="hidden" name="id" value="${board.memberId }"/>
 	   					<input type="hidden" name="commentWriter" value="${loginMember.memberId}"/>
@@ -136,7 +140,7 @@
 		   					</td>
    							<td>
    								<c:if test="${not empty loginMember}">
-		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   							<button type="button" id="btn-reply" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
 		   						</c:if>
 		   					</td>
 		   				</tr>
@@ -189,8 +193,8 @@
 			success:function(data){
 				const table = $("<table class='contentTbl'>");
 				for(let i=0; i<data.length; i++){
-					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='170px' height='70px' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
-					.append("<tr><td class='commentTr'>" + data[i]['comment'] + "</td></tr>");
+					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='200px' height='auto' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td style='font-size:25px;'>" + data[i]['hotspotName'] + "</td></tr>")
+					.append("<tr><td class='commentTr' style='font-size:22px;'>" + data[i]['comment'] + "</td></tr>");
 				}
 				$(el).next($(".contentTbl")).toggle();
 				$(el).after(table);

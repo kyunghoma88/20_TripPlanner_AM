@@ -196,17 +196,22 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="#">INFORMATION</a>
+                  <a class="nav-link menubarLink" href="${path}/information.do">INFORMATION</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                 </li>
+				<c:if test="${not empty loginMember }">
+					<li class="nav-item">
+						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
+					</li>
+                </c:if>
               </ul>
             </div>
             <div class="col-sm-2 testDiv">
