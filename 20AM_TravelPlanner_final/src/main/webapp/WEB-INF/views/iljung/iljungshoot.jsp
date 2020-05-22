@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 		<div>
 			<p id="titletext">여행 제목</p>
@@ -50,7 +51,32 @@
 	<div id="mapa">
 	</div>
 	<button type="button" id="jujang">저장</button>
+	
+	<div id="modal" class="searchModal">
+		<div class="search-modal-content">
+		
+		</div>
+	</div>
+
+
 <script>
+$(document).ready(function () {
+	for(var i=4; i>0;i--){
+		var divtag = $("<div class='modals' name='modals"+i+"'>");
+		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
+		imgtag.attr('src','${path}/resources/images/작성가이드'+i+'.JPG');
+		divtag.append(imgtag);
+		$(".search-modal-content").append(divtag);
+	}
+	$("#modal").show();
+});
+	 $(document).on('click','.modals',function(){
+		$(this).remove();
+		if($(".modals").length==0){
+			$(".search-modal-content").remove();
+			$(".searchModal").hide();
+		}
+	}); 
 $(document).ready(function(){
 	for(var i=1; i<11; i++){
 		if(${days} == i){

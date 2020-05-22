@@ -82,4 +82,9 @@ public class PlanController {
 		};
 		return mv;
 	};
+	
+	@RequestMapping("/iljung/iljungcrystal")
+	public String iljungcrystal() {
+		return "iljung/iljungcrystal";
+	}
 };
