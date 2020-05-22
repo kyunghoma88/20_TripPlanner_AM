@@ -56,7 +56,6 @@
           <center>
             <div>
             	${pageBar }
-            	${l[0]['trSeq'] }
             </div>
           </center>
         </div>

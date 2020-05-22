@@ -106,7 +106,7 @@
                 </li>
 				<c:if test="${not empty loginMember }">
 					<li class="nav-item">
-						<a class="nav-link menubarLink" href="${path }/member/preMyPage">마이페이지</a>
+						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
 					</li>
 				</c:if>
               </ul>
