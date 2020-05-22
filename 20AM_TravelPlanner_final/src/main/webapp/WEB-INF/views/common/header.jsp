@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +26,15 @@
 
 #enrollBtn{
   margin-top: 15px;
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
+
+
+.logoutBtn{
   background-color: #203341;
   color: white;
   border-radius: 5px;
@@ -73,6 +82,11 @@
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                     </li>
+                    <c:if test="${not empty loginMember }">
+						<li class="nav-item">
+							<a class="nav-link menubarLink" href="${path }/faq/faqList">마이페이지</a>
+						</li>
+                    </c:if>
                   </ul>
                 </div>
 	            <div class="col-sm-2 testDiv">
@@ -97,14 +111,13 @@
 							</a>님, 안녕하세요!
 						</c:if>
 						<c:if test="${loginMember.status == 'N' }">
-							<img src="${path }/resources/images/normal.png" width="50px" height="50px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
 						</c:if>
 						</span>
 						&nbsp;
-						<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+						<button class="logoutBtn" type="button"
 						onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 					</c:if>
 	            </div>

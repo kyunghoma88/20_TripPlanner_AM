@@ -4,10 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 		<div>
 			<p id="titletext">여행 제목</p>
-			<input type='text' id="plantitle" placeholder="${title} ">
+			<input type='text' id="plantitle" placeholder="${title} " value="${title}">
 			<p>여행 일수</p>
 			<select name="days" id='days'>
 			    <option value="">일수 선택</option>
@@ -50,7 +51,32 @@
 	<div id="mapa">
 	</div>
 	<button type="button" id="jujang">저장</button>
+	
+	<div id="modal" class="searchModal">
+		<div class="search-modal-content">
+		
+		</div>
+	</div>
+
+
 <script>
+$(document).ready(function () {
+	for(var i=4; i>0;i--){
+		var divtag = $("<div class='modals' name='modals"+i+"'>");
+		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
+		imgtag.attr('src','${path}/resources/images/작성가이드'+i+'.JPG');
+		divtag.append(imgtag);
+		$(".search-modal-content").append(divtag);
+	}
+	$("#modal").show();
+});
+	 $(document).on('click','.modals',function(){
+		$(this).remove();
+		if($(".modals").length==0){
+			$(".search-modal-content").remove();
+			$(".searchModal").hide();
+		}
+	}); 
 $(document).ready(function(){
 	for(var i=1; i<11; i++){
 		if(${days} == i){
@@ -68,11 +94,13 @@ $(document).ready(function(){
 $('#keepgoing').click(function(){
 	var days = $('#days').val();
 	var place = $('#place').val();
+	var title = $('#plantitle').val();
 	$.ajax({
 		url:"${path}/shoot.do",
 		data:{
 			days:days,
-			place:place
+			place:place,
+			title:title
 		},
 		type:"post",
 		dataType:"html",
@@ -137,10 +165,12 @@ function makeOverListener(map, marker, infowindow) {
     return function() {
         infowindow.open(map, marker);
     };
-}
+};
+
 $('#jujang').click(function(){
 	var han = '${list[0]['HOTSPOT_AREA_NAME']}';
 	var id = '${loginMember['memberId']}';
+	var title = $('#plantitle').val();
 	var jArray = new Array();
 	var jArray2 = new Array();
 	var item = new Array();
@@ -151,14 +181,15 @@ $('#jujang').click(function(){
 			item2[i] = new Array();
 			for(var j = 0; j < $('.day'+(i+1)).children('div').length; j++){
 				item[i][j]= $('.day'+(i+1)).children('div').eq(j).children('p').text();
-				item2[i][j]= $('.day'+(i+1)).children('div').eq(j).children('input').val();
+				item2[i][j]= $('.day'+(i+1)).children('div').eq(j).children('textarea').val();
 				console.log(i+'행'+j+'열'+item[i][j]);
 				jArray[count]={
 						tday:i+1,
 						tplace:item[i][j],
 						tarea:han,
 						id:id,
-						comment:item2[i][j]
+						comment:item2[i][j],
+						title:title
 				}
 				count++;
 			};
