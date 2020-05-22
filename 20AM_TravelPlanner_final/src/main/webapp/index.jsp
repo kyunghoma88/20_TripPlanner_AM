@@ -85,10 +85,10 @@
 			}
 		})
 	});
-
+	let checkJoin;
 	
 	//회원가입 유효성 검사
-	   function validate(){
+	   function validate_join(){
 	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
 	      {
 	         return false;
@@ -96,9 +96,9 @@
 	      return true;
 	   }
 	   
-	   $(function(){
 	      var onsubmit_id = 0;
 	      var onsubmit_pass = 0;
+	   $(function(){
 	   
 	   
 	      
@@ -114,11 +114,11 @@
 	      $("#memberId_").keyup(function(e) { 
 	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
 	            var v = $(this).val();
-	            $(this).val(v.replace(/[^a-z0-9]/gi,''));
+	            $(this).val(v.replace(/[^a-z0-9_]/gi,''));
 	         }
 	      });
 	      
-	      $('#memberId_').blur(function idCheckAjax(){
+	      $('#memberId_').keyup(function idCheckAjax(){
 	         $.ajax({
 	                 url: '<%=request.getContextPath()%>/member/checkId.do',
 	                 type: 'post',
@@ -145,7 +145,7 @@
 	              });
 	      });
 	      
-	      $("#password_").blur(function passwordCheck(){
+	      $("#password_").keyup(function passwordCheck(){
 	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 	         if(!passwordCheck.test($('#password_').val()))
 	         {
@@ -161,7 +161,7 @@
 	         }
 	      })
 	      
-	      $('#password2').blur(function passCheck(){
+	      $('#password2').keyup(function passCheck(){
 	         if($('#password_').val() == $('#password2').val())
 	         {
 	            $('#val-checkpass-no').hide();
@@ -202,16 +202,11 @@
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/information.do">INFORMATION</a>
+                  <a class="nav-link menubarLink" href="${path }/information.do">INFORMATION</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                 </li>
-				<c:if test="${not empty loginMember }">
-					<li class="nav-item">
-						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
-					</li>
-                </c:if>
               </ul>
             </div>
             <div class="col-sm-2 testDiv">
@@ -261,7 +256,7 @@
                   <tr>
                     <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search" name="keyword">
+                        <input type="text" class="form-control" id="search" name="area">
                       </td>
                       <td style="height: 38px;">
                         <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
@@ -358,7 +353,7 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate_join();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
 							<div class="signup-input-msg">
@@ -387,7 +382,7 @@
 						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
 						<!-- 주소 API 받아오기 -->
 						<br/>
-						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required>
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required readonly>
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
 						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" required readonly>
@@ -494,10 +489,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${empty loginMember}){
-    		alert("로그인이 필요한 서비스입니다.");
+    	if(${not empty loginMember}){
+    		location.replace("${path}/goiljung.do");
     	}else{
-    		location.replace("${path}/iljung.do");
+    		alert("로그인이 필요한 서비스입니다.");
     	}
     })
     

@@ -12,7 +12,7 @@ public interface BoardService {
 	List<Board> selectBoard(int cPage, int numPerpage);
 	int selectBoardCount();
 	List<Board> searchBoard(String keyword, int cPage, int numPerpage);
-	int searchBoardCount();
+	int searchBoardCount(String keyword);
 	Board selectBoardTitle(Map map);
 	List<Day> selectBoardView(Map map);
 	List<Day> boardDetail(Map map);

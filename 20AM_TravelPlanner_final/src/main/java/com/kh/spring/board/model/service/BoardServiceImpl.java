@@ -38,8 +38,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int searchBoardCount() {
-		return dao.searchBoardCount(session);
+	public int searchBoardCount(String keyword) {
+		return dao.searchBoardCount(session, keyword);
 	}
 
 	
