@@ -261,7 +261,7 @@
                   <tr>
                     <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search" name="keyword">
+                        <input type="text" class="form-control" id="search" name="area">
                       </td>
                       <td style="height: 38px;">
                         <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>

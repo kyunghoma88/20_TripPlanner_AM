@@ -8,11 +8,32 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle" />
 </jsp:include>
+<style>
+	h1{
+		text-align : center;
+		margin-bottom:20px;
+		margin-top:20px;
+	}
+	
+	form{
+		text-align :center;
+	}
+	
+	#changePw{
+		width:250px;
+		margin-bottom:15px;
+	}
+	#changePw2{
+		width:250px;
+		margin-bottom:15px;
+	}
+</style>
 
 <section>
+	<h1>비밀번호 변경 페이지 입니다.</h1>
 	<form action="${path}/member/lookPwUpdate" method="post" onsubmit="return checkIt()">
-		<input type="password" name="password" id="changePw" placeholder="변경하실 비밀번호를 입력하세요" class="form-pw"><br>
-		<input type="password" name="pw2" id="changePw2" placeholder="비밀번호확인" class="form-pw"><br>
+		<input type="password" name="password" id="changePw" placeholder="변경하실 비밀번호를 입력하세요" class="form-pw" width="200px"><br>
+		<input type="password" name="pw2" id="changePw2" placeholder="비밀번호확인" class="form-pw" width="200px"><br>
 		<div class="" id="checkPw">비밀번호가 일치합니다.</div>
 		<div class="" id="checkPw2">비밀번호가 일치하지 않습니다.</div>
 		<input type="hidden" name="memberId" value="${memberId }"/>
