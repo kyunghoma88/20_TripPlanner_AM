@@ -87,4 +87,14 @@ public class PlanController {
 	public String iljungcrystal() {
 		return "iljung/iljungcrystal";
 	}
+	@RequestMapping("/iljung/iljungcrystal.do")
+	public ModelAndView iljungcrystaldo(ModelAndView mv,String memberId,String tvTitle,int trSeq) {
+		System.out.println(memberId);
+		System.out.println(tvTitle);
+		System.out.println(trSeq);
+		Map<String,String> map = new HashMap<String,String>();
+		service.myplanselect(map);
+		
+		return mv;
+	}
 };
