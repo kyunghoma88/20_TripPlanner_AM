@@ -35,7 +35,6 @@
     }
     
     .allbtn{
-      margin-top: 15px;
 	  background-color: #203341;
 	  color: white;
 	  border-radius: 5px;
