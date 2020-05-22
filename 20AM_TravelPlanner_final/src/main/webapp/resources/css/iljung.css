@@ -403,3 +403,29 @@
 .modals[name=modals4]{
 	z-index:17;
 }
+#bcda{
+	width: 1366px;
+    margin-top: 50px;
+    height: 560px;
+}
+#bcda>div:first-child{
+	float:right;
+	width:471px;
+	border-bottom: solid #203341 20px;
+}
+#mapadu{
+	position: relative;
+    overflow: hidden;
+    width: 600px;
+    height: 600px;
+    top: -465px;
+}
+#bcda>div:first-child>p{
+	display:inline-block;
+}
+#bcda>div:first-child p{
+	font-size:25px;
+}
+#bcda>div:first-child select{
+	font-size:20px;
+}

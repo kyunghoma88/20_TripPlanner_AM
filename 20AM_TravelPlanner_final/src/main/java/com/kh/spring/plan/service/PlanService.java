@@ -10,4 +10,5 @@ public interface PlanService {
 	int insertPlan(Map<String,Object> mapda);
 	int searchMember(String member);
 	List<Map<String,String>> areadata(String place);
+	List<Map<String,Object>> myplanselect(Map<String,Object> map);
 }

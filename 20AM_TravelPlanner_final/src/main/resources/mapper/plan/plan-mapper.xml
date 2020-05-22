@@ -16,4 +16,7 @@
 	<select id="areadata" resultType="map" parameterType="string">
 		SELECT * FROM HOTSPOT_AREA WHERE HOTSPOT_AREA_NAME=#{place}
 	</select>
+	<select id="myplanselect" resultType="map" parameterType="map">
+		SELECT * FROM DAY WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId}
+	</select>
 </mapper>
