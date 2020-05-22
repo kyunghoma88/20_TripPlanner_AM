@@ -3,9 +3,12 @@ package com.kh.spring.board.controller;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.BoardComment;
 import com.kh.spring.board.model.vo.Day;
 import com.kh.spring.common.PageFactory;
 
@@ -58,12 +62,12 @@ public class BoardController {
 	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map) {
 		Board b = service.selectBoardTitle(map);
 		List<Day> d = service.selectBoardView(map);
+		List<BoardComment> bc = service.selectBoardComment(map);
 		int date = d.get(0).getTotalDate();
 		mv.addObject("date", date);
 		mv.addObject("board", b);
 		mv.addObject("day", d);
-		System.out.println("board : " + b);
-		System.out.println("day : " + d);
+		mv.addObject("comment", bc);
 		mv.setViewName("board/boardView");
 		return mv;
 	}
@@ -72,7 +76,6 @@ public class BoardController {
 	@ResponseBody
 	public List<Day> boardDetail(@RequestParam Map map) {
 		List<Day> d = service.boardDetail(map);
-		System.out.println(d);
 		return d;
 	}
 	
@@ -85,6 +88,25 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping("board/boardCommentInsert.do")
+	public ModelAndView insertBoardComment(ModelAndView mv, @RequestParam Map map, HttpServletRequest request) {
+		int result = service.insertBoardComment(map);
+		String no = request.getParameter("no");
+		String id = request.getParameter("id");
+		String msg = "";
+		String loc = "";
+		if(result > 0) {
+			msg = "등록성공";
+			loc = "/board/boardView.do?no="+no+ "&id="+id;
+		}else {
+			msg = "등록실패";
+			loc = "/board/boardView.do?no="+no+ "&id="+id;
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
 
 }

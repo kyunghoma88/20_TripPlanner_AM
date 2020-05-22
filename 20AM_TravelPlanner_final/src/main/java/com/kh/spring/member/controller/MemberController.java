@@ -167,8 +167,7 @@ public class MemberController {
 		logger.info(result+"");
 		String msg="";
 		String loc="/";
-		if(result != null)
-		{
+		if(result != null) {
 			if(pwEncoder.matches(m.getPassword(), result.getPassword()))
 			{
 				mv.setViewName("member/myPage");
@@ -228,6 +227,7 @@ public class MemberController {
 		{
 			session.setAttribute("loginMember", service.selectMember(result));
 			msg = "정상적으로 수정되었습니다.";
+			loc = "/member/preMyPage";
 		}
 		else
 		{
@@ -271,7 +271,7 @@ public class MemberController {
 		Member m = service.lookPw(param);
 		
 		System.out.println("서비스 수행완료");
-		String host = "http://localhost:9090/spring";
+		String host = "20AM_TravelPlanner_final";
 		String setFrom = "studysemiproject@gmail.com";
 		String toMail = request.getParameter("email");
 		String title = "비밀번호 변경을 위한 이메일 입니다.";
@@ -362,7 +362,7 @@ public class MemberController {
 	
 	
 	@RequestMapping("/member/signOutEnd.do")
-	public ModelAndView memberSignOut(String memberId, String password, String memberName, String email, String phone, String address, String postCode, String addressDetail, HttpSession session)
+	public ModelAndView memberSignOut(String memberId, String password, String memberName, String email, String phone, String address, String postCode, String addressDetail, HttpSession session, SessionStatus status)
 	{
 		ModelAndView mv = new ModelAndView();
 
@@ -372,20 +372,31 @@ public class MemberController {
 		m.setMemberId(memberId);
 		Member result = service.selectMember(m);
 		
+		logger.info("탈퇴 화면 member m : " + m);
+		logger.info("탈퇴 화면 result : " + result);
 		
-		int signOutResult = service.memberSignOut(result);
 		
 
 		String msg = "";
 		String loc = "/";
-		if(signOutResult>0)
-		{
-			session.setAttribute("loginMember", service.selectMember(result));
-			msg = "정상적으로 수정되었습니다.";
+		
+		
+		if(pwEncoder.matches(password, result.getPassword())) {
+			int signOutResult = service.memberSignOut(result);
+			if(signOutResult>0 && !status.isComplete()) {
+				session.setAttribute("loginMember", service.selectMember(result));
+				msg = "탈퇴 처리되었습니다.";
+				
+				status.setComplete();
+			}else {
+				msg = "";
+			}
 		}
 		else
 		{
-			msg = "정보 수정이 실패했습니다.";
+			msg = "패스워드가 일치하지 않습니다.";
+			loc = "/member/preMyPage";
+			
 		}
 	
 		

@@ -1,6 +1,6 @@
 package com.kh.spring.common;
 
-public class PageFactory2 {
+public class FaqSearchPaging {
 	
 	public static String getPage(int totalData, int cPage, int numPerpage, String url) {
 		

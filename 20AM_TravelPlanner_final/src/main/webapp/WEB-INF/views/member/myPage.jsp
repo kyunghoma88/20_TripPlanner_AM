@@ -10,9 +10,18 @@ pageEncoding="UTF-8"%>
 
 
 <style>
-    	section
+
+		.mypage-side-bar{
+			/* border : 1px solid black; */
+			width : 150px;
+			margin-left : 80px;
+			/* //margin-top : 20px; */
+		}
+	
+    	.section
     	{
     		position: relative;
+    		margin-left : 100px;
     	}
     	
 		.mypage-wrapper
@@ -57,7 +66,7 @@ pageEncoding="UTF-8"%>
             padding-bottom: 25px;
         }
 
-        .member-update-wrapper input
+        .member-update-wrapper input[type:text]
         {
             font-family: 'Noto Sans KR';
             border: 1px solid #ccc;
@@ -69,13 +78,6 @@ pageEncoding="UTF-8"%>
         #member-id
         {
             background-color: lightgray;
-        }
-
-        .member-update-wrapper input[type="submit"]
-        {
-            /* background-color: black; */
-            /* border: none; */
-            /* color: white; */
         }
 
         .member-update-frm
@@ -115,95 +117,109 @@ pageEncoding="UTF-8"%>
             display: flex;
             justify-content: center;
             margin: 30px 0;
+            margin-left : 50px;
         }
         
         .update-btn-set input{
         
         	margin-right : 10px;
-        	height : 40px;
-        	width : 65px;
-        	font-size : 20px;
+        }
         
+        .leave-btn{
+        	margin-left : 30px;
+        	width : 525px;
         }
         
 </style>
 
 
-<section>
-	<div class="mypage-wrapper">
-		<div class="mypage-header">
-			<div class="mypage-title">회원 정보 수정</div>
+<div class="mypage-header">
+	<div class="mypage-title">회원 정보 수정</div>
+</div>
+<div class="row mypage-container">
+	<div class="col-sm-2 mypage-side-bar">
+		<div class="list-group">
+		  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
+		  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
+		  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
+		  <a href="${path }/member/signOut.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
 		</div>
-		<div class="mypage-body">
-			<div class="member-update-wrapper">
-
-				<form action="${path }/member/memberUpdateEnd.do" method="post" class="member-update-frm" onsubmit="valSubmit_update()" autocomplete="off" enctype="multipart/form-data" >
-					<div>
-						<div>아이디</div>
+	</div>
+	
+	<div class="col-sm-7 section">
+		<div class="mypage-wrapper">
+			<div class="mypage-body">
+				<div class="member-update-wrapper">
+	
+					<form action="${path }/member/memberUpdateEnd.do" method="post" class="member-update-frm" onsubmit="valSubmit_update()" autocomplete="off" enctype="multipart/form-data" >
 						<div>
-							<input type="text" name="memberId" id="new-memberId" value="${loginMember.memberId }" readonly="readonly">
+							<div>아이디</div>
+							<div>
+								<input type="text" name="memberId" id="new-memberId" value="${loginMember.memberId }" readonly="readonly">
+							</div>
 						</div>
-					</div>
-					<div>
-						<div>새 비밀번호</div>
 						<div>
-							<input type="password" name="password" id="new-password">
+							<div>새 비밀번호</div>
+							<div>
+								<input type="password" name="password" id="new-password">
+							</div>
 						</div>
-					</div>
-					<div>
-						<div>새 비밀번호 확인</div>
 						<div>
-							<input type="password" name="password_" id="new-password-check">
-							<!-- <span id="val-checkpass-no-up" class="valid-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span> -->
+							<div>새 비밀번호 확인</div>
+							<div>
+								<input type="password" name="password_" id="new-password-check">
+								<!-- <span id="val-checkpass-no-up" class="valid-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span> -->
+							</div>
 						</div>
-					</div>
-					<div>
-						<div>이름</div>
 						<div>
-							<input type="text" name="memberName" id="new-memberName" value="${loginMember.memberName }">
+							<div>이름</div>
+							<div>
+								<input type="text" name="memberName" id="new-memberName" value="${loginMember.memberName }">
+							</div>
 						</div>
-					</div>
-
-					<div>
-						<div>이메일</div>
+	
 						<div>
-							<input type="email" name="email" id="new-email" value="${loginMember.email }">
+							<div>이메일</div>
+							<div>
+								<input type="email" name="email" id="new-email" value="${loginMember.email }">
+							</div>
 						</div>
-					</div>
-					<div>
-						<div>전화번호</div>
 						<div>
-							<input type="text" name="phone" id="new-phone" value="${loginMember.phone }" maxlength="11">
+							<div>전화번호</div>
+							<div>
+								<input type="text" name="phone" id="new-phone" value="${loginMember.phone }" maxlength="11">
+							</div>
 						</div>
-					</div>
-					
-					<div>
-						<div>주소</div>
+						
 						<div>
-							
-							<input type="text" name="postCode" id="sample4_postcode2" placeholder="우편번호" value="${loginMember.postCode }">
-							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-							<br/>
-							<input type="text" name="address" id="sample4_roadAddress2" placeholder="도로명주소" style="width:450px; margin-bottom:10px;" value="${loginMember.address }">
-							
-							<span id="guide" style="color:#999;display:none"></span>
-							<br/>
-							<input type="text" name="addressDetail" id="sample4_detailAddress2" placeholder="상세주소" style="width:450px;" value="${loginMember.addressDetail }">
-							
+							<div>주소</div>
+							<div>
+								
+								<input type="text" name="postCode" id="sample4_postcode2" placeholder="우편번호" value="${loginMember.postCode }">
+								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+								<br/>
+								<input type="text" name="address" id="sample4_roadAddress2" placeholder="도로명주소" style="width:350px; margin-bottom:10px;" value="${loginMember.address }">
+								
+								<span id="guide" style="color:#999;display:none"></span>
+								<br/>
+								<input type="text" name="addressDetail" id="sample4_detailAddress2" placeholder="상세주소" style="width:350px;" value="${loginMember.addressDetail }">
+								
+							</div>
 						</div>
-					</div>
-					
-					<div class="update-btn-set">
-						<input type="submit" value="수정" class="btn btn-outline-secondary">
-						<input id="cancel" type="button" value="취소" class="btn btn-outline-secondary">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input id="leave" type="button" value="탈퇴" class="btn btn-outline-danger"> 
-					</div>
-				</form>
+						
+						<div class="update-btn-set">
+							<input type="submit" value="수정" class="btn btn-outline-secondary">
+							<a id="cancel" class="btn btn-outline-secondary" href="${path }/member/preMyPage">취소</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<a id="leave" class="btn btn-outline-danger leave-btn" href="${path }/member/signOut">탈퇴</a> 
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	
+	<div class="col-sm-5"></div>
 	
 	
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -266,7 +282,7 @@ pageEncoding="UTF-8"%>
 	</script>
 
 
-</section>
+</div>
 
 
 

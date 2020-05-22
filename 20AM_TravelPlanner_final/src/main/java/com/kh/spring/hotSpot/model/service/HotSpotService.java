@@ -11,8 +11,8 @@ public interface HotSpotService {
 	int selectHotSpotCount(String area);
 	HotSpot selectHotSpotView(String name);
 	
-	List<Map<String,String>> hotSpotSearch(String keyword, int cPage, int numPerPage);
-	int hotSpotSearchCount(String keyword);
+	List<Map<String,String>> hotSpotSearch(String area, int cPage, int numPerPage);
+	int hotSpotSearchCount(String area);
 
 	int updateHotSpotViewCount(String name);
 }

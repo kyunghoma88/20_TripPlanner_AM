@@ -23,12 +23,13 @@ public class PlanController {
 	private PlanService service;
 	
 	@RequestMapping("/shoot.do")
-	public ModelAndView shoot(String days, String place,ModelAndView mv) {
+	public ModelAndView shoot(String days, String place,String title,ModelAndView mv) {
 		List<Map<String,String>> list = service.placedata(place);
 		List<Map<String,String>> wekyungdo = service.areadata(place);
 		mv.addObject("list",list);
 		mv.addObject("days", days);
 		mv.addObject("place", place);
+		mv.addObject("title",title);
 		mv.addObject("wekyungdo",wekyungdo);
 		mv.setViewName("iljung/iljungshoot");
 		return mv;
@@ -51,6 +52,7 @@ public class PlanController {
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
 		map.put("memberId",list.get(0).get("id"));
+		map.put("title",list.get(0).get("title"));
 		service.insertBoard(map);
 		String member = (String)list.get(0).get("id");
 		int seq = service.searchMember(member);
@@ -80,4 +82,19 @@ public class PlanController {
 		};
 		return mv;
 	};
+	
+	@RequestMapping("/iljung/iljungcrystal")
+	public String iljungcrystal() {
+		return "iljung/iljungcrystal";
+	}
+	@RequestMapping("/iljung/iljungcrystal.do")
+	public ModelAndView iljungcrystaldo(ModelAndView mv,String memberId,String tvTitle,int trSeq) {
+		System.out.println(memberId);
+		System.out.println(tvTitle);
+		System.out.println(trSeq);
+		Map<String,String> map = new HashMap<String,String>();
+		service.myplanselect(map);
+		
+		return mv;
+	}
 };

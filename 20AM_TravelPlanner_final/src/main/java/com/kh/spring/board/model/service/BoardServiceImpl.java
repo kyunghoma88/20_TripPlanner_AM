@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring.board.model.dao.BoardDao;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.BoardComment;
 import com.kh.spring.board.model.vo.Day;
 
 @Service
@@ -57,11 +58,16 @@ public class BoardServiceImpl implements BoardService{
 		return dao.boardDetail(session, map);
 	}
 
-	
-	
+	@Override
+	public List<BoardComment> selectBoardComment(Map map) {
+		return dao.selectBoardComment(session, map);
+	}
 
+	@Override
+	public int insertBoardComment(Map map) {
+		return dao.insertBoardComment(session, map);
+	}
 
-	
 	
 	
 	

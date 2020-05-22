@@ -31,6 +31,14 @@
   font-size: 17px;
   height: 38px;
 }
+
+.logoutBtn{
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->
@@ -74,7 +82,7 @@
   </script>
   <header>
     <nav>
-        <div class="row navBar">
+        <div class="row">
             <div class="col-sm-1 testDiv"></div>
             <div class="col-sm-2 logoDiv">
               <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
@@ -85,7 +93,7 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
@@ -96,6 +104,11 @@
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                 </li>
+				<c:if test="${not empty loginMember }">
+					<li class="nav-item">
+						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
+					</li>
+				</c:if>
               </ul>
             </div>
             <div class="col-sm-2 testDiv">
@@ -114,7 +127,7 @@
 				<c:if test='${not empty loginMember }'>
 					<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
@@ -126,7 +139,7 @@
 						</c:if>
 					</span>
 					&nbsp;
-					<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+					<button class="logoutBtn" type="button"
 					onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 				</c:if>
             </div>
@@ -145,10 +158,10 @@
                   <tr>
                     <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search" name="keyword">
+                        <input type="text" class="form-control" id="search" name="area">
                       </td>
                       <td style="height: 38px;">
-                        <button type="submit"><img src="${path }/resources/images/searchBtn.PNG" id="searchBtn"></button>
+                        <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
                       </td>
                     </tr>
                     </form> 
@@ -365,10 +378,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
-    	}else{
+    	if(${empty loginMember}){
     		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
     	}
     })
     

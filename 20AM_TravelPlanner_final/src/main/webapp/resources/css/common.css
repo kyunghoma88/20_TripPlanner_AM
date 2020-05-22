@@ -8,7 +8,7 @@ body{
 
 .testDiv{
     margin-top: 40px;
-    height: 70px;
+    /* height: 70px; */
 }
 
 .logoDiv{
@@ -68,7 +68,7 @@ body{
   height: 38px;
 }
 
-#searchBtn{
+.searchBtn{
   border-radius: 3px;
   height: 40px;
   width: 40px;
