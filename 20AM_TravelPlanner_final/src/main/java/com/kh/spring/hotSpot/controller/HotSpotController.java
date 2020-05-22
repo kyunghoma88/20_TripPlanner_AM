@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.spring.common.HotSpotSearchPaging;
 import com.kh.spring.hotSpot.model.service.HotSpotService;
 import com.kh.spring.hotSpot.model.vo.HotSpot;
 import com.kh.spring.member.model.service.MemberService;
