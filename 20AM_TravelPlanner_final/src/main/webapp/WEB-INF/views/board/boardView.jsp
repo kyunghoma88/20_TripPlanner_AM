@@ -266,7 +266,7 @@
 		var memberId = "${loginMember.memberId }";
 		var tvTitle = "${board.tvTitle }";
 		var trSeq = "${board.trSeq}";
-		/* $("#crystal").click(function(){
+		 $("#crystal").click(function(){
 			$.ajax({
 				url:"${path}/iljung/iljungcrystal.do",
 				data:{
@@ -280,6 +280,6 @@
 					
 				}
 			});
-		}); */
+		}); 
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

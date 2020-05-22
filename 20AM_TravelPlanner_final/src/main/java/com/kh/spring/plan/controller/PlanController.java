@@ -93,7 +93,7 @@ public class PlanController {
 		System.out.println(tvTitle);
 		System.out.println(trSeq);
 		Map<String,String> map = new HashMap<String,String>();
-		service.myplanselect(map);
+		//service.myplanselect(map);
 		
 		return mv;
 	}
