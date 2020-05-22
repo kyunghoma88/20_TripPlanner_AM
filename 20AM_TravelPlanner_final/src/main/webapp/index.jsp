@@ -85,10 +85,10 @@
 			}
 		})
 	});
-
+	let checkJoin;
 	
 	//회원가입 유효성 검사
-	   function validate(){
+	   function validate_join(){
 	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
 	      {
 	         return false;
@@ -96,9 +96,9 @@
 	      return true;
 	   }
 	   
-	   $(function(){
 	      var onsubmit_id = 0;
 	      var onsubmit_pass = 0;
+	   $(function(){
 	   
 	   
 	      
@@ -358,7 +358,7 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate_join();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
 							<div class="signup-input-msg">
