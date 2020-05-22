@@ -99,7 +99,7 @@
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="#">INFORMATION</a>
+                  <a class="nav-link menubarLink" href="${path }/information.do">INFORMATION</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
