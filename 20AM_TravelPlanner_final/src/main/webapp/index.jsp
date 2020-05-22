@@ -118,7 +118,7 @@
 	         }
 	      });
 	      
-	      $('#memberId_').blur(function idCheckAjax(){
+	      $('#memberId_').keyup(function idCheckAjax(){
 	         $.ajax({
 	                 url: '<%=request.getContextPath()%>/member/checkId.do',
 	                 type: 'post',
@@ -145,7 +145,7 @@
 	              });
 	      });
 	      
-	      $("#password_").blur(function passwordCheck(){
+	      $("#password_").keyup(function passwordCheck(){
 	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 	         if(!passwordCheck.test($('#password_').val()))
 	         {
@@ -161,7 +161,7 @@
 	         }
 	      })
 	      
-	      $('#password2').blur(function passCheck(){
+	      $('#password2').keyup(function passCheck(){
 	         if($('#password_').val() == $('#password2').val())
 	         {
 	            $('#val-checkpass-no').hide();
@@ -382,7 +382,7 @@
 						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
 						<!-- 주소 API 받아오기 -->
 						<br/>
-						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required>
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required readonly>
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
 						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" required readonly>

@@ -348,7 +348,7 @@
 	         }
 	      });
 	      
-	      $('#memberId_').blur(function idCheckAjax(){
+	      $('#memberId_').keyup(function idCheckAjax(){
 	         $.ajax({
 	                 url: '<%=request.getContextPath()%>/member/checkId.do',
 	                 type: 'post',
@@ -375,7 +375,7 @@
 	              });
 	      });
 	      
-	      $("#password_").blur(function passwordCheck(){
+	      $("#password_").keyup(function passwordCheck(){
 	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 	         if(!passwordCheck.test($('#password_').val()))
 	         {
@@ -391,7 +391,7 @@
 	         }
 	      })
 	      
-	      $('#password2').blur(function passCheck(){
+	      $('#password2').keyup(function passCheck(){
 	         if($('#password_').val() == $('#password2').val())
 	         {
 	            $('#val-checkpass-no').hide();
