@@ -48,17 +48,17 @@ public class HotSpotDaoImpl implements HotSpotDao {
 
 
 	@Override
-	public List<Map<String, String>> hotSpotSearch(SqlSessionTemplate session, String keyword, int cPage,
+	public List<Map<String, String>> hotSpotSearch(SqlSessionTemplate session, String area, int cPage,
 			int numPerpage) {
 		// TODO Auto-generated method stub
-		return session.selectList("hotSpot.hotSpotSearch", keyword, new RowBounds((cPage-1)*numPerpage,numPerpage));
+		return session.selectList("hotSpot.hotSpotSearch", area, new RowBounds((cPage-1)*numPerpage,numPerpage));
 	}
 
 
 	@Override
-	public int hotSpotSearchCount(SqlSessionTemplate session, String keyword) {
+	public int hotSpotSearchCount(SqlSessionTemplate session, String area) {
 		// TODO Auto-generated method stub
-		return session.selectOne("hotSpot.hotSpotSearchCount", keyword);
+		return session.selectOne("hotSpot.hotSpotSearchCount", area);
 	}
 
 

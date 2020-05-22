@@ -94,6 +94,9 @@
     	<div class="col-sm-10">
 			<div id="comment-container">
 	   			<div class="comment-editor">
+  					<c:if test="${loginMember.memberId eq board.memberId}">
+  						<button class="allbtn">게시물 수정</button>
+  					</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>

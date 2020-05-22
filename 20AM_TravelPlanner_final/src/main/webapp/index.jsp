@@ -93,7 +93,7 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
@@ -106,7 +106,7 @@
                 </li>
 				<c:if test="${not empty loginMember }">
 					<li class="nav-item">
-						<a class="nav-link menubarLink" href="${path }/member/preMyPage">마이페이지</a>
+						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
 					</li>
 				</c:if>
               </ul>
@@ -158,7 +158,7 @@
                   <tr>
                     <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search" name="keyword">
+                        <input type="text" class="form-control" id="search" name="area">
                       </td>
                       <td style="height: 38px;">
                         <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
@@ -378,10 +378,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
-    	}else{
+    	if(${empty loginMember}){
     		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
     	}
     })
     
