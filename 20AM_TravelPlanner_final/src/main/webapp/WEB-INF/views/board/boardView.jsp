@@ -84,7 +84,7 @@
    		</c:forEach>
       </div>
       <div class="col-sm-1">
-      	<button id="likeBtn" style="display:inline-block" onclick="like_fn('${board.trSeq}')"><img src="" id="like_img" width="50px" height="20x"><span></span></button>
+      	<button id="likeBtn" style="display:inline-block" onclick="like_fn('${board.trSeq}')"><img src="${path }/resources/images/LIKE0.png" id="like_img" width="50px" height="20x"><span></span></button>
       </div>
       <div class="col-sm-5">
         <div id="map" style="border: 1px solid black; height: 380px; width: 565px">
