@@ -490,7 +490,7 @@
     
     $("#makePlanBtn").click(function(){
     	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
+    		location.replace("${path}/iljung.do");
     	}else{
     		alert("로그인이 필요한 서비스입니다.");
     	}
