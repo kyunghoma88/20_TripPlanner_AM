@@ -5,34 +5,125 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.0"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.1"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle"/>
 </jsp:include>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<div id="abcd">
-
+<div id="bcda">
+	<div>
+			<p id="titletext">여행 제목</p>
+			<input type='text' id="plantitle" placeholder="${tvTitle} " value="${tvTitle}">
+			<p>여행 일수</p>
+			<select name="days" id='days'>
+			    <option value="">일수 선택</option>
+			    <option value="1" name='day1'>1</option>
+			    <option value="2" name='day2'>2</option>
+			    <option value="3" name='day3'>3</option>
+			    <option value="4" name='day4'>4</option>
+			    <option value="5" name='day5'>5</option>
+			    <option value="6" name='day6'>6</option>
+			    <option value="7" name='day7'>7</option>
+			    <option value="8" name='day8'>8</option>
+			    <option value="9" name='day9'>9</option>
+			    <option value="10" name='day10'>10</option>
+			</select>
+			<p>여행 지역</p>
+			<select name="place" id='place'>
+			    <option value="">지역 선택</option>
+			    <option value="서울" name='Seoul'>서울</option>
+			    <option value="강릉" name=' Gangneung'>강릉</option>
+			    <option value="대전" name='Daejeon'>대전</option>
+			    <option value="전주" name='Jeonju'>전주</option>
+			    <option value="부산" name='Busan'>부산</option>
+			</select>
+			<button type="button" id="keepgoing">계획짜기</button>
+		</div>
+	<div id="daysbox">
+		<c:forEach var="v" begin="1" end="${list[0]['TOTAL_DATE'] }" varStatus="status">
+			<div class="a b day${v}"">
+				<p><c:out value="day - ${v}"/></p>
+			</div>
+		</c:forEach>
+	</div>	
+	<div id="hotspotlist">
+		<c:forEach items="${pd}" var="hs">
+			<div class="test">
+				<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
+				<p>${hs['HOTSPOT_NAME'] }</p>
+				<p>${hs['HOTSPOT_ADDR'] }</p>
+			</div>
+		</c:forEach>
+	</div>
+	<div id="mapadu">
+	</div>
+	<button type="button" id="jujang">저장</button>
+	
+	<div id="modal" class="searchModal">
+		<div class="search-modal-content">
+		
+		</div>
+	</div>
+	
 </div>
 
 <script>
-	var memberId = "${loginMember.memberId }";
-	console.log(memberId);
-	$(document).ready(function(){
-		$.ajax({
-			url:"${path}/iljung/iljungcrystal.do",
-			data:{
-				memberId:memberId,
-				
-			},
-			type:"post",
-			contentType:"application/json;charset=UTF-8",
-			dataType:"json",
-			success:function(data){
-				
-			}
-		});
-	});
+var mapContainer = document.getElementById('mapadu'); // 지도를 표시할 div  
+var hal = '${wekyungdo[0]['HOTSPOT_AREA_LAT']}';
+var hah = '${wekyungdo[0]['HOTSPOT_AREA_HAR']}';
+if(hal.trim() == '' || hah.trim() == ''){
+	hal = '37.55068892690699';
+	hah = '126.99094670691717';
+}
+    mapOption = { 
+        center: new kakao.maps.LatLng(hal,hah), // 지도의 중심좌표
+        level: 9 // 지도의 확대 레벨
+    };
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+	var positions = [];
+	var placename = new Array(); 
+	var placelat = new Array(); 
+	var placehar = new Array(); 
+	<c:forEach items="${list}" var="item">
+		placename.push("${item['HOTSPOT_NAME'] }");
+		placelat.push("${item['HOTSPOT_LAT'] }");
+		placehar.push("${item['HOTSPOT_HAR'] }");
+	</c:forEach>
+	for(var i = 0; i<placename.length; i++){
+		positions[i]={
+				content: '<div>'+placename[i]+'</div>',
+				latlng: new kakao.maps.LatLng(placelat[i] , placehar[i])
+		};
+	};
+	
+	
+for (var i = 0; i < positions.length; i ++) {
+ // 마커를 생성합니다
+ var marker = new kakao.maps.Marker({
+     map: map, // 마커를 표시할 지도
+     position: positions[i].latlng // 마커의 위치
+ });
+
+ // 마커에 표시할 인포윈도우를 생성합니다 
+ var infowindow = new kakao.maps.InfoWindow({
+     content: positions[i].content // 인포윈도우에 표시할 내용
+ });
+
+ // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+ // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+ // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+ kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+ kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+//인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+ return function() {
+     infowindow.open(map, marker);
+ };
+};
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

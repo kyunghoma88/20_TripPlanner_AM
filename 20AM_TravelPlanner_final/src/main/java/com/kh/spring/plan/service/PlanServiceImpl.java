@@ -50,6 +50,13 @@ public class PlanServiceImpl implements PlanService {
 		// TODO Auto-generated method stub
 		return dao.areadata(session, place);
 	}
+
+	@Override
+	public List<Map<String, Object>> myplanselect(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.myplanselect(session, map);
+	}
+	
 	
 	
 	

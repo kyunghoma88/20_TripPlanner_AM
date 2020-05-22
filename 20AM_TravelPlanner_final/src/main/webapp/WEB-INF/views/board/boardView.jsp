@@ -94,9 +94,9 @@
     	<div class="col-sm-10">
 			<div id="comment-container">
 	   			<div class="comment-editor">
-  					<c:if test="${loginMember.memberId eq board.memberId}">
-  						<button class="allbtn">게시물 수정</button>
-  					</c:if>
+	   				<c:if test="${loginMember.memberId eq board.memberId}">
+	   					<button class="allbtn" id="crystal">게시물 수정</button>
+	   				</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
@@ -104,9 +104,6 @@
 	   					</c:if>
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
-	   					</c:if>
-	   					<c:if test="${loginMember.memberId eq board.memberId}">
-	   						<button class="allbtn" id="crystal">게시물 수정</button>
 	   					</c:if>
 	   					<input type="hidden" name="no" value="${board.trSeq }"/>
 	   					<input type="hidden" name="id" value="${board.memberId }"/>
@@ -260,8 +257,6 @@
 			}
 		});
 
-		console.log("${board.tvTitle }");
-		console.log("${board.trSeq}");
 		
 		var memberId = "${loginMember.memberId }";
 		var tvTitle = "${board.tvTitle }";
@@ -275,9 +270,9 @@
 					trSeq:trSeq
 				},
 				type:"post",
-				dataType:"json",
+				dataType:"html",
 				success:function(data){
-					
+					$("body").html(data);
 				}
 			});
 		}); 

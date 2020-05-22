@@ -83,18 +83,24 @@ public class PlanController {
 		return mv;
 	};
 	
-	@RequestMapping("/iljung/iljungcrystal")
-	public String iljungcrystal() {
-		return "iljung/iljungcrystal";
-	}
 	@RequestMapping("/iljung/iljungcrystal.do")
 	public ModelAndView iljungcrystaldo(ModelAndView mv,String memberId,String tvTitle,int trSeq) {
-		System.out.println(memberId);
-		System.out.println(tvTitle);
-		System.out.println(trSeq);
-		Map<String,String> map = new HashMap<String,String>();
-		//service.myplanselect(map);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberId",memberId);
+		map.put("tvTitle",tvTitle);
+		map.put("trSeq",trSeq);
+		List<Map<String,Object>> list = service.myplanselect(map);
+		String place = (String) list.get(0).get("HOTSPOT_AREA_NAME");
+		List<Map<String,String>> wekyungdo = service.areadata(place);
+		List<Map<String,String>> pd = service.placedata(place);
+		System.out.println(list);
 		
+		mv.addObject("tvTitle",tvTitle);
+		mv.addObject("list",list);
+		mv.addObject("wekyungdo",wekyungdo);
+		mv.addObject("pd",pd);
+		mv.setViewName("iljung/iljungcrystal");
 		return mv;
 	}
+	
 };
