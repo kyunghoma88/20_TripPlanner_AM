@@ -103,7 +103,8 @@
 					</button>
 					</c:if>
 					<c:if test='${not empty loginMember }'>
-						<span>
+
+ 						<span>
 						<c:if test="${loginMember.status == 'Y' }">
 							<img src="${path }/resources/images/premium.png" width="50px" height="50px"/>
 							<a href="${path }/member/preMyPage">
@@ -122,9 +123,10 @@
 					</c:if>
 	            </div>
             </div>
-            <div class="row">
+<!--             <div class="row">
                 <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
-            </div>
+            </div> -->
+            <hr style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0; margin-top: 25px;">
         </nav>
     </header>
     
