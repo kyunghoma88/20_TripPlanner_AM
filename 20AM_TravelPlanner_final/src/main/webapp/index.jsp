@@ -85,10 +85,10 @@
 			}
 		})
 	});
-
+	let checkJoin;
 	
 	//회원가입 유효성 검사
-	   function validate(){
+	   function validate_join(){
 	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
 	      {
 	         return false;
@@ -96,9 +96,9 @@
 	      return true;
 	   }
 	   
-	   $(function(){
 	      var onsubmit_id = 0;
 	      var onsubmit_pass = 0;
+	   $(function(){
 	   
 	   
 	      
@@ -114,7 +114,7 @@
 	      $("#memberId_").keyup(function(e) { 
 	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
 	            var v = $(this).val();
-	            $(this).val(v.replace(/[^a-z0-9]/gi,''));
+	            $(this).val(v.replace(/[^a-z0-9_]/gi,''));
 	         }
 	      });
 	      
@@ -202,16 +202,11 @@
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/information.do">INFORMATION</a>
+                  <a class="nav-link menubarLink" href="${path }/information.do">INFORMATION</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                 </li>
-				<c:if test="${not empty loginMember }">
-					<li class="nav-item">
-						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
-					</li>
-                </c:if>
               </ul>
             </div>
             <div class="col-sm-2 testDiv">
@@ -358,7 +353,7 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate_join();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
 							<div class="signup-input-msg">
@@ -494,10 +489,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${empty loginMember}){
-    		alert("로그인이 필요한 서비스입니다.");
+    	if(${not empty loginMember}){
+    		location.replace("${path}/goiljung.do");
     	}else{
-    		location.replace("${path}/iljung.do");
+    		alert("로그인이 필요한 서비스입니다.");
     	}
     })
     
