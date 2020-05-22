@@ -494,10 +494,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
-    	}else{
+    	if(${empty loginMember}){
     		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
     	}
     })
     
