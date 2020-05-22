@@ -114,7 +114,7 @@
 	      $("#memberId_").keyup(function(e) { 
 	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
 	            var v = $(this).val();
-	            $(this).val(v.replace(/[^a-z0-9]/gi,''));
+	            $(this).val(v.replace(/[^a-z0-9_]/gi,''));
 	         }
 	      });
 	      
