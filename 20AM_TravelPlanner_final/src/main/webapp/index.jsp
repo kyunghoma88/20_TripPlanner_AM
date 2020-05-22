@@ -225,7 +225,7 @@
 				<c:if test='${not empty loginMember }'>
 					<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
@@ -237,7 +237,7 @@
 						</c:if>
 					</span>
 					&nbsp;
-					<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+					<button class="logoutBtn" type="button"
 					onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 				</c:if>
             </div>

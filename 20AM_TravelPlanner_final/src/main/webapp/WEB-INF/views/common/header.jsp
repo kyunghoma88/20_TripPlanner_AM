@@ -124,7 +124,7 @@
 						</c:if>
 						</span>
 						&nbsp;
-						<button class="logoutBtn" type="button"
+						<button class="logoutBtn allbtn" type="button"
 						onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 					</c:if>
 	            </div>
