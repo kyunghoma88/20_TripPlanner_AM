@@ -82,7 +82,7 @@
   </script>
   <header>
     <nav>
-        <div class="row navBar">
+        <div class="row">
             <div class="col-sm-1 testDiv"></div>
             <div class="col-sm-2 logoDiv">
               <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
@@ -127,7 +127,7 @@
 				<c:if test='${not empty loginMember }'>
 					<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
