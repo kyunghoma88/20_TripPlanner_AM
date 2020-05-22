@@ -4,12 +4,20 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	
+<%@page import="com.kh.spring.member.model.vo.Member" %>	
+	
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 	
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<%Member loginMember = (Member)session.getAttribute("loginMember"); %>
+
 
 <style>
-
+	
+	.mypage-container{
+		height : 1000px;
+	}
+	
 	
 	.mypage-side-bar{
 		/* border : 1px solid black; */
@@ -107,7 +115,8 @@ pageEncoding="UTF-8"%>
 	
 	
 	<div class="list-group">
-	  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 일정보기</a>
+	  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 정보보기</a>
+	  <a href="${path }/member/myPlan?id=${loginMember.memberId}" class="list-group-item list-group-item-action">내 일정보기</a>
 	  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
 	  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
 	  <a href="${path }/member/signOut" class="list-group-item list-group-item-action">회원 탈퇴</a>
@@ -134,7 +143,7 @@ pageEncoding="UTF-8"%>
 		              <label for="myPagePwd">이름</label>
 		          </td>
 		          <td>
-		              <input type="text" name="username" id="myPageUsername" value="${loginMember.memberName}" style="display:none;">
+		              <%-- <input type="text" name="username" id="myPageUsername" value="${loginMember.memberName}" style="display:none;"> --%>
 		              <span>${loginMember.memberName}</span>
 		          </td>
 		      </tr>
@@ -144,7 +153,7 @@ pageEncoding="UTF-8"%>
 		              <label for="myPageEmail">이메일</label>
 		          </td>
 		          <td>
-		              <input type="text" name="email" id="myPageEmail" value="${loginMember.email}" style="display:none;">
+		              <%-- <input type="text" name="email" id="myPageEmail" value="${loginMember.email}" style="display:none;"> --%>
 		              <span>${loginMember.email}</span>
 		            </td>
 		        </tr>
@@ -153,7 +162,7 @@ pageEncoding="UTF-8"%>
 		              <label for="myPagePhone">전화번호</label>
 		          </td>
 		          <td>
-		              <input type="text" name="phone" id="myPagePhone" value="${loginMember.phone}" style="display:none;">
+		              <%-- <input type="text" name="phone" id="myPagePhone" value="${loginMember.phone}" style="display:none;"> --%>
 		              <span>${loginMember.phone}</span>
 		            </td>
 		        </tr>
@@ -162,9 +171,9 @@ pageEncoding="UTF-8"%>
 		              <label for="myPageAddress">주소</label>
 		          </td>
 		          <td>
-		              <input type="text" name="address" id="myPageAddress" value="${loginMember.address}" style="display:none;">
+		              <%-- <input type="text" name="address" id="myPageAddress" value="${loginMember.address}" style="display:none;"> --%>
 		              <span>${loginMember.address}</span>
-		              <input type="text" name="address" id="myPageAddressDetail" value="${loginMember.addressDetail}" style="display:none;">
+		              <%-- <input type="text" name="address" id="myPageAddressDetail" value="${loginMember.addressDetail}" style="display:none;"> --%>
 		              <span>${loginMember.addressDetail}</span>
 		            </td>
 		        </tr>

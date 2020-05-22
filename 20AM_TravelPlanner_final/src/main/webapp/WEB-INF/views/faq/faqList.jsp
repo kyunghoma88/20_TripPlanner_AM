@@ -110,15 +110,22 @@ ul {
 	margin-right:10px;
 }
 .categoryC{
-	color:#002266;
+	color:#007bff;
+	text-align:center;
+	/* transform:translate(-1200%, 100%); */
+}
+#faqTopD {
+	margin-right: 150px;
+	margin-left: 25px;
+	font-weight: bolder;
 }
 </style>
 <section>
 	<br>
 	<p id="pTop">자주 묻는 질문</p>
-	<span><a href="${path }/faq/infoFaq" class="image_button categoryC">이용안내</a></span>
-	<span><a href="${path }/faq/cashFaq" class="image_button categoryC">결제</a></span>
-	<span><a href="${path }/faq/memberFaq" class="image_button categoryC">회원관리</a></span>
+	<span id="spanC"><a href="${path }/faq/infoFaq" class="image_button categoryC">이용안내</a></span>
+	<span id="spanC"><a href="${path }/faq/cashFaq" class="image_button categoryC">결제</a></span>
+	<span id="spanC"><a href="${path }/faq/memberFaq" class="image_button categoryC">회원관리</a></span>
 	<br> <span id="searchSp">
 		<h4>도움말 검색</h4>
 		<p>키워드로 빠르게 도움말을 찾아보실 수 있습니다.</p>
@@ -132,7 +139,7 @@ ul {
 			<thead>
 				<div id="divHeader">
 					<span id="faqTop">카테고리</span> <span id="faqTop">제목</span> <span
-						id="faqTop">작성일</span>
+						id="faqTopD">작성일</span>
 				</div>
 			</thead>
 			<c:forEach items="${list }" var="f">

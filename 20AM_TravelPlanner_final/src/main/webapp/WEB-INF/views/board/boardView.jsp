@@ -42,6 +42,13 @@
 	  font-size: 17px;
 	  height: 38px;
   }
+  
+  #btn-reply{
+	  background-color: #203341;
+	  color: white;
+	  border-radius: 5px;
+	  font-size: 17px;
+  }
    
     table#tbl-comment button.btn-reply{display:none;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
@@ -77,11 +84,14 @@
     </div>
     <div class="row boardContent">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5" id="testContent">
+      <div class="col-sm-4" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
 	        <c:set var="whatDay" value="${v }"/>
          	<button type="button" class="dayBtn" id="dayBtn${v }" onclick="fn_boardDetail(this, '${board.trSeq}', '${whatDay }');">Day${v }</button><br>
    		</c:forEach>
+      </div>
+      <div class="col-sm-1">
+      	<button id="likeBtn" style="display:inline-block" onclick="like_fn('${board.trSeq}')"><img src="${path }/resources/images/LIKE0.png" id="like_img" width="50px" height="20x"><span></span></button>
       </div>
       <div class="col-sm-5">
         <div id="map" style="border: 1px solid black; height: 380px; width: 565px">
@@ -130,7 +140,7 @@
 		   					</td>
    							<td>
    								<c:if test="${not empty loginMember}">
-		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   							<button type="button" id="btn-reply" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
 		   						</c:if>
 		   					</td>
 		   				</tr>
@@ -150,9 +160,31 @@
    			</c:if>
    		</table>
     	</div>
-    	<div class="col-sm-1"></div>
     </div>
 	<script>
+	$(document).ready(function(){
+ 		var memberId = ${board.memberId};
+ 		
+ 	})
+
+
+	function like_fn(trSeq){
+		console.log(trSeq);
+		/* console.log(memberId); */
+		$.ajax({
+			url:"boardLike.do",
+			data:{"trSeq":trSeq},
+			success:function(data){
+				alert("dd");
+			}
+		})
+	}
+
+
+	
+	
+	
+	
  	 function fn_boardDetail(el, seq, whatDay){
 		$.ajax({
 			url : "${path}/board/boardDetail.do",
@@ -161,8 +193,8 @@
 			success:function(data){
 				const table = $("<table class='contentTbl'>");
 				for(let i=0; i<data.length; i++){
-					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='170px' height='70px' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
-					.append("<tr><td class='commentTr'>" + data[i]['comment'] + "</td></tr>");
+					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='200px' height='auto' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td style='font-size:25px;'>" + data[i]['hotspotName'] + "</td></tr>")
+					.append("<tr><td class='commentTr' style='font-size:22px;'>" + data[i]['comment'] + "</td></tr>");
 				}
 				$(el).next($(".contentTbl")).toggle();
 				$(el).after(table);

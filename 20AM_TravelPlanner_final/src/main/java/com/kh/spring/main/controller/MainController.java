@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
@@ -29,6 +30,13 @@ public class MainController {
 		return list;
 		
 	}
+	
+	@RequestMapping("information.do")
+	public ModelAndView infor(ModelAndView mv) {
+		mv.setViewName("information/information");
+		return mv;
+	}
+	
 	
 	
 }

@@ -18,4 +18,6 @@ public interface BoardService {
 	List<Day> boardDetail(Map map);
 	List<BoardComment> selectBoardComment(Map map);
 	int insertBoardComment(Map map);
+	List<Board> selectMyBoard(int cPage, int numPerpage, String id);
+
 }

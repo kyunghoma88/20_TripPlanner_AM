@@ -1,5 +1,6 @@
 package com.kh.spring.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,7 +68,18 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	
+	@RequestMapping("/member/checkId.do")
+	public @ResponseBody Map<String,Object> checkId(@RequestParam String memberId) {
+		boolean flag = false;
+		Member m = service.checkId(memberId);
+		if(m != null) {
+			flag = true;
+		}
+		Map<String,Object> map = new HashMap<>();
+		map.put("result", "success");
+		map.put("flag", flag);
+		return map;
+	}
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String memberLogin(Member m, Model model) {
@@ -120,7 +134,11 @@ public class MemberController {
 	
 	// 05 19 내 페이지 보기 및 회원정보 수정 넘어가는 페이지
 	@RequestMapping("/member/preMyPage")
-	public ModelAndView preMyPage(@RequestParam(required = false, defaultValue = "1") int cPage, 
+	public String preMyPage() {
+		return "member/preMyPage";
+	}
+	
+	/*public ModelAndView preMyPage(@RequestParam(required = false, defaultValue = "1") int cPage, 
 			@RequestParam(required = false, defaultValue = "6") int numPerpage,
 			ModelAndView mv) {
 		//return "member/preMyPage";
@@ -135,7 +153,7 @@ public class MemberController {
 		
 		
 		
-	}
+	}*/
 	
 	
 	
@@ -226,6 +244,7 @@ public class MemberController {
 		if(updateResult>0)
 		{
 			session.setAttribute("loginMember", service.selectMember(result));
+//			mv.addObject("loginMember",service.selectMember(result));
 			msg = "정상적으로 수정되었습니다.";
 			loc = "/member/preMyPage";
 		}
@@ -234,7 +253,6 @@ public class MemberController {
 			msg = "정보 수정이 실패했습니다.";
 		}
 	
-		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
@@ -408,6 +426,29 @@ public class MemberController {
 		return mv;
 		
 	}
+	
+	///////////////////////  내 일정 보기 /////////////////////////////////
+	@RequestMapping("/member/myPlan")
+	public ModelAndView boardList(@RequestParam(required = false, defaultValue = "1") int cPage, 
+			@RequestParam(required = false, defaultValue = "6") int numPerpage,
+			ModelAndView mv, String id) {
+
+		//List<Board> list = boardService.selectBoard(cPage,numPerpage);
+		int totalCount = boardService.selectBoardCount();
+		
+		List<Board> list = boardService.selectMyBoard(cPage,numPerpage,id);
+		
+		
+		mv.addObject("list",list);
+		//mv.addObject("count",totalCount);
+		//mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		//mv.setViewName("board/boardList");
+		return mv;
+	}
+	/*public String myPlan() {
+		return "member/myTravelPlan";
+	}*/
+	
 	
 	
 	

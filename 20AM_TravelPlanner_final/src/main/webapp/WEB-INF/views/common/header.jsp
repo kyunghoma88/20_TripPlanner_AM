@@ -33,6 +33,13 @@
   height: 38px;
 }
 
+.validation-msg{
+	font-size:12px;
+	display:none;
+	float:right;
+}
+
+
 
 .logoutBtn{
   background-color: #203341;
@@ -60,7 +67,7 @@
 <body>
     <header>
         <nav>
-            <div class="row navBar">
+            <div class="row">
                 <div class="col-sm-1 testDiv"></div>
                 <div class="col-sm-2 logoDiv">
                   <img id="mainLogo" src="${path }/resources/images/logo.png" width="200px" height="auto" onclick="location.replace('${path}')"/>
@@ -77,7 +84,7 @@
                       <a class="nav-link menubarLink" id="boardBtn">게시판</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" href="#">INFORMATION</a>
+                      <a class="nav-link menubarLink" href="${path}/information.do">INFORMATION</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
@@ -103,9 +110,9 @@
 					</button>
 					</c:if>
 					<c:if test='${not empty loginMember }'>
-						<span>
+ 						<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="50px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
@@ -117,15 +124,16 @@
 						</c:if>
 						</span>
 						&nbsp;
-						<button class="logoutBtn" type="button"
+						<button class="logoutBtn allbtn" type="button"
 						onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 					</c:if>
 	            </div>
             </div>
-            <div class="row">
-                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
-            </div>
         </nav>
+<!--             <div class="row">
+                <div class="col" style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0"></div>
+            </div> -->
+            <hr style="width: 1366px; background-color: #203341; height: 21px; padding: 0; margin: 0; margin-top: 25px;">
     </header>
     
     <!-- 로그인 모달 -->
@@ -196,10 +204,23 @@
 			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
+						<div class="signup-input-msg">
+	                        <span>4-12자 사이의 숫자와 영문자 조합</span>
+	                    	<span id="val-id-ok" class="validation-msg" style='color:green;'>사용가능한 아이디입니다.</span>
+							<span id="val-id-no" class="validation-msg" style='color:crimson;'>사용할 수 없는 아이디입니다.</span>
+	                    </div>
 						<br/>
 						<input type="password" class="form-control" placeholder="비밀번호" name="password" id="password_" required>
+						<div class="signup-input-msg">
+	                        <span>8자 이상 16자 이하 영문, 숫자, 특수문자 조합</span>
+		                    <span id="val-pass-ok" class="validation-msg" style='color:green;'>안전</span>
+							<span id="val-pass-no"class="validation-msg" style='color:crimson;'>위험</span>
+	                    </div>
 						<br/>
 						<input type="password" class="form-control" placeholder="비밀번호확인" id="password2" required>
+						<div class="signup-input-msg">
+							<span id="val-checkpass-no" class="validation-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span>
+						</div>
 						<br/>
 						<input type="text" class="form-control" placeholder="이름" name="memberName" id="memberName" required>
 						<br/>
@@ -296,6 +317,114 @@
     		alert("로그인이 필요한 서비스입니다.");
     	}
     })
+    
+    
+    
+    //회원가입 유효성 검사
+	   function validate(){
+	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
+	      {
+	         return false;
+	      }
+	      return true;
+	   }
+	   
+	   $(function(){
+	      var onsubmit_id = 0;
+	      var onsubmit_pass = 0;
+	   
+	   
+	      
+	      const password_ = $('#password_').val();
+	      const password2 = $('#password2').val();
+	      const signupId = $('#memberId_');
+	         
+	      const validationMsg = $('.validation-msg');
+	      const signupInputs = $('.validation-msg').prev();
+	      const idAvail = $('#idAvail')
+	   
+	   
+	      $("#memberId_").keyup(function(e) { 
+	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
+	            var v = $(this).val();
+	            $(this).val(v.replace(/[^a-z0-9]/gi,''));
+	         }
+	      });
+	      
+	      $('#memberId_').blur(function idCheckAjax(){
+	         $.ajax({
+	                 url: '<%=request.getContextPath()%>/member/checkId.do',
+	                 type: 'post',
+	                 //contentType: "application/json",  
+	                 data: {memberId : signupId.val()},
+	                 dataType:"json",
+	                 success: function(result){
+	                    if(result.flag == true|| $('#memberId_').val().trim().length<4 || $('#memberId_').val().trim().length>12 ) 
+	                       //가입된 아이디가 존재하거나 id길이가 짧거나 긴 경우
+	                    {
+	                       console.log($('#memberId_').val())
+	                       $('#val-id-ok').hide();
+	                    $('#val-id-no').show();
+	                    onsubmit_id = 0;
+	                    }
+	                    else
+	                       //가입된 아이디가 존재하지 않을 경우
+	                    {
+	                  $('#val-id-ok').show();
+	                  $('#val-id-no').hide();
+	                  onsubmit_id = 1;
+	                    }
+	                 }
+	              });
+	      });
+	      
+	      $("#password_").blur(function passwordCheck(){
+	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+	         if(!passwordCheck.test($('#password_').val()))
+	         {
+	            $("#val-pass-ok").hide();
+	            $("#val-pass-no").show();
+	            onsubmit_pass = 0;
+	         }
+	         else
+	         {
+	            $("#val-pass-ok").show();
+	            $("#val-pass-no").hide();
+	            onsubmit_pass = 1;
+	         }
+	      })
+	      
+	      $('#password2').blur(function passCheck(){
+	         if($('#password_').val() == $('#password2').val())
+	         {
+	            $('#val-checkpass-no').hide();
+	         }
+	         else
+	         {
+	            $('#val-checkpass-no').show();
+	            /* $('#password2').val(''); */
+	            /* alert("비밀번호가 일치하지 않습니다!"); */
+	            /* $('#password2').focus(); */
+	         }
+	      })
+	      
+	      $("#phone").keyup(function(event){
+	          var inputVal = $(this).val();
+	          $(this).val(inputVal.replace(/[^0-9]/gi,''));
+	      });
+	      
+	   })
+    
+     function fn_board_btn(){
+    	console.log("${loginMember.status}");
+    	if("${loginMember.status}" == "Y"){
+    		location.replace("${path}/board/boardList.do");
+    	}else if("${loginMember.status}" == "N"){
+    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
+    	}else if("${empty loginMember}"){
+    		alert("로그인이 필요한 서비스입니다.");
+    	}
+    }
     
     $("#makePlanBtn").click(function(){
     	if(${empty loginMember}){

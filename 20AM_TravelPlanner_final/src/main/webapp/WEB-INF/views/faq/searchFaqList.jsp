@@ -103,6 +103,11 @@ ul {
 	background:white;
 	margin-right:10px;
 }
+#faqTopD {
+	margin-right: 150px;
+	margin-left: 25px;
+	font-weight: bolder;
+}
 </style>
 <section>
 
@@ -112,7 +117,7 @@ ul {
 			<div id="divHeader">
 				<span id="faqTop">카테고리</span>
 				<span id="faqTop">제목</span>
-				<span id="faqTop">작성일</span>
+				<span id="faqTopD">작성일</span>
 			</div>
 		</thead>
 			<c:forEach items="${list }" var="f">
