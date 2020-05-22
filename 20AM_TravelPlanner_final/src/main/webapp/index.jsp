@@ -93,7 +93,7 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
@@ -378,10 +378,10 @@
     })
     
     $("#makePlanBtn").click(function(){
-    	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
-    	}else{
+    	if(${empty loginMember}){
     		alert("로그인이 필요한 서비스입니다.");
+    	}else{
+    		location.replace("${path}/iljung.do");
     	}
     })
     
