@@ -382,8 +382,7 @@ $(document).on('click','.test',function(){
 	$(".f.g.h").parent('div').after(divtag);
 });
 
-
-$('#jujang1').click(function(){
+$(document).on("click","#jujang1",function(){
 	var han = '${list[0]['HOTSPOT_AREA_NAME']}';
 	var id = '${loginMember['memberId']}';
 	var title = $('#plantitle').val();
@@ -421,9 +420,16 @@ $('#jujang1').click(function(){
 		type:"post",
 		contentType:"application/json;charset=UTF-8",
 		success:function(){
-		location.replace("${path}/views/index"); 
+			location.replace("${path}/views/index"); 
+		},erorr:function(){
+			alert("수정되었습니다.");
+			location.replace("${path}");
 		}
 	});
 });
+$("#jujang2").click(function(){
+	alert("이전 페이지로 돌아갑니다.");
+	location.replace("${path}/board/boardList.do"); 
+})
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

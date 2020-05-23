@@ -69,6 +69,20 @@ public class PlanServiceImpl implements PlanService {
 		// TODO Auto-generated method stub
 		return dao.deletePlan(session,map);
 	}
+
+	@Override
+	public int deleteBoard(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.deleteBoard(session,map);
+	}
+
+	@Override
+	public int updateBoard(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.updateBoard(session,map);
+	}
+	
+	
 	
 	
 	

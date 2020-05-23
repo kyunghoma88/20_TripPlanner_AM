@@ -47,7 +47,7 @@ public class PlanController {
 
 
 	@RequestMapping("/jujang.do")
-	public ModelAndView jujang(@RequestBody List<Map<String,Object>> list,ModelAndView mv) {
+	public void jujang(@RequestBody List<Map<String,Object>> list) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
@@ -80,7 +80,6 @@ public class PlanController {
 				};
 				service.insertPlan(mapda);
 		};
-		return mv;
 	};
 	
 	@RequestMapping("/iljung/iljungcrystal.do")
@@ -113,6 +112,11 @@ public class PlanController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberId",member);
 		map.put("trSeq",seq);
+		map.put("title",list.get(0).get("title"));
+		map.put("title",list.get(0).get("tplace"));
+		map.put("title",list.get(0).get("tarea"));
+		service.deleteBoard(map);
+		service.updateBoard(map);
 		service.deletePlan(map);
 		int fn = list.size();
 		int order = 0;

@@ -25,5 +25,10 @@
 	<delete id="deletePlan" parameterType="map">
 		DELETE FROM DAY WHERE TR_SEQ = #{trSeq} AND MEMBER_ID=#{memberId}
 	</delete>
-	
+	<delete id="deleteBoard" parameterType="map">
+		DELETE FROM BOARD WHERE TR_SEQ = #{trSeq} AND MEMBER_ID=#{memberId}
+	</delete>
+	<insert id="updateBoard" parameterType="map">
+		INSERT INTO BOARD VALUES(#{trSeq},#{memberId},#{title},#{place},#{area},0,DEFAULT)
+	</insert>
 </mapper>

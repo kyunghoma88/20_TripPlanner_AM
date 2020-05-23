@@ -60,7 +60,6 @@
 		</div>
 	</div>
 
-
 <script>
 
 $('#keepgoing').click(function(){
@@ -235,7 +234,10 @@ $('#jujang').click(function(){
 		type:"post",
 		contentType:"application/json;charset=UTF-8",
 		success:function(){
-		location.replace("${path}/views/index"); 
+			location.replace("${path}"); 
+		},error:function(){
+			alert("저장되었습니다.");
+			location.replace("${path}"); 
 		}
 	});
 });

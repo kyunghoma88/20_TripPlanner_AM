@@ -55,6 +55,18 @@ public class PlanDaoImpl implements PlanDao {
 		// TODO Auto-generated method stub
 		return session.delete("plan.deletePlan",map);
 	}
+
+	@Override
+	public int deleteBoard(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.delete("plan.deleteBoard",map);
+	}
+
+	@Override
+	public int updateBoard(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.insert("plan.updateBoard");
+	}
 	
 	
 	

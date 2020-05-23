@@ -15,4 +15,6 @@ public interface PlanDao {
 	List<Map<String,Object>> myplanselect(SqlSessionTemplate session, Map<String,Object> map);
 	int totaldays(SqlSessionTemplate session, Map<String,Object> map);
 	int deletePlan(SqlSessionTemplate session, Map<String,Object> map);
+	int deleteBoard(SqlSessionTemplate session, Map<String,Object> map);
+	int updateBoard(SqlSessionTemplate session, Map<String,Object> map);
 }
