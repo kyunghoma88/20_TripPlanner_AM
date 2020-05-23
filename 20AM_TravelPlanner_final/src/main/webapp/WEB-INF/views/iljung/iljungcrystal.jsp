@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.1"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.2"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle"/>
 </jsp:include>
@@ -43,8 +43,8 @@
 		</div>
 	<div id="daysbox">
 		<c:forEach var="v" begin="1" end="${list[0]['TOTAL_DATE'] }" varStatus="status">
-			<div class="a b day${v}"">
-				<p><c:out value="day - ${v}"/></p>
+			<div class="day${v}">
+				<p class="a b"><c:out value="day - ${v}"/></p>
 			</div>
 		</c:forEach>
 		<button type="button" id="jujang">저장</button>
@@ -160,7 +160,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day1").append(divtag);
+		$(".day1").children().append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 2){
 		btntag.append('x');
@@ -173,7 +173,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day2").append(divtag);
+		$(".day2").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 3){
 		btntag.append('x');
@@ -186,7 +186,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day3").append(divtag);
+		$(".day3").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 4){
 		btntag.append('x');
@@ -199,7 +199,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day4").append(divtag);
+		$(".day4").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 5){
 		btntag.append('x');
@@ -212,7 +212,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day5").append(divtag);
+		$(".day5").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 6){
 		btntag.append('x');
@@ -225,7 +225,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day6").append(divtag);
+		$(".day6").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 7){
 		btntag.append('x');
@@ -238,7 +238,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day7").append(divtag);
+		$(".day7").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 8){
 		btntag.append('x');
@@ -251,7 +251,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day8").append(divtag);
+		$(".day8").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 9){
 		btntag.append('x');
@@ -264,7 +264,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day9").append(divtag);
+		$(".day9").children('p').append(divtag);
 		$(".divposition").hide();
 	}else if(tvDate[i] == 10){
 		btntag.append('x');
@@ -277,7 +277,7 @@ for(var i=0; i<${result} ; i++){
 		divtag.append(imgtag);
 		divtag.append(tatag);
 		divtag.append(ptag);
-		$(".day10").append(divtag);
+		$(".day10").children('p').append(divtag);
 		$(".divposition").hide();
 	}
 }
@@ -357,12 +357,30 @@ $(document).on("click",".e.f",function(){
 	$(".e.h").removeClass("h");
 	$(".e").css("background-color","white");
 	$(".e").css("color","black");
-	$(".e").addClass("b");
+	$(".e").addClass("f");
 	$(this).addClass("g");
 	$(this).addClass("h");
 	$(this).removeClass("e");
 	$(this).css("background-color","red");
 	$(this).css("color","white");
+});
+$(document).on('click','.test',function(){
+	var tatag = $("<textarea rows='4' cols='55' class='textsoksung'>")
+	var ptag = $("<p class='ptagposition'>");
+	var imgtag = $("<img src='' class='imgposition'>")
+	var imgsrc = $(this).find('img').attr('src');
+	var divtag = $("<div class='divposition'>");
+	var btntag = $("<button class='btnf'>");
+	btntag.append('x');
+	imgtag.attr('width','100px');
+	imgtag.attr('height','100px');
+	imgtag.attr('src',imgsrc);
+	ptag.append($(this).find('img').next().text());
+	divtag.append(btntag);
+	divtag.append(imgtag);
+	divtag.append(tatag);
+	divtag.append(ptag);
+	$(".f.g.h").parent('div').after(divtag);
 });
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

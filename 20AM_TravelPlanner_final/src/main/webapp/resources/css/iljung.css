@@ -112,7 +112,7 @@
     position: absolute;
     left: 600px;
     top: 141px;
-    margin-top: 93px;
+    margin-top: 73px;
 }
 .btnf{
     float: right;
@@ -131,6 +131,10 @@
 	position: relative;
     left: 101px;
     top: -68px;
+    height: 100px;
+    width: 350px;
+    resize:none;
+    overflow: hidden;
 }
 .ptagposition{
 	position: relative;
