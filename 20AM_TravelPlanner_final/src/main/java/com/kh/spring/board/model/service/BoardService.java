@@ -12,10 +12,12 @@ public interface BoardService {
 	List<Board> selectBoard(int cPage, int numPerpage);
 	int selectBoardCount();
 	List<Board> searchBoard(String keyword, int cPage, int numPerpage);
-	int searchBoardCount();
+	int searchBoardCount(String keyword);
 	Board selectBoardTitle(Map map);
 	List<Day> selectBoardView(Map map);
 	List<Day> boardDetail(Map map);
 	List<BoardComment> selectBoardComment(Map map);
 	int insertBoardComment(Map map);
+	List<Board> selectMyBoard(int cPage, int numPerpage, String id);
+
 }

@@ -31,6 +31,20 @@
   font-size: 17px;
   height: 38px;
 }
+
+.validation-msg{
+	font-size:12px;
+	display:none;
+	float:right;
+}
+
+.logoutBtn{
+  background-color: #203341;
+  color: white;
+  border-radius: 5px;
+  font-size: 17px;
+  height: 38px;
+}
 </style>
 <!-- 부트스트랩이용하기 -->
 <!-- Latest compiled and minified CSS -->
@@ -71,6 +85,103 @@
 			}
 		})
 	});
+	let checkJoin;
+	
+	//회원가입 유효성 검사
+	   function validate_join(){
+	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
+	      {
+	         return false;
+	      }
+	      return true;
+	   }
+	   
+	      var onsubmit_id = 0;
+	      var onsubmit_pass = 0;
+	   $(function(){
+	   
+	   
+	      
+	      const password_ = $('#password_').val();
+	      const password2 = $('#password2').val();
+	      const signupId = $('#memberId_');
+	         
+	      const validationMsg = $('.validation-msg');
+	      const signupInputs = $('.validation-msg').prev();
+	      const idAvail = $('#idAvail')
+	   
+	   
+	      $("#memberId_").keyup(function(e) { 
+	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
+	            var v = $(this).val();
+	            $(this).val(v.replace(/[^a-z0-9_]/gi,''));
+	         }
+	      });
+	      
+	      $('#memberId_').keyup(function idCheckAjax(){
+	         $.ajax({
+	                 url: '<%=request.getContextPath()%>/member/checkId.do',
+	                 type: 'post',
+	                 //contentType: "application/json",  
+	                 data: {memberId : signupId.val()},
+	                 dataType:"json",
+	                 success: function(result){
+	                    if(result.flag == true|| $('#memberId_').val().trim().length<4 || $('#memberId_').val().trim().length>12 ) 
+	                       //가입된 아이디가 존재하거나 id길이가 짧거나 긴 경우
+	                    {
+	                       console.log($('#memberId_').val())
+	                       $('#val-id-ok').hide();
+	                    $('#val-id-no').show();
+	                    onsubmit_id = 0;
+	                    }
+	                    else
+	                       //가입된 아이디가 존재하지 않을 경우
+	                    {
+	                  $('#val-id-ok').show();
+	                  $('#val-id-no').hide();
+	                  onsubmit_id = 1;
+	                    }
+	                 }
+	              });
+	      });
+	      
+	      $("#password_").keyup(function passwordCheck(){
+	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+	         if(!passwordCheck.test($('#password_').val()))
+	         {
+	            $("#val-pass-ok").hide();
+	            $("#val-pass-no").show();
+	            onsubmit_pass = 0;
+	         }
+	         else
+	         {
+	            $("#val-pass-ok").show();
+	            $("#val-pass-no").hide();
+	            onsubmit_pass = 1;
+	         }
+	      })
+	      
+	      $('#password2').keyup(function passCheck(){
+	         if($('#password_').val() == $('#password2').val())
+	         {
+	            $('#val-checkpass-no').hide();
+	         }
+	         else
+	         {
+	            $('#val-checkpass-no').show();
+	            /* $('#password2').val(''); */
+	            /* alert("비밀번호가 일치하지 않습니다!"); */
+	            /* $('#password2').focus(); */
+	         }
+	      })
+	      
+	      $("#phone").keyup(function(event){
+	          var inputVal = $(this).val();
+	          $(this).val(inputVal.replace(/[^0-9]/gi,''));
+	      });
+	      
+	   })
+	
   </script>
   <header>
     <nav>
@@ -85,13 +196,13 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="${path}/iljung.do" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
                   <p class="nav-link menubarLink" id="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" href="#">INFORMATION</a>
+                  <a class="nav-link menubarLink" href="${path }/information.do">INFORMATION</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
@@ -114,7 +225,7 @@
 				<c:if test='${not empty loginMember }'>
 					<span>
 						<c:if test="${loginMember.status == 'Y' }">
-							<img src="${path }/resources/images/premium.png" width="50px" height="40px"/>
+							<img src="${path }/resources/images/premium.png" width="40px" height="40px"/>
 							<a href="${path }/member/preMyPage">
 								<c:out value='${loginMember.memberName }'/>
 							</a>님, 안녕하세요!
@@ -126,7 +237,7 @@
 						</c:if>
 					</span>
 					&nbsp;
-					<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+					<button class="logoutBtn" type="button"
 					onclick="location.replace('${path}/member/logout.do');">로그아웃</button>
 				</c:if>
             </div>
@@ -145,7 +256,7 @@
                   <tr>
                     <form action="${path }/hotSpot/hotSpotSearch" method="get">
                       <td style="height: 38px;">
-                        <input type="text" class="form-control" id="search" name="keyword">
+                        <input type="text" class="form-control" id="search" name="area">
                       </td>
                       <td style="height: 38px;">
                         <button style="border: 1px;padding: 0;" type="submit"><img src="${path }/resources/images/searchBtn.PNG" class="searchBtn"></button>
@@ -242,13 +353,26 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
-			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate();" autocomplete="off">
+			    <form action="${pageContext.request.contextPath}/member/memberEnroll.do" method="post" onsubmit="return validate_join();" autocomplete="off">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="아이디" name="memberId" id="memberId_" required>
+							<div class="signup-input-msg">
+		                        <span>4-12자 사이의 숫자와 영문자 조합</span>
+		                    	<span id="val-id-ok" class="validation-msg" style='color:green;'>사용가능한 아이디입니다.</span>
+								<span id="val-id-no" class="validation-msg" style='color:crimson;'>사용할 수 없는 아이디입니다.</span>
+		                    </div>
 						<br/>
 						<input type="password" class="form-control" placeholder="비밀번호" name="password" id="password_" required>
+							<div class="signup-input-msg">
+		                        <span>8자 이상 16자 이하 영문, 숫자, 특수문자 조합</span>
+			                    <span id="val-pass-ok" class="validation-msg" style='color:green;'>안전</span>
+								<span id="val-pass-no"class="validation-msg" style='color:crimson;'>위험</span>
+		                    </div>
 						<br/>
 						<input type="password" class="form-control" placeholder="비밀번호확인" id="password2" required>
+						<div class="signup-input-msg">
+							<span id="val-checkpass-no" class="validation-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span>
+						</div>
 						<br/>
 						<input type="text" class="form-control" placeholder="이름" name="memberName" id="memberName" required>
 						<br/>
@@ -258,7 +382,7 @@
 						<!-- <input type="text" class="form-control" placeholder="주소" name="address" id="address"> -->
 						<!-- 주소 API 받아오기 -->
 						<br/>
-						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required>
+						<input type="text" name="postCode" id="sample4_postcode" placeholder="우편번호" required readonly>
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						<br/>
 						<input type="text" readonly="readonly" name="address" id="sample4_roadAddress" placeholder="도로명주소" style="width:250px; margin-bottom:10px;" required readonly>
@@ -366,7 +490,7 @@
     
     $("#makePlanBtn").click(function(){
     	if(${not empty loginMember}){
-    		location.replace("${path}/goiljung.do");
+    		location.replace("${path}/iljung.do");
     	}else{
     		alert("로그인이 필요한 서비스입니다.");
     	}

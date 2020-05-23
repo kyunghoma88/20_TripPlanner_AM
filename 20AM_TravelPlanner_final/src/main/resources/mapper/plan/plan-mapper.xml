@@ -8,12 +8,18 @@
 		INSERT INTO DAY (TV_SEQ,TR_SEQ,MEMBER_ID,TV_DATE,DAY_O,COMMENTS,HOTSPOT_NAME,HOTSPOT_AREA_NAME,TOTAL_DATE) VALUES (TV_SEQ.NEXTVAL, #{trSeq}, #{memberId}, #{tvDate}, #{dayo}, #{comments}, #{place}, #{area}, #{total})
 	</insert>
 	<insert id="insertBoard" parameterType="map">
-		INSERT INTO BOARD VALUES(TR_SEQ.NEXTVAL,#{memberId},'타이틀',#{place},#{area},0,DEFAULT)
+		INSERT INTO BOARD VALUES(TR_SEQ.NEXTVAL,#{memberId},#{title},#{place},#{area},0,DEFAULT)
 	</insert>
 	<select id="searchMember" resultType="_int" parameterType="string">
 		SELECT TR_SEQ, ROWNUM FROM BOARD WHERE MEMBER_ID=#{memberId} AND ROWNUM=1 ORDER BY TR_SEQ DESC
 	</select>
 	<select id="areadata" resultType="map" parameterType="string">
 		SELECT * FROM HOTSPOT_AREA WHERE HOTSPOT_AREA_NAME=#{place}
+	</select>
+	<select id="myplanselect" resultType="map" parameterType="map">
+		SELECT * FROM DAY JOIN HOTSPOT ON DAY.HOTSPOT_NAME=HOTSPOT.HOTSPOT_NAME WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId} ORDER BY TV_SEQ
+	</select>
+	<select id="totaldays" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM DAY WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId}
 	</select>
 </mapper>

@@ -23,6 +23,12 @@
 		 WHERE MEMBER_ID=#{memberId} 
 	</select>
 	
+	<select id="checkId" resultMap="memberMap" parameterType="string">
+		SELECT * 
+		  FROM MEMBER 
+		 WHERE MEMBER_ID=#{memberId} 
+	</select>
+	
 	
 	<resultMap type="member" id="memberMap">
 	

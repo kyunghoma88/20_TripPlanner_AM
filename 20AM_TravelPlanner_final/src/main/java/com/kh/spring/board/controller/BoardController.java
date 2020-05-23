@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class BoardController {
 
 		mv.addObject("list",list);
 		mv.addObject("count",totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/20AM_TravelPlanner_final/board/boardList.do"));
 		mv.setViewName("board/boardList");
 		return mv;
 	}
@@ -44,11 +45,11 @@ public class BoardController {
 									@RequestParam(required = false, defaultValue = "6") int numPerpage,
 									@RequestParam String keyword, ModelAndView mv) {
 		List<Board> list = service.searchBoard(keyword, cPage, numPerpage);
-		int totalCount = service.searchBoardCount();
+		int totalCount = service.searchBoardCount(keyword);
 		
 		mv.addObject("list", list);
 		mv.addObject("count", totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
+		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/20AM_TravelPlanner_final/board/boardList.do"));
 		mv.setViewName("board/boardList");
 		return mv;
 	}
@@ -72,6 +73,15 @@ public class BoardController {
 	public List<Day> boardDetail(@RequestParam Map map) {
 		List<Day> d = service.boardDetail(map);
 		return d;
+	}
+	
+	@RequestMapping("/boardLike.do")
+	public ModelAndView BoardLike(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		int trSeq=Integer.parseInt(request.getParameter("trSeq"));
+		System.out.println(trSeq);
+		
+		
+		return mv;
 	}
 	
 	@RequestMapping("board/boardCommentInsert.do")

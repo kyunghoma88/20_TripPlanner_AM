@@ -52,6 +52,7 @@ public class PlanController {
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
 		map.put("memberId",list.get(0).get("id"));
+		map.put("title",list.get(0).get("title"));
 		service.insertBoard(map);
 		String member = (String)list.get(0).get("id");
 		int seq = service.searchMember(member);
@@ -81,4 +82,27 @@ public class PlanController {
 		};
 		return mv;
 	};
+	
+	@RequestMapping("/iljung/iljungcrystal.do")
+	public ModelAndView iljungcrystaldo(ModelAndView mv,String memberId,String tvTitle,int trSeq) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberId",memberId);
+		map.put("tvTitle",tvTitle);
+		map.put("trSeq",trSeq);
+		List<Map<String,Object>> list = service.myplanselect(map);
+		String place = (String) list.get(0).get("HOTSPOT_AREA_NAME");
+		List<Map<String,String>> wekyungdo = service.areadata(place);
+		List<Map<String,String>> pd = service.placedata(place);
+		int result = service.totaldays(map);
+		System.out.println(list);
+		
+		mv.addObject("result",result);
+		mv.addObject("tvTitle",tvTitle);
+		mv.addObject("list",list);
+		mv.addObject("wekyungdo",wekyungdo);
+		mv.addObject("pd",pd);
+		mv.setViewName("iljung/iljungcrystal");
+		return mv;
+	}
+	
 };

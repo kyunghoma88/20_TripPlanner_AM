@@ -33,6 +33,15 @@
     .commentTr{
     	font-size: 22px;
     }
+    
+    .allbtn{
+	  background-color: #203341;
+	  color: white;
+	  border-radius: 5px;
+	  font-size: 17px;
+	  height: 38px;
+  }
+   
     table#tbl-comment button.btn-reply{display:none;}
     table#tbl-comment tr:hover button.btn-reply{display:inline;}
     table#tbl-comment{width:1160px; margin:0 auto; border-collapse:collapse; clear:both; } 
@@ -84,10 +93,13 @@
     	<div class="col-sm-10">
 			<div id="comment-container">
 	   			<div class="comment-editor">
+	   				<c:if test="${loginMember.memberId eq board.memberId}">
+	   					<button class="allbtn" id="crystal">게시물 수정</button>
+	   				</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
 	   						<input style="width: 250px;" type="text" name="commentContent" placeholder="댓글"/>
-	   						<button type="submit" id="btn-insert">등록</button>
+	   						<button type="submit" class="allbtn" id="btn-insert">등록</button>
 	   					</c:if>
 	   					<c:if test="${empty loginMember}">
 	   						<b style="width: 250px;">댓글을 남기려면 로그인을 해주세요.</b>
@@ -117,7 +129,7 @@
 		   					</td>
    							<td>
    								<c:if test="${not empty loginMember}">
-		   							<button type="button" class="btn-reply" value="${bc.boardCommentNo}">답글</button>
+		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
 		   						</c:if>
 		   					</td>
 		   				</tr>
@@ -244,5 +256,24 @@
 			}
 		});
 
+		
+		var memberId = "${loginMember.memberId }";
+		var tvTitle = "${board.tvTitle }";
+		var trSeq = "${board.trSeq}";
+		 $("#crystal").click(function(){
+			$.ajax({
+				url:"${path}/iljung/iljungcrystal.do",
+				data:{
+					memberId:memberId,
+					tvTitle:tvTitle,
+					trSeq:trSeq
+				},
+				type:"post",
+				dataType:"html",
+				success:function(data){
+					$("body").html(data);
+				}
+			});
+		}); 
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

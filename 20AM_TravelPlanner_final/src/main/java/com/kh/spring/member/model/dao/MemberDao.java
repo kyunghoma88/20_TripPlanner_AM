@@ -21,5 +21,7 @@ public interface MemberDao {
 	int lookPwUpdate(SqlSessionTemplate session, Map<String,String> param);
 
 	int signOut(SqlSessionTemplate session, Member result);
+
+	Member checkId(SqlSessionTemplate session, String memberId);
 	
 }

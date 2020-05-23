@@ -8,7 +8,7 @@
 }
 #abcd{
 	width:1366px;
-	
+	margin-top:50px;
 }
 #abcd+footer{
 	position: relative;
@@ -33,7 +33,7 @@
 	height:600px;
 	position:relative;
 	overflow:hidden;
-	float:right;
+	float:left;
 	display:inline-block;
 }
 
@@ -54,6 +54,7 @@
 	overflow:hidden;
 	left:0px;
 	top:141px;
+	margin-top:93px;
 }
 
 #jujang{
@@ -63,20 +64,44 @@
     font-size: 17px;
     height: 38px;
     position: relative;
-    top: 80px;
+    top: 136px;
     left: 81%;
+}
+#jujang1{
+	background-color: #203341;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    height: 38px;
+    position: relative;
+    top: -463px;
+    left: 76%;
+    margin-right: 100px;
+}
+#jujang2{
+	background-color: #203341;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    height: 38px;
+    position: relative;
+    top: -463px;
+    left: 72%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 #daysbox{
 	width:471px;
 	position: relative;
     left: 65.5%;
     top: 135px;
-    height: 465px;
+    height: 415px;
     overflow: scroll;
     overflow-x: hidden;
 }
 #daysbox div p{
 	margin:0;
+	font-size: 25px;
 }
 #hotspotlist{
 	display: inline-block;
@@ -87,6 +112,7 @@
     position: absolute;
     left: 600px;
     top: 141px;
+    margin-top: 73px;
 }
 .btnf{
     float: right;
@@ -105,13 +131,17 @@
 	position: relative;
     left: 101px;
     top: -68px;
+    height: 100px;
+    width: 350px;
+    resize:none;
+    overflow: hidden;
 }
 .ptagposition{
 	position: relative;
     top: -68px;
 }
 .divposition{
-	height: 155px;
+	height: 164px;
 }
 #footout{
 	position: relative;
@@ -124,4 +154,305 @@
 	margin:0px;
 	padding-top: 10px;
 }
+#jacksungbub{
+	display: inline-block;
+    position: relative;
+    top: 134px;
+    left: 895px;
+    width: 471px;
+    height: 0px;
+}
+#jacksungbub img{
+	width:471px;
+	height: 506px;
+}
+.test p{
+	margin:0px;
+}
+#weatherbox{
+	position: relative;
+    width: 294px;
+    height: 600px;
+    top: 0px;
+    left: 600px;
+}
+#weatherbox div{
+    width: 294px;
+    height: 120px;
+}
+#seowd h5{
+	display: inline-block;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 10px;
+    top: -601px;
+}
+#seowd p[name=wd]{
+	position: relative;
+    top: -633px;
+    left: 50px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+    text-align: center;
+}
+#seowd p[name=tp]{
+	position: relative;
+    top: -633px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#seowd p[name=sd]{
+	position: relative;
+    top: -633px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#seowd p[name=ws]{
+	position: relative;
+    top: -633px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#seowd img[name=wi]{
+	position: relative;
+    top: -720px;
+    left: 128px;
+    width: 100px;
+    height: 100px;
+}
+#grwd h5{
+	display: inline-block;
+    position: relative;
+    padding-top: 0px;
+    padding-left: 10px;
+    top: -481px;
+}
+#grwd p[name=wd]{
+	position: relative;
+    top: -511px;
+    left: 50px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+    text-align: center;
+}
+#grwd p[name=tp]{
+	position: relative;
+    top: -506px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#grwd p[name=sd]{
+	position: relative;
+    top: -506px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#grwd p[name=ws]{
+	position: relative;
+    top: -506px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#grwd img[name=wi]{
+	position: relative;
+    top: -593px;
+    left: 128px;
+    width: 100px;
+    height: 100px;
+}
+#djwd h5{
+	display: inline-block;
+    position: relative;
+    padding-top: 0px;
+    padding-left: 10px;
+    top: -361px;
+}
+#djwd p[name=wd]{
+	position: relative;
+    top: -392px;
+    left: 50px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+    text-align: center;
+}
+#djwd p[name=tp]{
+	position: relative;
+    top: -386px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#djwd p[name=sd]{
+	position: relative;
+    top: -386px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#djwd p[name=ws]{
+	position: relative;
+    top: -386px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#djwd img[name=wi]{
+	position: relative;
+    top: -466px;
+    left: 128px;
+    width: 100px;
+    height: 100px;
+}
+#jjwd h5{
+	display: inline-block;
+    position: relative;
+    padding-top: 0px;
+    padding-left: 10px;
+    top: -234px;
+}
+#jjwd p[name=wd]{
+	position: relative;
+    top: -265px;
+    left: 50px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+    text-align: center;
+}
+#jjwd p[name=tp]{
+	position: relative;
+    top: -259px;
+    left: 0px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    width: 244px;
+}
+#jjwd p[name=sd]{
+	position: relative;
+    top: -259px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#jjwd p[name=ws]{
+	position: relative;
+    top: -259px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#jjwd img[name=wi]{
+	position: relative;
+    top: -346px;
+    left: 128px;
+    width: 100px;
+    height: 100px;
+}
+#bswd h5{
+	display: inline-block;
+    position: relative;
+    padding-top: 0px;
+    padding-left: 10px;
+    top: -107px;
+}
+#bswd p[name=wd]{
+	position: relative;
+    top: -139px;
+    left: 50px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+    text-align: center;
+}
+#bswd p[name=tp]{
+	position: relative;
+    top: -132px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#bswd p[name=sd]{
+	position: relative;
+    top: -132px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#bswd p[name=ws]{
+	position: relative;
+    top: -132px;
+    left: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    width: 244px;
+}
+#bswd img[name=wi]{
+	position: relative;
+    top: -213px;
+    left: 128px;
+    width: 100px;
+    height: 100px;
+}
+.modals{
+	position: absolute;
+}
+.modals[name=modals1]{
+	z-index:20;
+}
+.modals[name=modals2]{
+	z-index:19;
+}
+.modals[name=modals3]{
+	z-index:18;
+}
+.modals[name=modals4]{
+	z-index:17;
+}
+#bcda{
+	width: 1366px;
+    margin-top: 50px;
+    height: 560px;
+}
+#bcda>div:first-child{
+	float:right;
+	width:471px;
+	border-bottom: solid #203341 20px;
+}
+#mapadu{
+	position: relative;
+    overflow: hidden;
+    width: 600px;
+    height: 600px;
+    top: -415px;
+}
+#bcda>div:first-child>p{
+	display:inline-block;
+}
+#bcda>div:first-child p{
+	font-size:25px;
+}
+#bcda>div:first-child select{
+	font-size:20px;
 }

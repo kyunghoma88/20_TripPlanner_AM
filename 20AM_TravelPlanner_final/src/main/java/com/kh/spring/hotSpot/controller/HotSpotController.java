@@ -1,7 +1,6 @@
 package com.kh.spring.hotSpot.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.spring.common.PageFactory;
 import com.kh.spring.hotSpot.model.service.HotSpotService;
 import com.kh.spring.hotSpot.model.vo.HotSpot;
 import com.kh.spring.member.model.service.MemberService;
@@ -142,16 +140,68 @@ public class HotSpotController {
 	
 	//메인화면 HotSpot검색
 	@RequestMapping("/hotSpot/hotSpotSearch")
-	public ModelAndView hotSpotSearch(String keyword, ModelAndView mv,
+	public ModelAndView hotSpotSearch(String area, ModelAndView mv,
 			@RequestParam(required = false, defaultValue = "1") int cPage,
 			@RequestParam(required = false, defaultValue = "3") int numPerpage) {
 		
-		List<Map<String,String>> list = service.hotSpotSearch(keyword, cPage, numPerpage);
-		int totalCount = service.hotSpotSearchCount(keyword);
+		List<Map<String,String>> list = service.hotSpotSearch(area, cPage, numPerpage);
+		int totalCount = service.hotSpotSearchCount(area);
+		
+		String pageBar="";
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		int totalPage=(int)Math.ceil((double)totalCount/numPerpage);
+		
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='/20AM_TravelPlanner_final/hotSpot/hotSpotList.do?cPage='+cPage+'&area="+area;
+		pageBar+="'}";
+		pageBar+="</script>";
+		
 		
 		mv.addObject("list", list);
 		mv.addObject("count", totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount, cPage, numPerpage, "/spring/hotSpot/hotSpotSearch"));
+		mv.addObject("pageBar", pageBar);
 		mv.setViewName("hotSpot/hotSpotSearch");
 		
 		return mv;
