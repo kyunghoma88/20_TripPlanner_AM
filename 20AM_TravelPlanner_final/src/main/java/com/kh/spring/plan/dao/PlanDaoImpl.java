@@ -49,6 +49,14 @@ public class PlanDaoImpl implements PlanDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("plan.totaldays",map);
 	}
+
+	@Override
+	public int deletePlan(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.delete("plan.deletePlan",map);
+	}
+	
+	
 	
 	
 	
