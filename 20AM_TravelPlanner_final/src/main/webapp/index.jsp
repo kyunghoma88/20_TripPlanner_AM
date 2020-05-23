@@ -207,6 +207,11 @@
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/faq/faqList">FAQ</a>
                 </li>
+                <c:if test="${not empty loginMember }">
+					<li class="nav-item">
+						<a class="nav-link menubarLink" href="${path }/member/preMyPage">MyPage</a>
+					</li>
+                </c:if>
               </ul>
             </div>
             <div class="col-sm-2 testDiv">
