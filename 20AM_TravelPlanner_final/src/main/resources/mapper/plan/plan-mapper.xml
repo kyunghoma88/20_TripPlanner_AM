@@ -22,4 +22,8 @@
 	<select id="totaldays" resultType="_int" parameterType="map">
 		SELECT COUNT(*) FROM DAY WHERE TR_SEQ= #{trSeq} AND MEMBER_ID= #{memberId}
 	</select>
+	<delete id="deletePlan" parameterType="map">
+		DELETE FROM DAY WHERE TR_SEQ = #{trSeq} AND MEMBER_ID=#{memberId}
+	</delete>
+	
 </mapper>
