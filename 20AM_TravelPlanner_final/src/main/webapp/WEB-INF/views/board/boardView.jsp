@@ -223,8 +223,8 @@
 			success:function(data){
 				const table = $("<table class='contentTbl'>");
 				for(let i=0; i<data.length; i++){
-					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='170px' height='70px' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
-					.append("<tr><td class='commentTr'>" + data[i]['comment'] + "</td></tr>");
+					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='230px' height='auto' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")'></td><td style='font-size:25px;>" + data[i]['hotspotName'] + "</td></tr>")
+					.append("<tr><td style='font-size:22px;' class='commentTr'>" + data[i]['comment'] + "</td></tr>");
 				}
 				$(el).next($(".contentTbl")).toggle();
 				$(el).after(table);
