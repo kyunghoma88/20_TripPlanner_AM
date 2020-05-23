@@ -17,6 +17,7 @@ import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.BoardComment;
 import com.kh.spring.board.model.vo.Day;
+import com.kh.spring.common.FaqSearchPaging;
 import com.kh.spring.common.PageFactory;
 
 @Controller
@@ -40,18 +41,42 @@ public class BoardController {
 		return mv;
 	}
 	
+	/*
+	 * @RequestMapping("/board/searchBoard.do") public ModelAndView
+	 * searchBoard(@RequestParam(required = false, defaultValue = "1") int cPage,
+	 * 
+	 * @RequestParam(required = false, defaultValue = "6") int numPerpage,
+	 * 
+	 * @RequestParam String keyword, ModelAndView mv) { List<Board> list =
+	 * service.searchBoard(keyword, cPage, numPerpage); int totalCount =
+	 * service.searchBoardCount(keyword);
+	 * 
+	 * mv.addObject("list", list); mv.addObject("count", totalCount);
+	 * mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,
+	 * "/spring/board/searchBoard.do")); mv.setViewName("board/boardList"); return
+	 * mv; }
+	 */
+	
 	@RequestMapping("/board/searchBoard.do")
-	public ModelAndView searchBoard(@RequestParam(required = false, defaultValue = "1") int cPage,
-									@RequestParam(required = false, defaultValue = "6") int numPerpage,
-									@RequestParam String keyword, ModelAndView mv) {
+	public ModelAndView searchBoardTest(ModelAndView mv, HttpServletRequest request,
+			@RequestParam(required = false, defaultValue = "1") int cPage,
+			@RequestParam(required = false, defaultValue = "6") int numPerpage) {
+		
+		String keyword = request.getParameter("keyword");
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e){
+			cPage = 1;
+		}
 		List<Board> list = service.searchBoard(keyword, cPage, numPerpage);
 		int totalCount = service.searchBoardCount(keyword);
-		
 		mv.addObject("list", list);
 		mv.addObject("count", totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/20AM_TravelPlanner_final/board/boardList.do"));
-		mv.setViewName("board/boardList");
+		mv.addObject("keyword", keyword);
+		mv.addObject("pageBar", FaqSearchPaging.getPage(totalCount, cPage, numPerpage, "/20AM_TravelPlanner_final/board/searchBoard.do"));
+		mv.setViewName("board/searchBoardList");
 		return mv;
+		
 	}
 	
 	@RequestMapping("board/boardView.do")
