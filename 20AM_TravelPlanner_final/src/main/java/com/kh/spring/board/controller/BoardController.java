@@ -17,7 +17,6 @@ import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.BoardComment;
 import com.kh.spring.board.model.vo.Day;
-import com.kh.spring.common.FaqSearchPaging;
 import com.kh.spring.common.PageFactory;
 
 @Controller
@@ -70,13 +69,64 @@ public class BoardController {
 		}
 		List<Board> list = service.searchBoard(keyword, cPage, numPerpage);
 		int totalCount = service.searchBoardCount(keyword);
-		mv.addObject("list", list);
-		mv.addObject("count", totalCount);
-		mv.addObject("keyword", keyword);
-		mv.addObject("pageBar", FaqSearchPaging.getPage(totalCount, cPage, numPerpage, "/20AM_TravelPlanner_final/board/searchBoard.do"));
+		
+		String pageBar="";
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		int totalPage=(int)Math.ceil((double)totalCount/numPerpage);
+		
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='/20AM_TravelPlanner_final/board/searchBoard.do?cPage='+cPage+'&keyword="+keyword;
+		pageBar+="'}";
+		pageBar+="</script>";
+		
+		
+		mv.addObject("list",list);
+		mv.addObject("count",totalCount);
+		mv.addObject("pageBar",pageBar);
 		mv.setViewName("board/searchBoardList");
 		return mv;
-		
 	}
 	
 	@RequestMapping("board/boardView.do")
