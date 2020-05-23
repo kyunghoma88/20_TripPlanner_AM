@@ -58,7 +58,7 @@ public class BoardController {
 	 */
 	
 	@RequestMapping("/board/searchBoard.do")
-	public ModelAndView searchBoardTest(ModelAndView mv, HttpServletRequest request,
+	public ModelAndView searchBoard(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(required = false, defaultValue = "1") int cPage,
 			@RequestParam(required = false, defaultValue = "6") int numPerpage) {
 		
