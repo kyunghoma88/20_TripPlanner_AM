@@ -1,5 +1,6 @@
 package com.kh.spring.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,30 +41,128 @@ public class BoardController {
 		return mv;
 	}
 	
+	/*
+	 * @RequestMapping("/board/searchBoard.do") public ModelAndView
+	 * searchBoard(@RequestParam(required = false, defaultValue = "1") int cPage,
+	 * 
+	 * @RequestParam(required = false, defaultValue = "6") int numPerpage,
+	 * 
+	 * @RequestParam String keyword, ModelAndView mv) { List<Board> list =
+	 * service.searchBoard(keyword, cPage, numPerpage); int totalCount =
+	 * service.searchBoardCount(keyword);
+	 * 
+	 * mv.addObject("list", list); mv.addObject("count", totalCount);
+	 * mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,
+	 * "/spring/board/searchBoard.do")); mv.setViewName("board/boardList"); return
+	 * mv; }
+	 */
+	
 	@RequestMapping("/board/searchBoard.do")
-	public ModelAndView searchBoard(@RequestParam(required = false, defaultValue = "1") int cPage,
-									@RequestParam(required = false, defaultValue = "6") int numPerpage,
-									@RequestParam String keyword, ModelAndView mv) {
+	public ModelAndView searchBoard(ModelAndView mv, HttpServletRequest request,
+			@RequestParam(required = false, defaultValue = "1") int cPage,
+			@RequestParam(required = false, defaultValue = "6") int numPerpage) {
+		
+		String keyword = request.getParameter("keyword");
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e){
+			cPage = 1;
+		}
 		List<Board> list = service.searchBoard(keyword, cPage, numPerpage);
 		int totalCount = service.searchBoardCount(keyword);
 		
-		mv.addObject("list", list);
-		mv.addObject("count", totalCount);
-		mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/20AM_TravelPlanner_final/board/boardList.do"));
-		mv.setViewName("board/boardList");
+		String pageBar="";
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		int totalPage=(int)Math.ceil((double)totalCount/numPerpage);
+		
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='/20AM_TravelPlanner_final/board/searchBoard.do?cPage='+cPage+'&keyword="+keyword;
+		pageBar+="'}";
+		pageBar+="</script>";
+		
+		
+		mv.addObject("list",list);
+		mv.addObject("count",totalCount);
+		mv.addObject("pageBar",pageBar);
+		mv.setViewName("board/searchBoardList");
 		return mv;
 	}
 	
 	@RequestMapping("board/boardView.do")
-	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map) {
+	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map,@RequestParam("id") String id,@RequestParam("no") int no) {
+		Map<String,Object> idNo = new HashMap<String,Object>();
+		idNo.put("id",id);
+		idNo.put("no",no);
 		Board b = service.selectBoardTitle(map);
 		List<Day> d = service.selectBoardView(map);
 		List<BoardComment> bc = service.selectBoardComment(map);
 		int date = d.get(0).getTotalDate();
+		int likeCount = service.selectLikeCount(no);
+		
+		String likeCheck = service.selectLikeCheck(idNo);
+//		int likeValue = Integer.parseInt(likeCheck);
+		
+		
+		if(likeCheck == null) {
+			service.insertLikeCheck(idNo);
+			mv.addObject("lCheck",0);
+		}else {
+			int likeValue = Integer.parseInt(likeCheck);
+			if(likeValue == 0 || likeValue == 1) {
+				mv.addObject("lCheck",likeCheck);
+			}
+		}
+		
+		
+	
+		
 		mv.addObject("date", date);
 		mv.addObject("board", b);
 		mv.addObject("day", d);
 		mv.addObject("comment", bc);
+		mv.addObject("likeCount",likeCount);
 		mv.setViewName("board/boardView");
 		return mv;
 	}
@@ -74,6 +173,8 @@ public class BoardController {
 		List<Day> d = service.boardDetail(map);
 		return d;
 	}
+	
+	
 	
 	@RequestMapping("/boardLike.do")
 	public ModelAndView BoardLike(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
@@ -101,6 +202,32 @@ public class BoardController {
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/boardLike0.do")
+	public ModelAndView BoardLike0(ModelAndView mv,@RequestParam("id") String id,@RequestParam("no") int no ) {
+		Map idNo = new HashMap();
+		idNo.put("id",id);
+		idNo.put("no",no);
+		int likeUp = service.updateLikeUp(idNo);
+		int totalLikeUp = service.updateTotalLikeUp(idNo);
+		mv.addObject("likeUp",likeUp);
+		mv.addObject("totalLikeUp",totalLikeUp);
+		mv.setViewName("board/boardView");
+		return mv;
+	}
+	
+	@RequestMapping("/boardLike1.do")
+	public ModelAndView BoardLike1(ModelAndView mv,@RequestParam("id") String id,@RequestParam("no") int no) {
+		Map idNo = new HashMap();
+		idNo.put("id",id);
+		idNo.put("no",no);
+		int likeDown = service.updateLikeDown(idNo);
+		int totalLikeDown = service.updateTotalLikeDown(idNo);
+		mv.addObject("likeDown",likeDown);
+		mv.addObject("totalLikeDown",totalLikeDown);
+		mv.setViewName("board/boardView");
 		return mv;
 	}
 	

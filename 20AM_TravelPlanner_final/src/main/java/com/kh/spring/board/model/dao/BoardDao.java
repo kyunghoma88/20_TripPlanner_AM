@@ -21,5 +21,14 @@ public interface BoardDao {
 	List<BoardComment> selectBoardComment(SqlSessionTemplate session, Map map);
 	int insertBoardComment(SqlSessionTemplate session, Map map);
 	List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id);
+	
+	String selectLikeCheck(SqlSessionTemplate session,Map idNo);
+	int insertLikeCheck(SqlSessionTemplate session,Map idNo);
+	int selectLikeCount(SqlSessionTemplate session,int no);
+	int updateLikeUp(SqlSessionTemplate session,Map idNo);
+	int updateTotalLikeUp(SqlSessionTemplate session,Map idNo);
+	
+	int updateLikeDown(SqlSessionTemplate session,Map idNo);
+	int updateTotalLikeDown(SqlSessionTemplate session,Map idNo);
 
 }

@@ -78,10 +78,10 @@
                       <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
+                      <a class="nav-link menubarLink" class="makePlanBtn">일정만들기</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link menubarLink" id="boardBtn">게시판</a>
+                      <a class="nav-link menubarLink" class="boardBtn">게시판</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link menubarLink" href="${path}/information.do">INFORMATION</a>
@@ -305,129 +305,13 @@
         }).open();
     }
     
-    $("#boardBtn").click(function(){
+    $(".boardBtn").click(function(){
     	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
     	}else if("${loginMember.status}" == "N"){
     		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
     	}else if("${empty loginMember}"){
     		alert("로그인이 필요한 서비스입니다.");
-    	}
-    })
-    
-    
-    
-    //회원가입 유효성 검사
-	   function validate(){
-	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
-	      {
-	         return false;
-	      }
-	      return true;
-	   }
-	   
-	   $(function(){
-	      var onsubmit_id = 0;
-	      var onsubmit_pass = 0;
-	   
-	   
-	      
-	      const password_ = $('#password_').val();
-	      const password2 = $('#password2').val();
-	      const signupId = $('#memberId_');
-	         
-	      const validationMsg = $('.validation-msg');
-	      const signupInputs = $('.validation-msg').prev();
-	      const idAvail = $('#idAvail')
-	   
-	   
-	      $("#memberId_").keyup(function(e) { 
-	         if (!(e.keyCode >=37 && e.keyCode<=40)) {
-	            var v = $(this).val();
-	            $(this).val(v.replace(/[^a-z0-9]/gi,''));
-	         }
-	      });
-	      
-	      $('#memberId_').keyup(function idCheckAjax(){
-	         $.ajax({
-	                 url: '<%=request.getContextPath()%>/member/checkId.do',
-	                 type: 'post',
-	                 //contentType: "application/json",  
-	                 data: {memberId : signupId.val()},
-	                 dataType:"json",
-	                 success: function(result){
-	                    if(result.flag == true|| $('#memberId_').val().trim().length<4 || $('#memberId_').val().trim().length>12 ) 
-	                       //가입된 아이디가 존재하거나 id길이가 짧거나 긴 경우
-	                    {
-	                       console.log($('#memberId_').val())
-	                       $('#val-id-ok').hide();
-	                    $('#val-id-no').show();
-	                    onsubmit_id = 0;
-	                    }
-	                    else
-	                       //가입된 아이디가 존재하지 않을 경우
-	                    {
-	                  $('#val-id-ok').show();
-	                  $('#val-id-no').hide();
-	                  onsubmit_id = 1;
-	                    }
-	                 }
-	              });
-	      });
-	      
-	      $("#password_").keyup(function passwordCheck(){
-	         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
-	         if(!passwordCheck.test($('#password_').val()))
-	         {
-	            $("#val-pass-ok").hide();
-	            $("#val-pass-no").show();
-	            onsubmit_pass = 0;
-	         }
-	         else
-	         {
-	            $("#val-pass-ok").show();
-	            $("#val-pass-no").hide();
-	            onsubmit_pass = 1;
-	         }
-	      })
-	      
-	      $('#password2').keyup(function passCheck(){
-	         if($('#password_').val() == $('#password2').val())
-	         {
-	            $('#val-checkpass-no').hide();
-	         }
-	         else
-	         {
-	            $('#val-checkpass-no').show();
-	            /* $('#password2').val(''); */
-	            /* alert("비밀번호가 일치하지 않습니다!"); */
-	            /* $('#password2').focus(); */
-	         }
-	      })
-	      
-	      $("#phone").keyup(function(event){
-	          var inputVal = $(this).val();
-	          $(this).val(inputVal.replace(/[^0-9]/gi,''));
-	      });
-	      
-	   })
-    
-     function fn_board_btn(){
-    	console.log("${loginMember.status}");
-    	if("${loginMember.status}" == "Y"){
-    		location.replace("${path}/board/boardList.do");
-    	}else if("${loginMember.status}" == "N"){
-    		alert("프리미엄 회원만 이용 가능합니다. 마이페이지에서 결제 후 이용해주세요");
-    	}else if("${empty loginMember}"){
-    		alert("로그인이 필요한 서비스입니다.");
-    	}
-    }
-    
-    $("#makePlanBtn").click(function(){
-    	if(${empty loginMember}){
-    		alert("로그인이 필요한 서비스입니다.");
-    	}else{
-    		location.replace("${path}/iljung.do");
     	}
     })
 </script>

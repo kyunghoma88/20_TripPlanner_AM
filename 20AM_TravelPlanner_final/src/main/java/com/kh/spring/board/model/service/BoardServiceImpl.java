@@ -73,6 +73,48 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.selectMyBoard(session, cPage, numPerpage, id);
 	}
+	
+	@Override
+	public String selectLikeCheck(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.selectLikeCheck(session,idNo);
+	}
+
+	@Override
+	public int insertLikeCheck(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.insertLikeCheck(session,idNo);
+	}
+
+	@Override
+	public int selectLikeCount(int no) {
+		// TODO Auto-generated method stub
+		return dao.selectLikeCount(session,no);
+	}
+
+	@Override
+	public int updateLikeUp(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.updateLikeUp(session,idNo);
+	}
+
+	@Override
+	public int updateTotalLikeUp(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.updateTotalLikeUp(session,idNo);
+	}
+
+	@Override
+	public int updateLikeDown(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.updateLikeDown(session,idNo);
+	}
+
+	@Override
+	public int updateTotalLikeDown(Map idNo) {
+		// TODO Auto-generated method stub
+		return dao.updateTotalLikeDown(session,idNo);
+	}
 
 	
 	
