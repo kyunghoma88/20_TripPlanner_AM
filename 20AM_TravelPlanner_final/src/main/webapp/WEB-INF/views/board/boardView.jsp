@@ -61,6 +61,14 @@
 	    margin-bottom: 50px;
 	    text-align: right;
     }
+    
+    #likeBtn{
+    	font-size:20px;
+    	width:100px;
+    	border:0;
+    	outline:0;
+    	background-color:white;
+    }
 
 </style>
 
@@ -76,11 +84,19 @@
     </div>
     <div class="row boardContent">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5" id="testContent">
+      <div class="col-sm-4" id="testContent">
      	<c:forEach var="v" begin="1" end="${date}">
 	        <c:set var="whatDay" value="${v }"/>
          	<button type="button" class="dayBtn" id="dayBtn${v }" onclick="fn_boardDetail(this, '${board.trSeq}', '${whatDay }');">Day${v }</button><br>
    		</c:forEach>
+      </div>
+      <div class="col-sm-1">
+      	<c:if test="${lCheck eq '0' }">
+      		<button id="likeBtn" style="display:inline-block" onclick="like_fn()"><img src="${path }/resources/images/LIKE0.png" id="like_img" width="50px" height="20x">&nbsp<span id="countSpan">${likeCount }</span></button>
+      	</c:if>
+      	<c:if test="${lCheck eq '1' }">
+      		<button id="likeBtn" style="display:inline-block" onclick="like_fn()"><img src="${path }/resources/images/LIKE1.png" id="like_img" width="50px" height="20x">&nbsp<span id="countSpan">${likeCount }</span></button>
+      	</c:if>
       </div>
       <div class="col-sm-5">
         <div id="map" style="border: 1px solid black; height: 380px; width: 565px">
@@ -152,6 +168,53 @@
     	<div class="col-sm-1"></div>
     </div>
 	<script>
+	const no = ${board.trSeq};
+	const id = "${board.memberId}";
+	var count = ${likeCount};
+	var check = ${lCheck};
+
+	console.log(check);
+	console.log(no);
+	console.log(id);
+	function like_fn(){
+		
+		if(check == 0){
+			$.ajax({
+				url:"${path}/boardLike0.do",
+				data:{"id":id,"no":no},
+				success:function(data){
+					$("#like_img").attr("src","${path}/resources/images/LIKE1.png");
+					$("#countSpan").text(count+1);
+					check++;
+					count++;
+					console.log(check);
+				}
+			})
+		}
+		if(check == 1){
+			$.ajax({
+				url:"${path}/boardLike1.do",
+				data:{"id":id,"no":no},
+				success:function(data){
+					$("#like_img").attr("src","${path}/resources/images/LIKE0.png");
+					$("#countSpan").text(count-1);
+					check--;
+					count--;
+					console.log(check);
+				}
+			})
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
  	 function fn_boardDetail(el, seq, whatDay){
 		$.ajax({
 			url : "${path}/board/boardDetail.do",

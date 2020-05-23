@@ -19,5 +19,16 @@ public interface BoardService {
 	List<BoardComment> selectBoardComment(Map map);
 	int insertBoardComment(Map map);
 	List<Board> selectMyBoard(int cPage, int numPerpage, String id);
+	
+	String selectLikeCheck(Map idNo);
+	int insertLikeCheck(Map idNo);
+	int selectLikeCount(int no);
+	
+	int updateLikeUp(Map idNo);
+	int updateTotalLikeUp(Map idNo);
+	
+	int updateLikeDown(Map idNo);
+	int updateTotalLikeDown(Map idNo);
+
 
 }

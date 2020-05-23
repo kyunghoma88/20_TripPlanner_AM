@@ -43,6 +43,11 @@
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="BOARD_COMMENT_REF" property="boardCommentRef"/>
 	</resultMap>
+		<resultMap type="like" id="likeMap">
+		<result column="LIKE_CHECK" property="likeCheck"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="TR_SEQ" property="trSeq"/>
+	</resultMap>
 	<select id="selectList" resultMap="boardMap">
 		SELECT * FROM BOARD
 		JOIN HOTSPOT_AREA USING (HOTSPOT_AREA_NAME)
@@ -83,6 +88,27 @@
 		WHERE MEMBER_ID=#{id}
 		ORDER BY BOARD.VIEW_COUNT DESC
 	</select>
+	<select id="selectLikeCheck" parameterType="map" resultType="string">
+		SELECT LIKE_CHECK FROM LIKE_CHECK WHERE MEMBER_ID=#{id} and TR_SEQ=#{no}
+	</select> 
+	<insert id="insertLikeCheck" parameterType="map">
+		INSERT INTO LIKE_CHECK VALUES(0,#{id},#{no})
+	</insert>
+	<select id="selectLikeCount" parameterType="_int" resultType="_int">
+		SELECT LIKE_UP FROM DAY WHERE TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+	</select>
+	<update id="updateLikeUp" parameterType="map">
+		UPDATE like_check SET like_check=1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
+	</update>
+	<update id="updateTotalLikeUp" parameterType="map">
+		UPDATE DAY SET LIKE_UP=LIKE_UP+1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+	</update>
+	<update id="updateLikeDown" parameterType="map">
+		UPDATE like_check SET like_check=0 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
+	</update>
+	<update id="updateTotalLikeDown" parameterType="map">
+		UPDATE DAY SET LIKE_UP=LIKE_UP-1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+	</update>
 	
 	
 </mapper>
