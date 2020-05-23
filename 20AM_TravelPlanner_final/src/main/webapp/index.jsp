@@ -483,7 +483,7 @@
     	});
     });
     
-    $(".boardBtn").click(function(){
+   /*  $(".boardBtn").click(function(){
     	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
     	}else if("${loginMember.status}" == "N"){
@@ -499,7 +499,7 @@
     	}else{
     		alert("로그인이 필요한 서비스입니다.");
     	}
-    })
+    }) */
     
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
