@@ -12,5 +12,6 @@
 		<typeAlias type="com.kh.spring.board.model.vo.Day" alias="Day"/>
 		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.kh.spring.board.model.vo.BoardComment" alias="BoardComment"/>
+		<typeAlias type="com.kh.spring.board.model.vo.Like" alias="like"/>
 	</typeAliases>
 </configuration>

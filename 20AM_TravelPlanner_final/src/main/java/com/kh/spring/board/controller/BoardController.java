@@ -1,5 +1,6 @@
 package com.kh.spring.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,15 +81,38 @@ public class BoardController {
 	}
 	
 	@RequestMapping("board/boardView.do")
-	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map) {
+	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map,@RequestParam("id") String id,@RequestParam("no") int no) {
+		Map<String,Object> idNo = new HashMap<String,Object>();
+		idNo.put("id",id);
+		idNo.put("no",no);
 		Board b = service.selectBoardTitle(map);
 		List<Day> d = service.selectBoardView(map);
 		List<BoardComment> bc = service.selectBoardComment(map);
 		int date = d.get(0).getTotalDate();
+		int likeCount = service.selectLikeCount(no);
+		
+		String likeCheck = service.selectLikeCheck(idNo);
+//		int likeValue = Integer.parseInt(likeCheck);
+		
+		
+		if(likeCheck == null) {
+			service.insertLikeCheck(idNo);
+			mv.addObject("lCheck",0);
+		}else {
+			int likeValue = Integer.parseInt(likeCheck);
+			if(likeValue == 0 || likeValue == 1) {
+				mv.addObject("lCheck",likeCheck);
+			}
+		}
+		
+		
+	
+		
 		mv.addObject("date", date);
 		mv.addObject("board", b);
 		mv.addObject("day", d);
 		mv.addObject("comment", bc);
+		mv.addObject("likeCount",likeCount);
 		mv.setViewName("board/boardView");
 		return mv;
 	}
@@ -99,6 +123,8 @@ public class BoardController {
 		List<Day> d = service.boardDetail(map);
 		return d;
 	}
+	
+	
 	
 	@RequestMapping("/boardLike.do")
 	public ModelAndView BoardLike(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
@@ -126,6 +152,32 @@ public class BoardController {
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/boardLike0.do")
+	public ModelAndView BoardLike0(ModelAndView mv,@RequestParam("id") String id,@RequestParam("no") int no ) {
+		Map idNo = new HashMap();
+		idNo.put("id",id);
+		idNo.put("no",no);
+		int likeUp = service.updateLikeUp(idNo);
+		int totalLikeUp = service.updateTotalLikeUp(idNo);
+		mv.addObject("likeUp",likeUp);
+		mv.addObject("totalLikeUp",totalLikeUp);
+		mv.setViewName("board/boardView");
+		return mv;
+	}
+	
+	@RequestMapping("/boardLike1.do")
+	public ModelAndView BoardLike1(ModelAndView mv,@RequestParam("id") String id,@RequestParam("no") int no) {
+		Map idNo = new HashMap();
+		idNo.put("id",id);
+		idNo.put("no",no);
+		int likeDown = service.updateLikeDown(idNo);
+		int totalLikeDown = service.updateTotalLikeDown(idNo);
+		mv.addObject("likeDown",likeDown);
+		mv.addObject("totalLikeDown",totalLikeDown);
+		mv.setViewName("board/boardView");
 		return mv;
 	}
 	

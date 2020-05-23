@@ -65,6 +65,48 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.selectMyList",id,new RowBounds((cPage - 1) * numPerpage, numPerpage));
 	}
 	
+	@Override
+	public String selectLikeCheck(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectLikeCheck",idNo);
+	}
+
+	@Override
+	public int insertLikeCheck(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertLikeCheck",idNo);
+	}
+
+	@Override
+	public int selectLikeCount(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectLikeCount",no);
+	}
+
+	@Override
+	public int updateLikeUp(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateLikeUp",idNo);
+	}
+
+	@Override
+	public int updateTotalLikeUp(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateTotalLikeUp",idNo);
+	}
+
+	@Override
+	public int updateLikeDown(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateLikeDown",idNo);
+	}
+
+	@Override
+	public int updateTotalLikeDown(SqlSessionTemplate session, Map idNo) {
+		// TODO Auto-generated method stub
+		return session.delete("board.updateTotalLikeDown",idNo);
+	}
+	
 
 	
 	
