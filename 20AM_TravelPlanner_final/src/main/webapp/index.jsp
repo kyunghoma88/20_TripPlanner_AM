@@ -196,10 +196,10 @@
                   <a class="nav-link menubarLink" href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menubarLink" id="makePlanBtn">일정만들기</a>
+                  <a class="nav-link menubarLink" class="makePlanBtn">일정만들기</a>
                 </li>
                 <li class="nav-item">
-                  <p class="nav-link menubarLink" id="boardBtn">게시판</p>
+                  <p class="nav-link menubarLink" class="boardBtn">게시판</p>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link menubarLink" href="${path }/information.do">INFORMATION</a>
@@ -478,7 +478,7 @@
     	});
     });
     
-    $("#boardBtn").click(function(){
+    $(".boardBtn").click(function(){
     	if("${loginMember.status}" == "Y"){
     		location.replace("${path}/board/boardList.do");
     	}else if("${loginMember.status}" == "N"){
@@ -488,7 +488,7 @@
     	}
     })
     
-    $("#makePlanBtn").click(function(){
+    $(".makePlanBtn").click(function(){
     	if(${not empty loginMember}){
     		location.replace("${path}/iljung.do");
     	}else{
