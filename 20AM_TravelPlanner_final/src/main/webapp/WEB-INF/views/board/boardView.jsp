@@ -168,6 +168,8 @@
     	<div class="col-sm-1"></div>
     </div>
 	<script>
+	console.log("${loginMember.memberId}");
+	
 	const no = ${board.trSeq};
 	const id = "${board.memberId}";
 	var count = ${likeCount};

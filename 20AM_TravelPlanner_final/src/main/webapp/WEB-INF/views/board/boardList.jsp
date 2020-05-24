@@ -40,7 +40,7 @@
     <div id="hotspotContainer">
     <c:forEach items="${list }" var="b">
         <div class="col-sm-4 hotspotContent">
-            <img src="${path}${b.hotspotAreaImg }" width="300px" height="300px" alt="이미지 없음" onclick="location.replace('${path}/board/boardView.do?no=${b.trSeq}&id=${b.memberId}')">
+            <img src="${path}${b.hotspotAreaImg }" width="300px" height="300px" alt="이미지 없음" onclick="location.replace('${path}/board/boardView.do?no=${b.trSeq}&id=${b.memberId}&loginMember=${loginMember.memberId }')">
             <div>
             	<p class="bold" style=display:inline-block;width:210px>${b.tvTitle }</p>
             </div>
@@ -61,7 +61,7 @@
         <div class="col-sm-3"></div>
      </div>
      <script>
-
+		
      	function searchBoard(){ 		
     		var keyword = $("#boardSearchBox").val();
      		$("#searchBoardForm").submit();

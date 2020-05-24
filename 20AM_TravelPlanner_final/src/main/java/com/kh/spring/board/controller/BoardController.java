@@ -81,9 +81,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("board/boardView.do")
-	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map,@RequestParam("id") String id,@RequestParam("no") int no) {
+	public ModelAndView boardView(ModelAndView mv,@RequestParam Map map,@RequestParam("id") String id,@RequestParam("no") int no, @RequestParam("loginMember") String loginMember) {
 		Map<String,Object> idNo = new HashMap<String,Object>();
-		idNo.put("id",id);
+		idNo.put("id",loginMember);
 		idNo.put("no",no);
 		Board b = service.selectBoardTitle(map);
 		List<Day> d = service.selectBoardView(map);
