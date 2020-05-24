@@ -130,7 +130,7 @@ function fn_membership_btn(){
 			pay_method: 'card', //결제 방법
 			merchant_uid: 'merchant_' + new Date().getTime(),
 			name: '주문명 : 이시국에 프리미엄 회원 전환',
-			amount: '100',
+			amount: '5000',
 			buyer_email: 'iamport@siot.do',
 			buyer_name: '${loginMember.memberName}',
 			buyer_tel: '${loginMember.phone}',
