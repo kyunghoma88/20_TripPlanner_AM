@@ -1,7 +1,9 @@
 package com.kh.spring.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.member.model.vo.Member;
 
 public interface MemberService {
@@ -21,5 +23,12 @@ public interface MemberService {
 	int memberSignOut(Member result);
 
 	Member checkId(String memberId);
+	
+	
+	//5월24일
+	List<Board> selectMyBoard(int cPage, int numPerpage, String id);
+
+	
+	int selectMyBoardCount(String id);
 	
 }

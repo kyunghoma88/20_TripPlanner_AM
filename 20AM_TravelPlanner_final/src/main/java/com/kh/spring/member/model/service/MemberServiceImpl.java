@@ -1,11 +1,13 @@
 package com.kh.spring.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.member.model.dao.MemberDao;
 import com.kh.spring.member.model.vo.Member;
 
@@ -75,6 +77,24 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.checkId(session, memberId);
 	}
+
+
+	
+	//5월24일
+	@Override
+	public List<Board> selectMyBoard(int cPage, int numPerpage, String id) {
+		// TODO Auto-generated method stub
+		return dao.selectMyBoard(session, cPage, numPerpage, id);
+	}
+
+
+	@Override
+	public int selectMyBoardCount(String id) {
+		// TODO Auto-generated method stub
+		return dao.selectMyBoardCount(session, id);
+	}
+	
+	
 	
 	
 	

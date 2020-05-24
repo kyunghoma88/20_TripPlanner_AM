@@ -429,21 +429,24 @@ public class MemberController {
 	}
 	
 	///////////////////////  내 일정 보기 /////////////////////////////////
-	@RequestMapping("/member/myPlan")
+	@RequestMapping("/member/myPlan.do")
 	public ModelAndView boardList(@RequestParam(required = false, defaultValue = "1") int cPage, 
-			@RequestParam(required = false, defaultValue = "6") int numPerpage,
+			@RequestParam(required = false, defaultValue = "5") int numPerpage,
 			ModelAndView mv, String id) {
 
 		//List<Board> list = boardService.selectBoard(cPage,numPerpage);
-		int totalCount = boardService.selectBoardCount();
+		//int totalCount = boardService.selectBoardCount();
 		
-		List<Board> list = boardService.selectMyBoard(cPage,numPerpage,id);
+		
+		List<Board> list = service.selectMyBoard(cPage,numPerpage,id);
+		int totalMyCount = service.selectMyBoardCount(id);
 		
 		
 		mv.addObject("list",list);
-		//mv.addObject("count",totalCount);
-		//mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
-		//mv.setViewName("board/boardList");
+		mv.addObject("count",totalMyCount);
+		mv.addObject("id",id);
+		mv.addObject("pageBar",PageFactory.getPage(totalMyCount,cPage,numPerpage,"/spring/member/myPlan"));
+		mv.setViewName("member/myPlan");
 		return mv;
 	}
 	/*public String myPlan() {

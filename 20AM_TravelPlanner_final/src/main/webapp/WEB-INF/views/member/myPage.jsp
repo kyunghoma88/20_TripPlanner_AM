@@ -146,7 +146,7 @@ pageEncoding="UTF-8"%>
 	<div class="col-sm-2 mypage-side-bar">
 		<div class="list-group">
 		  <a href="${path }/member/preMyPage" class="list-group-item list-group-item-action">내 정보보기</a>
-		  <a href="${path }/member/myPlan?id=${loginMember.memberId}" class="list-group-item list-group-item-action">내 일정보기</a>
+		  <a href="${path }/member/myPlan.do?id=${loginMember.memberId}" class="list-group-item list-group-item-action">내 일정보기</a>
 		  <a href="${path }/member/myPageCheck.do" class="list-group-item list-group-item-action">회원정보 수정</a>
 		  <a href="${path }/member/membership.do" class="list-group-item list-group-item-action">유료서비스 이용</a>
 		  <a href="${path }/member/signOut" class="list-group-item list-group-item-action">회원 탈퇴</a>
@@ -286,6 +286,12 @@ pageEncoding="UTF-8"%>
 	            }
 	        }).open();
 	    }
+	    
+	    
+	    
+	    
+	    
+	    
 	</script>
 
 

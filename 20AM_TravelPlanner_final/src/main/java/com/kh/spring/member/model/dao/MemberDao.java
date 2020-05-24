@@ -1,9 +1,11 @@
 package com.kh.spring.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.member.model.vo.Member;
 
 public interface MemberDao {
@@ -23,5 +25,11 @@ public interface MemberDao {
 	int signOut(SqlSessionTemplate session, Member result);
 
 	Member checkId(SqlSessionTemplate session, String memberId);
+
+	
+	// 5월 24일 
+	List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id);
+
+	int selectMyBoardCount(SqlSessionTemplate session, String id);
 	
 }

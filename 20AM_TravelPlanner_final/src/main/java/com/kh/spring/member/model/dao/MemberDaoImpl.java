@@ -1,10 +1,13 @@
 package com.kh.spring.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.member.model.vo.Member;
 
 
@@ -65,6 +68,22 @@ public class MemberDaoImpl implements MemberDao {
 	public Member checkId(SqlSessionTemplate session, String memberId) {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.checkId", memberId);
+	}
+
+
+	
+	//5월24일
+	@Override
+	public List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectMyList",id,new RowBounds((cPage - 1) * numPerpage, numPerpage));
+	}
+
+
+	@Override
+	public int selectMyBoardCount(SqlSessionTemplate session, String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectMyBoardCount",id);
 	}
 	
 	
