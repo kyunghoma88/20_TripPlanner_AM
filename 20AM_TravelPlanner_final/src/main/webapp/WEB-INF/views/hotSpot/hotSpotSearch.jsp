@@ -11,7 +11,11 @@
 	<jsp:param value="Hello Spring" name="pageTitle" />
 </jsp:include>
 
-
+<style>
+	#searchPageBar{
+		transform:translate(-7%,0);
+	}
+</style>
 <div class="container">
 
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -89,14 +93,7 @@
 			</a>
 		</c:forEach>
 	</div>
-	<div>${pageBar }</div>
-
-
-
-	<input type="button" id="hotSpotMoreBtn" value="여행지 더보기"
-		onclick="javascript:moreContent()">
-
-
+	<div id="searchPageBar">${pageBar }</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

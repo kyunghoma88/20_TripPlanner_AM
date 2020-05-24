@@ -81,13 +81,20 @@
 		SELECT * FROM BOARD_COMMENT WHERE TR_SEQ=#{no} AND MEMBER_ID=#{id} START WITH BOARD_COMMENT_LEVEL=1 CONNECT BY PRIOR BOARD_COMMENT_NO = BOARD_COMMENT_REF
 	</select>
 	
-	
+	<!-- 내 일정보기 -->
+	<select id="selectMyBoardCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*) 
+		  FROM BOARD
+		 WHERE MEMBER_ID=#{id}
+	</select>
 	<select id="selectMyList" parameterType="string" resultMap="boardMap">
 		SELECT * FROM BOARD
-		JOIN HOTSPOT_AREA USING (HOTSPOT_AREA_NAME)
-		WHERE MEMBER_ID=#{id}
-		ORDER BY BOARD.VIEW_COUNT DESC
+		  JOIN HOTSPOT_AREA USING (HOTSPOT_AREA_NAME)
+		 WHERE MEMBER_ID=#{id}
+		 ORDER BY BOARD.VIEW_COUNT DESC
 	</select>
+	
+	
 	<select id="selectLikeCheck" parameterType="map" resultType="string">
 		SELECT LIKE_CHECK FROM LIKE_CHECK WHERE MEMBER_ID=#{id} and TR_SEQ=#{no}
 	</select> 
@@ -101,13 +108,13 @@
 		UPDATE like_check SET like_check=1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
 	</update>
 	<update id="updateTotalLikeUp" parameterType="map">
-		UPDATE DAY SET LIKE_UP=LIKE_UP+1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+		UPDATE DAY SET LIKE_UP=LIKE_UP+1 WHERE TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
 	</update>
 	<update id="updateLikeDown" parameterType="map">
 		UPDATE like_check SET like_check=0 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
 	</update>
 	<update id="updateTotalLikeDown" parameterType="map">
-		UPDATE DAY SET LIKE_UP=LIKE_UP-1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+		UPDATE DAY SET LIKE_UP=LIKE_UP-1 WHERE TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
 	</update>
 	
 	
