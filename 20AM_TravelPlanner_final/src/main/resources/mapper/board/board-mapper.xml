@@ -108,13 +108,13 @@
 		UPDATE like_check SET like_check=1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
 	</update>
 	<update id="updateTotalLikeUp" parameterType="map">
-		UPDATE DAY SET LIKE_UP=LIKE_UP+1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+		UPDATE DAY SET LIKE_UP=LIKE_UP+1 WHERE TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
 	</update>
 	<update id="updateLikeDown" parameterType="map">
 		UPDATE like_check SET like_check=0 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no}
 	</update>
 	<update id="updateTotalLikeDown" parameterType="map">
-		UPDATE DAY SET LIKE_UP=LIKE_UP-1 WHERE MEMBER_ID=#{id} AND TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
+		UPDATE DAY SET LIKE_UP=LIKE_UP-1 WHERE TR_SEQ=#{no} AND TV_DATE=1 AND DAY_O=0
 	</update>
 	
 	

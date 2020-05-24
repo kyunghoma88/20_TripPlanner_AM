@@ -111,6 +111,7 @@
 	   			<div class="comment-editor">
 	   				<c:if test="${loginMember.memberId eq board.memberId}">
 	   					<button class="allbtn" id="crystal">게시물 수정</button>
+	   					<button class="allbtn" id="deleteplan">게시물 삭제</button>
 	   				</c:if>
 	   				<form action="${path }/board/boardCommentInsert.do" method="post">
 	   					<c:if test="${not empty loginMember}">
@@ -168,8 +169,10 @@
     	<div class="col-sm-1"></div>
     </div>
 	<script>
+	console.log("${loginMember.memberId}");
+	
 	const no = ${board.trSeq};
-	const id = "${board.memberId}";
+	const id = "${loginMember.memberId}";
 	var count = ${likeCount};
 	var check = ${lCheck};
 
@@ -338,5 +341,28 @@
 				}
 			});
 		}); 
+		 $("#deleteplan").click(function(){
+			 var result = confirm("게시물을 삭제하시겠습니까?");
+			 
+			 if(result){
+				 $.ajax({
+						url:"${path}/delete.do",
+						data:{
+							memberId:memberId,
+							tvTitle:tvTitle,
+							trSeq:trSeq
+						},
+						type:"post",
+						success:function(data){
+							alert("삭제되었습니다.");
+							location.replace("${path}");
+						},error:function(data){
+							alert("삭제되었습니다.");
+							location.replace("${path}");
+						}
+					});
+			 }else{
+			 }
+		 })
 	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

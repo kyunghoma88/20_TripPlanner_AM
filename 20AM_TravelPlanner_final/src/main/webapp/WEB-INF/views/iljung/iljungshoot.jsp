@@ -37,14 +37,14 @@
 	<div id="daysbox">
 		<c:forEach var="v" begin="1" end="${days }" varStatus="status">
 			<div class="a b day${v}">
-				<p><c:out value="day - ${v}"/></p>
+				<p class="cursorclass"><c:out value="day - ${v}"/></p>
 			</div>
 		</c:forEach>
 	</div>	
 	<div id="hotspotlist">
 		<c:forEach items="${list}" var="hs">
-			<div class="test">
-				<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
+			<div class="test cursorclass">
+				<img alt="이미지음따" src="${path}${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
 				<p>${hs['HOTSPOT_NAME'] }</p>
 				<p>${hs['HOTSPOT_ADDR'] }</p>
 			</div>
@@ -61,7 +61,6 @@
 	</div>
 
 <script>
-
 $('#keepgoing').click(function(){
 	var days = $('#days').val();
 	var place = $('#place').val();
@@ -93,10 +92,10 @@ $('#keepgoing').click(function(){
 });
 
 $(document).ready(function () {
-	for(var i=4; i>0;i--){
+	for(var i=1; i<6;i++){
 		var divtag = $("<div class='modals' name='modals"+i+"'>");
 		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
-		imgtag.attr('src','${path}/resources/images/작성가이드'+i+'.JPG');
+		imgtag.attr('src','${path}/resources/images/작가'+i+'.JPG');
 		divtag.append(imgtag);
 		$(".search-modal-content").append(divtag);
 	}
@@ -228,17 +227,35 @@ $('#jujang').click(function(){
 	var jsonStr = JSON.stringify(jArray);
 	console.log("호이이잉"+jsonStr);
 		};
-	$.ajax({
-		url:"${path}/jujang.do",
-		data:jsonStr,
-		type:"post",
-		contentType:"application/json;charset=UTF-8",
-		success:function(){
-			location.replace("${path}"); 
-		},error:function(){
-			alert("저장되었습니다.");
-			location.replace("${path}"); 
-		}
-	});
+		for(var i = 1; i<=${days } ;i++){
+			if($(".day"+i).children('div').length<1){
+				alert("일정을 최소 한개이상 추가해주세요.");
+				return false;
+			}
+		};
+		
+		$.ajax({
+			url:"${path}/jujang.do",
+			data:jsonStr,
+			type:"post",
+			contentType:"application/json;charset=UTF-8",
+			success:function(){
+				location.replace("${path}"); 
+			},error:function(){
+				alert("저장되었습니다.");
+				location.replace("${path}"); 
+			}
+		});
+});
+$(document).on('keyup','.textsoksung', function() {
+
+	if($(this).val().length > 100) {
+
+alert("글자수는 100자로 이내로 제한됩니다.");
+
+		$(this).val($(this).val().substring(0, 100));
+
+	}
+
 });
 </script>

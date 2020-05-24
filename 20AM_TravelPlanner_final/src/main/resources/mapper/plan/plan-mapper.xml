@@ -5,7 +5,7 @@
 		SELECT * FROM HOTSPOT WHERE HOTSPOT_AREA_NAME = #{place}
 	</select>
 	<insert id="insertPlan" parameterType="map">
-		INSERT INTO DAY (TV_SEQ,TR_SEQ,MEMBER_ID,TV_DATE,DAY_O,COMMENTS,HOTSPOT_NAME,HOTSPOT_AREA_NAME,TOTAL_DATE) VALUES (TV_SEQ.NEXTVAL, #{trSeq}, #{memberId}, #{tvDate}, #{dayo}, #{comments}, #{place}, #{area}, #{total})
+		INSERT INTO DAY (TV_SEQ,TR_SEQ,MEMBER_ID,TV_DATE,DAY_O,COMMENTS,HOTSPOT_NAME,HOTSPOT_AREA_NAME,TOTAL_DATE) VALUES (TV_SEQ.NEXTVAL, #{trSeq}, #{memberId}, #{tvDate}, #{dayo}, NVL(#{comments},'없음'), #{place}, #{area}, #{total})
 	</insert>
 	<insert id="insertBoard" parameterType="map">
 		INSERT INTO BOARD VALUES(TR_SEQ.NEXTVAL,#{memberId},#{title},#{place},#{area},0,DEFAULT)
@@ -30,5 +30,8 @@
 	</delete>
 	<insert id="updateBoard" parameterType="map">
 		INSERT INTO BOARD VALUES(#{trSeq},#{memberId},#{title},#{place},#{area},0,DEFAULT)
+	</insert>
+	<insert id="updatePlan" parameterType="map">
+		INSERT INTO DAY (TV_SEQ,TR_SEQ,MEMBER_ID,TV_DATE,DAY_O,COMMENTS,HOTSPOT_NAME,HOTSPOT_AREA_NAME,TOTAL_DATE) VALUES (TV_SEQ.NEXTVAL, #{trSeq}, #{memberId}, #{tvDate}, #{dayo}, NVL(#{comments},'없음'), #{place}, #{area}, #{total})
 	</insert>
 </mapper>

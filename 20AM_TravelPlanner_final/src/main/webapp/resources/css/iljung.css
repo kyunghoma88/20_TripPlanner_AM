@@ -90,6 +90,29 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+#jujang3{
+	background-color: #203341;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    height: 38px;
+    position: relative;
+    top: -463px;
+    left: 76%;
+    margin-right: 100px;
+}
+#jujang4{
+	background-color: #203341;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    height: 38px;
+    position: relative;
+    top: -463px;
+    left: 72%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 #daysbox{
 	width:471px;
 	position: relative;
@@ -430,6 +453,9 @@
 .modals[name=modals4]{
 	z-index:17;
 }
+.modals[name=modals5]{
+	z-index:16;
+}
 #bcda{
 	width: 1366px;
     margin-top: 50px;
@@ -455,4 +481,7 @@
 }
 #bcda>div:first-child select{
 	font-size:20px;
+}
+.cursorclass{
+	cursor:pointer
 }
