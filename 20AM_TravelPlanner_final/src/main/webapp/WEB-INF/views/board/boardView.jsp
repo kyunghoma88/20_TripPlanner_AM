@@ -171,7 +171,7 @@
 	console.log("${loginMember.memberId}");
 	
 	const no = ${board.trSeq};
-	const id = "${board.memberId}";
+	const id = "${loginMember.memberId}";
 	var count = ${likeCount};
 	var check = ${lCheck};
 

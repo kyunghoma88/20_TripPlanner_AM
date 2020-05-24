@@ -142,8 +142,7 @@ public class BoardController {
 		int likeCount = service.selectLikeCount(no);
 		
 		String likeCheck = service.selectLikeCheck(idNo);
-//		int likeValue = Integer.parseInt(likeCheck);
-		
+		System.out.println(likeCheck);
 		
 		if(likeCheck == null) {
 			service.insertLikeCheck(idNo);
@@ -154,10 +153,7 @@ public class BoardController {
 				mv.addObject("lCheck",likeCheck);
 			}
 		}
-		
-		
-	
-		
+
 		mv.addObject("date", date);
 		mv.addObject("board", b);
 		mv.addObject("day", d);
