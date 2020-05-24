@@ -390,4 +390,21 @@ alert("글자수는 100자로 이내로 제한됩니다.");
 	}
 
 });
+$(document).ready(function () {
+	for(var i=1; i<3;i++){
+		var divtag = $("<div class='modals' name='modals"+i+"'>");
+		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
+		imgtag.attr('src','${path}/resources/images/수정가이드'+i+'.JPG');
+		divtag.append(imgtag);
+		$(".search-modal-content").append(divtag);
+	}
+	$("#modal").show();
+});
+	 $(document).on('click','.modals',function(){
+		$(this).remove();
+		if($(".modals").length==0){
+			$(".search-modal-content").remove();
+			$(".searchModal").hide();
+		}
+	}); 
 </script>

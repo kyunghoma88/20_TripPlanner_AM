@@ -6,6 +6,30 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.3"/>
+<style>
+/* The Modal (background) */
+.searchModal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 10; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.search-modal-content {
+	background-color: #fefefe;
+    margin-top: 213px;
+    border: 1px solid #888;
+    width: 1366px;
+    height: 600px;
+    cursor:pointer;
+}
+</style>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="Hello Spring" name="pageTitle"/>
 </jsp:include>
@@ -496,5 +520,23 @@ alert("글자수는 100자로 이내로 제한됩니다.");
 	}
 
 });
+
+$(document).ready(function () {
+	for(var i=1; i<3;i++){
+		var divtag = $("<div class='modals' name='modals"+i+"'>");
+		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
+		imgtag.attr('src','${path}/resources/images/수정가이드'+i+'.JPG');
+		divtag.append(imgtag);
+		$(".search-modal-content").append(divtag);
+	}
+	$("#modal").show();
+});
+	 $(document).on('click','.modals',function(){
+		$(this).remove();
+		if($(".modals").length==0){
+			$(".search-modal-content").remove();
+			$(".searchModal").hide();
+		}
+	}); 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

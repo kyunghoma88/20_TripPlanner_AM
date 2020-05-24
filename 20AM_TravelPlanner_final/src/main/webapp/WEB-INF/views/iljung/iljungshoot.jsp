@@ -44,7 +44,7 @@
 	<div id="hotspotlist">
 		<c:forEach items="${list}" var="hs">
 			<div class="test cursorclass">
-				<img alt="이미지음따" src="/spring${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
+				<img alt="이미지음따" src="${path}${hs['HOTSPOT_IMAGE'] }" width='277px' height='160px'>
 				<p>${hs['HOTSPOT_NAME'] }</p>
 				<p>${hs['HOTSPOT_ADDR'] }</p>
 			</div>
@@ -92,10 +92,10 @@ $('#keepgoing').click(function(){
 });
 
 $(document).ready(function () {
-	for(var i=5; i>0;i--){
+	for(var i=1; i<6;i++){
 		var divtag = $("<div class='modals' name='modals"+i+"'>");
 		var imgtag = $('<img src="" width="1366px" height="600px"name="zin"'+i+'>');
-		imgtag.attr('src','${path}/resources/images/작성가이드'+i+'.JPG');
+		imgtag.attr('src','${path}/resources/images/작가'+i+'.JPG');
 		divtag.append(imgtag);
 		$(".search-modal-content").append(divtag);
 	}

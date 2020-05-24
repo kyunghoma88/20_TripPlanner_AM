@@ -173,4 +173,13 @@ public class PlanController {
 		mv.setViewName("iljung/iljungshooting");
 		return mv;
 	}
+	
+	@RequestMapping("/delete.do")
+	public void deletedo(String memberId, String tvTitle, int trSeq) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberId",memberId);
+		map.put("trSeq",trSeq);
+		service.deletePlan(map);
+		service.deleteBoard(map);
+	}
 };

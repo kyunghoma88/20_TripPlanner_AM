@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.3"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/iljung.css?ver.2.4"/>
 <style>
 /* The Modal (background) */
 .searchModal {
