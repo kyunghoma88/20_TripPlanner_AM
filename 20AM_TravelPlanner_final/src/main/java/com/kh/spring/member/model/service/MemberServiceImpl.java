@@ -82,9 +82,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//5월24일
 	@Override
-	public List<Board> selectMyBoard(int cPage, int numPerpage, String id) {
+	public List<Board> selectMyBoard(int cPage, int numPerPage, String id) {
 		// TODO Auto-generated method stub
-		return dao.selectMyBoard(session, cPage, numPerpage, id);
+		return dao.selectMyBoard(session, cPage, numPerPage, id);
 	}
 
 

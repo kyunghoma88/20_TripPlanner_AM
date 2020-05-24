@@ -26,7 +26,7 @@ public interface MemberService {
 	
 	
 	//5월24일
-	List<Board> selectMyBoard(int cPage, int numPerpage, String id);
+	List<Board> selectMyBoard(int cPage, int numPerPage, String id);
 
 	
 	int selectMyBoardCount(String id);

@@ -28,7 +28,7 @@ public interface MemberDao {
 
 	
 	// 5월 24일 
-	List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerpage, String id);
+	List<Board> selectMyBoard(SqlSessionTemplate session, int cPage, int numPerPage, String id);
 
 	int selectMyBoardCount(SqlSessionTemplate session, String id);
 	
