@@ -195,6 +195,16 @@ ul {
 		})
 		
 	}
+	
+	
+	$("input[name=keyword]").keyup((e)=>{
+		if(e.key=='Enter'){
+			fn_search_btn(1);
+		}
+	})
+	
+	
+	
 	$("#btnTitle").next().next().children().children().hide(); // content 5
 	var ct4 = $("#divHeader").next().next().children().children().children().children().hide(); // content 4
 	var ct3 = $("#divHeader").next().next().next().children().children().children().children().hide(); // content 3

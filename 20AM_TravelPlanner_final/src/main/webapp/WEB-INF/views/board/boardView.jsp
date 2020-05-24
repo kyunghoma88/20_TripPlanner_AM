@@ -75,7 +75,7 @@
     <div class="row">
        <div class="col-sm-1"></div>
        <div style="background: url('${path }${board.hotspotAreaImg}') no-repeat; background-size:cover; background-position:center center;" class="col-sm-10 headPhoto">
-            <div class="boardTitle" style="margin-top: 250px; width: auto;">
+            <div class="boardTitle" style="margin-top: 250px; width: auto; font-size: 40px;">
                 <div><c:out value="${board.tvTitle }"/></div>
                 <div>${board.memberId }</div>
             </div>
@@ -225,8 +225,8 @@
 			success:function(data){
 				const table = $("<table class='contentTbl'>");
 				for(let i=0; i<data.length; i++){
-					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='170px' height='70px' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")' width='auto'></td><td>" + data[i]['hotspotName'] + "</td></tr>")
-					.append("<tr><td class='commentTr'>" + data[i]['comment'] + "</td></tr>");
+					table.append("<tr><td class='imageTd' rowspan='2'><img src='${path }" + data[i]['hotspotImg'] + "' alt='이미지 없음' width='200px' height='auto' onclick='location.replace(\"${path }/hotSpot/hotSpotView.do?name=" + data[i]['hotspotName'] + "\")'></td><td style='font-size:30px;'><b>" + data[i]['hotspotName'] + "</b></td></tr>")
+					.append("<tr><td style='font-size:22px;' class='commentTr'>" + data[i]['comment'] + "</td></tr>");
 				}
 				$(el).next($(".contentTbl")).toggle();
 				$(el).after(table);

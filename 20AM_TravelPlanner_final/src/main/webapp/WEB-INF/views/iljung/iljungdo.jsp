@@ -23,7 +23,7 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 /* Modal Content/Box */
 .search-modal-content {
 	background-color: #fefefe;
-    margin-top: 233px;
+    margin-top: 213px;
     border: 1px solid #888;
     width: 1366px;
     height: 600px;

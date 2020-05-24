@@ -47,7 +47,6 @@
 				<p class="a b"><c:out value="day - ${v}"/></p>
 			</div>
 		</c:forEach>
-		<button type="button" id="jujang">저장</button>
 	</div>	
 	<div id="hotspotlist">
 		<c:forEach items="${pd}" var="hs">
@@ -366,7 +365,7 @@ $(document).on("click",".e.f",function(){
 });
 $(document).on('click','.test',function(){
 	var tatag = $("<textarea rows='4' cols='55' class='textsoksung'>")
-	var ptag = $("<p class='ptagposition'>");
+	var ptag = $("<p class='ptagposition e f'>");
 	var imgtag = $("<img src='' class='imgposition'>")
 	var imgsrc = $(this).find('img').attr('src');
 	var divtag = $("<div class='divposition'>");
@@ -382,5 +381,55 @@ $(document).on('click','.test',function(){
 	divtag.append(ptag);
 	$(".f.g.h").parent('div').after(divtag);
 });
+
+$(document).on("click","#jujang1",function(){
+	var han = '${list[0]['HOTSPOT_AREA_NAME']}';
+	var id = '${loginMember['memberId']}';
+	var title = $('#plantitle').val();
+	var jArray = new Array();
+	var jArray2 = new Array();
+	var item = new Array();
+	var item2 = new Array();
+	var count  = 0;
+	console.log($(".day1").children('p').children('div').length);
+	console.log($('.day1').children('p').children('div').eq(0).children('p').text());
+	console.log($('.day1').children('p').children('div').eq(0).children('textarea').val());
+		for(var i = 0; i< $('.b').length; i++ ){
+			item[i] = new Array();
+			item2[i] = new Array();
+			for(var j = 0; j < $(".day1").children('p').children('div').length; j++){
+				item[i][j]= $('.day1').children('p').children('div').eq(j).children('p').text();
+				item2[i][j]= $('.day1').children('p').children('div').eq(j).children('textarea').val();
+				console.log(i+'행'+j+'열'+item[i][j]);
+				jArray[count]={
+						tday:i+1,
+						tplace:item[i][j],
+						tarea:han,
+						id:id,
+						comment:item2[i][j],
+						title:title
+				}
+				count++;
+			};
+	var jsonStr = JSON.stringify(jArray);
+	console.log("호이이잉"+jsonStr);
+		};
+	$.ajax({
+		url:"${path}/update.do",
+		data:jsonStr,
+		type:"post",
+		contentType:"application/json;charset=UTF-8",
+		success:function(){
+			location.replace("${path}/views/index"); 
+		},erorr:function(){
+			alert("수정되었습니다.");
+			location.replace("${path}");
+		}
+	});
+});
+$("#jujang2").click(function(){
+	alert("이전 페이지로 돌아갑니다.");
+	location.replace("${path}/board/boardList.do"); 
+})
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

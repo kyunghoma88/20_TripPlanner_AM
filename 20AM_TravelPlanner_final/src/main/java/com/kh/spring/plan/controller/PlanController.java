@@ -47,7 +47,7 @@ public class PlanController {
 
 
 	@RequestMapping("/jujang.do")
-	public ModelAndView jujang(@RequestBody List<Map<String,Object>> list,ModelAndView mv) {
+	public void jujang(@RequestBody List<Map<String,Object>> list) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("place", list.get(0).get("tplace"));
 		map.put("area", list.get(0).get("tarea"));
@@ -80,7 +80,6 @@ public class PlanController {
 				};
 				service.insertPlan(mapda);
 		};
-		return mv;
 	};
 	
 	@RequestMapping("/iljung/iljungcrystal.do")
@@ -105,4 +104,44 @@ public class PlanController {
 		return mv;
 	}
 	
+	@RequestMapping("/update.do")
+	public ModelAndView updatedo(@RequestBody List<Map<String,Object>> list,ModelAndView mv) {
+		String member = (String)list.get(0).get("id");
+		int seq = service.searchMember(member);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberId",member);
+		map.put("trSeq",seq);
+		map.put("title",list.get(0).get("title"));
+		map.put("title",list.get(0).get("tplace"));
+		map.put("title",list.get(0).get("tarea"));
+		service.deleteBoard(map);
+		service.updateBoard(map);
+		service.deletePlan(map);
+		int fn = list.size();
+		int order = 0;
+		for(int i = 0; i< list.size();i++) { 
+				Map<String,Object> mapda = new HashMap<String,Object>(); 
+				mapda.put("place",list.get(i).get("tplace"));
+				mapda.put("area",list.get(i).get("tarea"));
+				mapda.put("trSeq",seq);
+				mapda.put("tvDate",list.get(i).get("tday"));
+				mapda.put("total",(int)list.get(fn-1).get("tday"));
+				mapda.put("memberId", list.get(i).get("id"));
+				mapda.put("comments", list.get(i).get("comment"));
+				if(i>0) {
+					if(list.get(i-1).get("tday") == list.get(i).get("tday")) {
+						order++;
+						mapda.put("dayo",order);
+					}else{
+						order = 0;
+						mapda.put("dayo",order);
+					};
+				}else {
+					mapda.put("dayo",order);
+				};
+				service.insertPlan(mapda);
+		};
+		return mv;
+	};
 };

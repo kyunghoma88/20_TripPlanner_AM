@@ -14,16 +14,15 @@
                     <a href="${path }/hotSpot/hotSpotList.do?area=서울">여행지</a>
                   </li>
                   <li>
-                    <p class="makePlanBtn">일정 만들기</p>
+                    <a class="makePlanBtn">일정만들기</a>
                   </li>
                   <li>
-                    <p class="boardBtn">게시판</p>
+                    <a class="boardBtn">게시판</a>
                   </li>
               </ul>
           </div>
           <div class="col-sm-2 footer">
               <ul style="list-style: none;">
-              </li>
               <li>
                 <a href="${path}/information.do">INFORMATION</a>
               </li>
