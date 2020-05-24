@@ -429,21 +429,81 @@ public class MemberController {
 	}
 	
 	///////////////////////  내 일정 보기 /////////////////////////////////
-	@RequestMapping("/member/myPlan")
+	@RequestMapping("/member/myPlan.do")
 	public ModelAndView boardList(@RequestParam(required = false, defaultValue = "1") int cPage, 
-			@RequestParam(required = false, defaultValue = "6") int numPerpage,
+			@RequestParam(required = false, defaultValue = "5") int numPerPage,
 			ModelAndView mv, String id) {
 
 		//List<Board> list = boardService.selectBoard(cPage,numPerpage);
-		int totalCount = boardService.selectBoardCount();
+		//int totalCount = boardService.selectBoardCount();
 		
-		List<Board> list = boardService.selectMyBoard(cPage,numPerpage,id);
+		
+		List<Board> list = service.selectMyBoard(cPage,numPerPage,id);
+		int totalMyCount = service.selectMyBoardCount(id);
+		
+		
+		///////////////////////////////////////////
+		String pageBar="";
+		
+		int pageBarSize=5;
+		
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		int totalPage=(int)Math.ceil((double)totalMyCount/numPerPage);
+		
+		
+		pageBar+="<ul class='pagination "
+				+ "justify-content-center pagination-sm'>";
+		if(pageNo==1) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
+			pageBar+="</li>";
+		}
+		
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<li class='page-item active'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>"+pageNo+"</a>";
+				pageBar+="</li>";
+			}
+			pageNo++;
+		}
+		
+		if(pageNo>totalPage) {
+			pageBar+="<li class='page-item disabled'>";
+			pageBar+="<a class='page-link' href='#' tabindex='-1'>다음</a>";
+			pageBar+="</li>";
+		}else {
+			pageBar+="<li class='page-item'>";
+			pageBar+="<a class='page-link' href='javascript:fn_paging("+pageNo+")'>다음</a>";
+			pageBar+="</li>";
+		}
+		pageBar+="</ul>";
+		pageBar+="<script>";
+		pageBar+="function fn_paging(cPage){";
+		pageBar+="location.href='/spring/member/myPlan.do?cPage='+cPage+'&id="+id;
+		pageBar+="'}";
+		pageBar+="</script>";
+		///////////////////////////////////////////
+		
+		
+		
 		
 		
 		mv.addObject("list",list);
-		//mv.addObject("count",totalCount);
-		//mv.addObject("pageBar",PageFactory.getPage(totalCount,cPage,numPerpage,"/spring/board/boardList.do"));
-		//mv.setViewName("board/boardList");
+		mv.addObject("count",totalMyCount);
+		//mv.addObject("id",id);
+		mv.addObject("pageBar",pageBar);
+		mv.setViewName("member/myPlan");
 		return mv;
 	}
 	/*public String myPlan() {
