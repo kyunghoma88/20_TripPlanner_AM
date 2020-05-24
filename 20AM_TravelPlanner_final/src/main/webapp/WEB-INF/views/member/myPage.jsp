@@ -136,6 +136,21 @@ pageEncoding="UTF-8"%>
         	width : 525px;
         }
         
+        .validation-msg{
+			font-size:12px;
+			display:none;
+			float:right;
+		}
+        
+        .warn-msg{
+        	font-size : 12px;
+        	/* margin-left : 200px; */
+        }
+        .signup-input-msg{
+        	margin-left : 200px;
+        }
+        
+        
 </style>
 
 
@@ -158,7 +173,7 @@ pageEncoding="UTF-8"%>
 			<div class="mypage-body">
 				<div class="member-update-wrapper">
 	
-					<form action="${path }/member/memberUpdateEnd.do" method="post" class="member-update-frm" onsubmit="valSubmit_update()" autocomplete="off" enctype="multipart/form-data" >
+					<form action="${path }/member/memberUpdateEnd.do" method="post" class="member-update-frm" onsubmit="return valSubmit_update();" autocomplete="off">
 						<div>
 							<div>아이디</div>
 							<div>
@@ -169,19 +184,27 @@ pageEncoding="UTF-8"%>
 							<div>새 비밀번호</div>
 							<div>
 								<input type="password" name="password" id="new-password">
+		                        <span class="warn-msg">8자 이상 16자 이하 영문, 숫자, 특수문자 조합</span>
 							</div>
 						</div>
+						<div class="signup-input-msg">
+		                    <span id="new-val-pass-ok" class="validation-msg" style='color:green;'>안전</span>
+							<span id="new-val-pass-no"class="validation-msg" style='color:crimson;'>위험</span>
+	                    </div>
 						<div>
-							<div>새 비밀번호 확인</div>
+							<div>비밀번호 확인</div>
 							<div>
 								<input type="password" name="password_" id="new-password-check">
 								<!-- <span id="val-checkpass-no-up" class="valid-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span> -->
 							</div>
 						</div>
+						<div class="signup-input-msg">
+							<span id="new-val-checkpass-no" class="validation-msg" style='color:crimson;'>비밀번호가 일치하지 않습니다.</span>
+						</div>
 						<div>
 							<div>이름</div>
 							<div>
-								<input type="text" name="memberName" id="new-memberName" value="${loginMember.memberName }">
+								<input type="text" name="memberName" id="new-memberName" value="${loginMember.memberName }" readonly="readonly">
 							</div>
 						</div>
 	
@@ -288,6 +311,76 @@ pageEncoding="UTF-8"%>
 	    }
 	    
 	    
+	  //회원가입 유효성 검사
+		      
+		      var pass01 = document.getElementById("new-password").value;
+		      var pass02 = document.getElementById("new-password-check").value;
+		      
+		      
+		      
+				   //if($('#new-password').val()=='' && $('#new-password-check').val()==''){
+			   function valSubmit_update(){
+
+					 if(pass01=='' && pass02==''){
+			             return true;
+			           }
+					 else{
+						onsubmit_check = 0;	 
+					 }
+				 
+					if(onsubmit_pass!=1 || onsubmit_check!=1) {
+					   return false;
+					}
+					return true;
+			   }
+		      var onsubmit_pass = 0;
+		      var onsubmit_check = 0;
+		   $(function(){
+			   
+			      
+			      
+		   	  const password_ = $('#new-password').val();
+		      const password2 = $('#new-password-check').val();
+
+		         
+		      const validationMsg = $('.validation-msg');
+		      const signupInputs = $('.validation-msg').prev();
+		   
+		      
+		      $("#new-password").keyup(function passwordCheck(){
+		         var passwordCheck = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+		         if(!passwordCheck.test($('#new-password').val()))
+		         {
+		            $("#new-val-pass-ok").hide();
+		            $("#new-val-pass-no").show();
+		            onsubmit_pass = 0;
+		         }
+		         else
+		         {
+		            $("#new-val-pass-ok").show();
+		            $("#new-val-pass-no").hide();
+		            onsubmit_pass = 1;
+		         }
+		      })
+		      
+		      $('#new-password-check').blur(function passCheck(){
+		    	  debugger;
+				 if($('#new-password').val() == $('#new-password-check').val()) {
+		            $('#new-val-checkpass-no').hide();
+		            onsubmit_check = 1;
+		         }
+		         else
+		         {
+		            $('#new-val-checkpass-no').show();
+		            /* $('#password2').val(''); */
+		            /* alert("비밀번호가 일치하지 않습니다!"); */
+		            /* $('#password2').focus(); */
+		            onsubmit_check = 0;
+		         }
+		      })
+		      
+		      
+		   })
 	    
 	    
 	    

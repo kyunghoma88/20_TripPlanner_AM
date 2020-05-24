@@ -317,15 +317,16 @@
     
   //회원가입 유효성 검사
 	   function validate_join(){
-	      if(onsubmit_id !=1 || onsubmit_pass!=1 )
+	      if(onsubmit_id !=1 || onsubmit_pass!=1 || onsubmit_check!=1)
 	      {
 	         return false;
 	      }
 	      return true;
 	   }
 	   
-	      var onsubmit_id = 0;
-	      var onsubmit_pass = 0;
+      var onsubmit_id = 0;
+      var onsubmit_pass = 0;
+      var onsubmit_check = 0;
 	   
 	      
 	   $(function(){
@@ -392,11 +393,12 @@
 	         if($('#password_').val() == $('#password2').val())
 	         {
 	            $('#val-checkpass-no').hide();
+	            onsubmit_check = 1;
 	         }
 	         else
 	         {
 	            $('#val-checkpass-no').show();
-	            /* $('#password2').val(''); */
+	            onsubmit_check = 0;
 	            /* alert("비밀번호가 일치하지 않습니다!"); */
 	            /* $('#password2').focus(); */
 	         }
