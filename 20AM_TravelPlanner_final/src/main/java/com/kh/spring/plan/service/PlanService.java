@@ -15,4 +15,5 @@ public interface PlanService {
 	int deletePlan(Map<String,Object> map);
 	int deleteBoard(Map<String,Object> map);
 	int updateBoard(Map<String,Object> map);
+	int updatePlan(Map<String,Object> mapda);
 }

@@ -81,6 +81,13 @@ public class PlanServiceImpl implements PlanService {
 		// TODO Auto-generated method stub
 		return dao.updateBoard(session,map);
 	}
+
+	@Override
+	public int updatePlan(Map<String, Object> mapda) {
+		// TODO Auto-generated method stub
+		return dao.updatePlan(session,mapda);
+	}
+	
 	
 	
 	

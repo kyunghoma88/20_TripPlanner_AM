@@ -17,4 +17,5 @@ public interface PlanDao {
 	int deletePlan(SqlSessionTemplate session, Map<String,Object> map);
 	int deleteBoard(SqlSessionTemplate session, Map<String,Object> map);
 	int updateBoard(SqlSessionTemplate session, Map<String,Object> map);
+	int updatePlan(SqlSessionTemplate session, Map<String,Object> mapda);
 }

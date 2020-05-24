@@ -348,17 +348,13 @@ $(document).on("click","#jujang3",function(){
 	var jsonStr = JSON.stringify(jArray);
 	console.log("호이이잉"+jsonStr);
 		};
-		var tf = 0;
 		for(var i = 1; i<=${days } ;i++){
-			tf=0;
 			if($(".day"+i).children('div').length<1){
-				tf=0;
-			}else{
-				tf=1;
+				alert("일정을 최소 한개이상 추가해주세요.");
+				return false;
 			}
 		};
 		
-		if(tf == 1){
 			$.ajax({
 				url:"${path}/update.do",
 				data:jsonStr,
@@ -371,9 +367,6 @@ $(document).on("click","#jujang3",function(){
 					location.replace("${path}"); 
 				}
 			});
-		}else{
-			alert("일정을 최소 한개이상 추가해주세요.");
-		}
 });
 $("#jujang4").click(function(){
 	alert("이전 페이지로 돌아갑니다.");

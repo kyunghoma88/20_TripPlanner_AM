@@ -476,32 +476,25 @@ $(document).on("click","#jujang1",function(){
 	console.log("호이이잉"+jsonStr);
 		};
 		
-		var tf = 0;
 		for(var i = 1; i<=${list[0]['TOTAL_DATE'] } ;i++){
-			tf=0;
 			if($(".day"+i).children('div').length<1){
-				tf=0;
-			}else{
-				tf=1;
+				alert("일정을 최소 한개이상 추가해주세요.");
+				return false;
 			}
 		};
+				$.ajax({
+					url:"${path}/update.do",
+					data:jsonStr,
+					type:"post",
+					contentType:"application/json;charset=UTF-8",
+					success:function(){
+						location.replace("${path}"); 
+					},error:function(){
+						alert("수정되었습니다.");
+						location.replace("${path}"); 
+					}
+				});
 		
-		if(tf == 1){
-			$.ajax({
-				url:"${path}/update.do",
-				data:jsonStr,
-				type:"post",
-				contentType:"application/json;charset=UTF-8",
-				success:function(){
-					location.replace("${path}"); 
-				},error:function(){
-					alert("수정되었습니다.");
-					location.replace("${path}"); 
-				}
-			});
-		}else{
-			alert("일정을 최소 한개이상 추가해주세요.");
-		}
 		
 });
 $("#jujang2").click(function(){

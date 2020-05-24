@@ -59,11 +59,6 @@ public class PlanController {
 		int fn = list.size();
 		int order = 0;
 		for(int i = 0; i< list.size();i++) { 
-			String comments = "";
-			if(list.get(i).get("comment").equals("")) {
-				comments = list.get(i).get("comment")+"없음";
-			}
-			System.out.println(comments);
 				Map<String,Object> mapda = new HashMap<String,Object>(); 
 				mapda.put("place",list.get(i).get("tplace"));
 				mapda.put("area",list.get(i).get("tarea"));
@@ -71,7 +66,7 @@ public class PlanController {
 				mapda.put("tvDate",list.get(i).get("tday"));
 				mapda.put("total",(int)list.get(fn-1).get("tday"));
 				mapda.put("memberId", list.get(i).get("id"));
-				mapda.put("comments", comments);
+				mapda.put("comments", list.get(i).get("comment"));
 				if(i>0) {
 					if(list.get(i-1).get("tday") == list.get(i).get("tday")) {
 						order++;
@@ -123,8 +118,9 @@ public class PlanController {
 		service.updateBoard(map);
 		int fn = list.size();
 		int order = 0;
+		System.out.println(list.get(0).get("comment"));
 		for(int i = 0; i< list.size();i++) { 
-				Map<String,Object> mapda = new HashMap<String,Object>(); 
+				Map<String,Object> mapda = new HashMap<String,Object>();
 				mapda.put("place",list.get(i).get("tplace"));
 				mapda.put("area",list.get(i).get("tarea"));
 				mapda.put("trSeq",(int)list.get(0).get("trSeq"));
@@ -143,7 +139,7 @@ public class PlanController {
 				}else {
 					mapda.put("dayo",order);
 				};
-				service.insertPlan(mapda);
+				service.updatePlan(mapda);
 		};
 	};
 	

@@ -227,32 +227,25 @@ $('#jujang').click(function(){
 	var jsonStr = JSON.stringify(jArray);
 	console.log("호이이잉"+jsonStr);
 		};
-		var tf = 0;
 		for(var i = 1; i<=${days } ;i++){
-			tf=0;
 			if($(".day"+i).children('div').length<1){
-				tf=0;
-			}else{
-				tf=1;
+				alert("일정을 최소 한개이상 추가해주세요.");
+				return false;
 			}
 		};
 		
-		if(tf == 1){
-			$.ajax({
-				url:"${path}/jujang.do",
-				data:jsonStr,
-				type:"post",
-				contentType:"application/json;charset=UTF-8",
-				success:function(){
-					location.replace("${path}"); 
-				},error:function(){
-					alert("저장되었습니다.");
-					location.replace("${path}"); 
-				}
-			});
-		}else{
-			alert("일정을 최소 한개이상 추가해주세요.");
-		}
+		$.ajax({
+			url:"${path}/jujang.do",
+			data:jsonStr,
+			type:"post",
+			contentType:"application/json;charset=UTF-8",
+			success:function(){
+				location.replace("${path}"); 
+			},error:function(){
+				alert("저장되었습니다.");
+				location.replace("${path}"); 
+			}
+		});
 });
 $(document).on('keyup','.textsoksung', function() {
 
