@@ -413,10 +413,17 @@ $(document).on("click",".e.f",function(){
 	$(this).css("color","white");
 });
 $(document).on("click",".f.g.h",function(){
+	$(this).css("background-color","#4caf50");
+	$(this).css("color","white");
+	$(".f.g.h").addClass("i");
+})
+
+$(document).on("click",".f.g.h.i",function(){
 	$(this).css("background-color","white");
 	$(this).css("color","black");
-	$(".f.g.h").removeClass("g");
-	$(".f.h").removeClass("h");
+	$(".f.g.h.i").removeClass("i");
+	$(".f.g.h").removeClass("h");
+	$(".f.g").removeClass("g");
 	$(".f").addClass("e");
 })
 $(document).on('click','.test',function(){
@@ -435,9 +442,30 @@ $(document).on('click','.test',function(){
 	divtag.append(imgtag);
 	divtag.append(tatag);
 	divtag.append(ptag);
-	$(".f.g.h").parent('div').after(divtag);
+	$(".f.g.h").parent('div').before(divtag);
 	if($("*").hasClass("f g h")==true){
 		$(".f.g.h").parent('div').parent('div').children('div').last().remove();
+	}
+});
+$(document).on('click','.test',function(){
+	var tatag = $("<textarea rows='4' cols='55' class='textsoksung'>")
+	var ptag = $("<p class='ptagposition e f'>");
+	var imgtag = $("<img src='' class='imgposition'>")
+	var imgsrc = $(this).find('img').attr('src');
+	var divtag = $("<div class='divposition'>");
+	var btntag = $("<button class='btnf'>");
+	btntag.append('x');
+	imgtag.attr('width','100px');
+	imgtag.attr('height','100px');
+	imgtag.attr('src',imgsrc);
+	ptag.append($(this).find('img').next().text());
+	divtag.append(btntag);
+	divtag.append(imgtag);
+	divtag.append(tatag);
+	divtag.append(ptag);
+	$(".f.g.h.i").parent('div').after(divtag);
+	if($("*").hasClass("f g h i")==true){
+		$(".f.g.h.i").parent('div').prev('div').remove();
 	}
 });
 
