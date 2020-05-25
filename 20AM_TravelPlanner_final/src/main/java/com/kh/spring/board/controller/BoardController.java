@@ -186,14 +186,15 @@ public class BoardController {
 		int result = service.insertBoardComment(map);
 		String no = request.getParameter("no");
 		String id = request.getParameter("id");
+		String loginMember = request.getParameter("commentWriter");
 		String msg = "";
 		String loc = "";
 		if(result > 0) {
 			msg = "등록성공";
-			loc = "/board/boardView.do?no="+no+ "&id="+id;
+			loc = "/board/boardView.do?no="+no+ "&id="+id+"&loginMember="+loginMember;
 		}else {
 			msg = "등록실패";
-			loc = "/board/boardView.do?no="+no+ "&id="+id;
+			loc = "/board/boardView.do?no="+no+ "&id="+id+"&loginMember="+loginMember;
 		}
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);

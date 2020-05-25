@@ -145,9 +145,9 @@
 		   						${bc['boardCommentContent']}
 		   					</td>
    							<td>
-   								<c:if test="${not empty loginMember}">
+<%--    								<c:if test="${not empty loginMember}">
 		   							<button type="button" class="allbtn btn-reply" value="${bc.boardCommentNo}">답글</button>
-		   						</c:if>
+		   						</c:if> --%>
 		   					</td>
 		   				</tr>
    					</c:if>
