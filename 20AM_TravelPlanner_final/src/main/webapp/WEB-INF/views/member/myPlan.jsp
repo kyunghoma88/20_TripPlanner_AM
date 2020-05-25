@@ -51,6 +51,7 @@ pageEncoding="UTF-8"%>
             align-items: center;
             height : 120px;
         }
+        
 
         .mypage-title
         {
@@ -113,6 +114,11 @@ pageEncoding="UTF-8"%>
         .member-update-frm > div > div:nth-of-type(1){flex: 1 1 0; align-self: flex-start;}
         .member-update-frm > div > div:nth-of-type(2){flex: 4 1 0;}
         
+        .empty-list{
+        	margin-top : 100px;
+        	margin-left : 180px;
+        }
+        
 
         .valid-msg
         {
@@ -165,12 +171,19 @@ pageEncoding="UTF-8"%>
 					
 					<table class="table">
 					    <thead class="thead-light">
-					      <tr>
-					        <th>게시글 번호</th>
-					        <th>제 목</th>
-					        <th>지역</th>
-					      </tr>
+					    	<c:if test="${not empty list }">
+						    	<tr>
+									<th>게시글 번호</th>
+									<th>제 목</th>
+									<th>지역</th>
+								</tr>
+							</c:if>
 					    </thead>
+				    	<c:if test="${empty list }">
+				    		<div class="empty-list">
+			    				<span>작성된 게시물이 없습니다.</span>
+			    			</div>
+					    </c:if>
 					    <tbody>
 					    	<c:forEach items="${list }" var="my">
 					    		<tr>
@@ -179,27 +192,13 @@ pageEncoding="UTF-8"%>
 						    		<td>${my.hotspotAreaName }</td>
 					    		</tr>
 					    	</c:forEach>
-					    
-					      <!-- <tr>
-					        <td>John</td>
-					        <td>Doe</td>
-					        <td>john@example.com</td>
-					      </tr>
-					      <tr>
-					        <td>Mary</td>
-					        <td>Moe</td>
-					        <td>mary@example.com</td>
-					      </tr>
-					      <tr>
-					        <td>July</td>
-					        <td>Dooley</td>
-					        <td>july@example.com</td>
-					      </tr> -->
 					    </tbody>
 					  </table>
-					  <div>
-					  	${pageBar }
-					  </div>
+					  <c:if test="${not empty list }">
+						  <div>
+						  	${pageBar }
+						  </div>
+					  </c:if>
 				</div>
 			</div>
 		</div>

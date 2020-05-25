@@ -134,7 +134,7 @@ public class MemberController {
 	
 	// 05 19 내 페이지 보기 및 회원정보 수정 넘어가는 페이지
 	@RequestMapping("/member/preMyPage")
-	public String preMyPage() {
+	public String preMyPage(HttpSession session) {
 		return "member/preMyPage";
 	}
 	
@@ -229,7 +229,7 @@ public class MemberController {
 		{
 			result.setPassword(pwEncoder.encode(password));
 		}
-		result.setMemberName(memberName);
+		//result.setMemberName(memberName);
 		result.setEmail(email);
 		result.setPhone(phone);
 		result.setAddress(address);
@@ -490,7 +490,7 @@ public class MemberController {
 		pageBar+="</ul>";
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage){";
-		pageBar+="location.href='/spring/member/myPlan.do?cPage='+cPage+'&id="+id;
+		pageBar+="location.href='/20AM_TravelPlanner_final/member/myPlan.do?cPage='+cPage+'&id="+id;
 		pageBar+="'}";
 		pageBar+="</script>";
 		///////////////////////////////////////////
